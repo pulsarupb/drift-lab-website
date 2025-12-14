@@ -7,24 +7,48 @@ import Footer from '../components/Footer.astro';
 <Layout title="Contact Us">
   <Header />
   <main class="contact-page">
+    <div class="background-grid"></div>
     <div class="container">
-      <div class="contact-content">
+      <div class="contact-header">
         <h1>Get in Touch</h1>
         <p class="subtitle">Interested in autonomous vehicles research or joining one of our teams?</p>
-        
-        <div class="contact-info">
-          <div class="info-item">
-            <h3>Location</h3>
-            <p>CAMPUS Research Institute<br/>Room 515<br/>Politehnica University of Bucharest</p>
-          </div>
-          
-          <div class="info-item">
-            <h3>Team Contacts</h3>
-            <div class="contact-person">
-              <strong>Andrei Iatagan</strong>
+      </div>
+      
+      <div class="contact-grid">
+        <!-- Location Card -->
+        <div class="contact-card">
+          <div class="card-accent" style="--accent: var(--color-primary)"></div>
+          <div class="card-content">
+            <h3 class="card-title">Location</h3>
+            <div class="card-body">
+              <p class="highlight-text">CAMPUS Research Institute</p>
+              <div class="address-details">
+                <p>Room 515</p>
+                <p>Politehnica University of Bucharest</p>
+                <p>Bulevardul Iuliu Maniu 6</p>
+              </div>
             </div>
-            <div class="contact-person">
-              <strong>Cosmin Rusu</strong>
+            <a href="https://www.google.com/maps/place/Centrul+CAMPUS/@44.4351178,26.0462069,18.5z/data=!4m6!3m5!1s0x40b201c4f8a217a7:0x39b9e6d086b107fa!8m2!3d44.4349924!4d26.0458088!16s%2Fg%2F11cmgxdw0y?entry=ttu" target="_blank" class="card-link">
+              View Map 
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Team Contacts Card -->
+        <div class="contact-card">
+          <div class="card-accent" style="--accent: var(--color-accent-pulsar)"></div>
+          <div class="card-content">
+            <h3 class="card-title">Team Contacts</h3>
+            <div class="card-body">
+              <div class="contact-entry">
+                <p class="person-name">Cosmin Rusu</p>
+                <a href="tel:+40759023649" class="person-phone">+40 759 023 649</a>
+              </div>
+              <div class="contact-entry">
+                <p class="person-name">Iatagan Andrei</p>
+                <a href="tel:+40737030284" class="person-phone">+40 737 030 284</a>
+              </div>
             </div>
           </div>
         </div>
@@ -36,63 +60,197 @@ import Footer from '../components/Footer.astro';
 
 <style>
   .contact-page {
-    padding-top: 120px;
-    padding-bottom: 4rem;
-    min-height: 80vh;
+    padding-top: 140px;
+    padding-bottom: 6rem;
+    min-height: 100vh;
+    background: #030305;
+    position: relative;
+    overflow: hidden;
   }
 
-  .contact-content {
-    max-width: 600px;
-    margin: 0 auto;
+  .background-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at 50% 0%, black 40%, transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .contact-header {
     text-align: center;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    position: relative;
+    z-index: 1;
   }
 
   h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(to right, #fff, var(--color-text-muted));
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .subtitle {
-    font-size: 1.2rem;
-    color: var(--color-text-muted);
-    margin-bottom: 3rem;
-  }
-
-  .contact-info {
-    background: var(--color-surface);
-    padding: 2.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .info-item {
-    margin-bottom: 2rem;
-  }
-
-  .info-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .info-item h3 {
-    color: var(--color-primary);
-    margin-bottom: 0.75rem;
-    font-size: 1.1rem;
-  }
-
-  .info-item p {
+    font-size: 1.25rem;
+    color: var(--color-text-dim);
     line-height: 1.6;
-    color: var(--color-text-muted);
   }
 
-  .contact-person {
-    margin-bottom: 0.5rem;
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Consistent Card Styles */
+  .contact-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+    transition: all 0.3s;
+  }
+
+  .contact-card:hover .card-accent {
+    height: 3px;
+    opacity: 1;
+    box-shadow: 0 0 20px var(--accent);
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .address-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .address-details p {
+    margin: 0;
+  }
+  
+  .highlight-text {
+    color: var(--color-text-main);
+    font-weight: 600;
+  }
+
+  .contact-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .contact-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  .person-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    margin: 0;
+  }
+  
+  .person-phone {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .person-phone:hover {
+    color: var(--color-primary);
+  }
+
+  .role {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-dim);
   }
 
   .contact-person strong {
     color: var(--color-text-main);
+    font-size: 1.1rem;
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-main);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding-top: 1rem;
+    transition: color 0.2s;
+  }
+  
+  .card-link:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .contact-card {
+      padding: 2rem;
+    }
   }
 </style>

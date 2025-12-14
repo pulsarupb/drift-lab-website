@@ -7,33 +7,52 @@ const currentYear = new Date().getFullYear();
     <div class="footer-main">
       <div class="footer-brand">
         <h3>Drift Lab</h3>
-        <p>Autonomous Vehicles Research</p>
+        <p>Autonomous Vehicles Research at CAMPUS Institute</p>
       </div>
-      <div class="footer-links">
-        <a href="/contact">Contact</a>
-        <a href="https://upb.ro" target="_blank" rel="noopener noreferrer">Politehnica București</a>
+      <div class="footer-social">
+        <!-- Add social placeholders or keep links minimal -->
+      </div>
+      <div class="footer-nav">
+        <a href="/" class="footer-link">Home</a>
+        <a href="/#teams" class="footer-link">Teams</a>
+        <a href="/contact" class="footer-link">Contact</a>
       </div>
     </div>
     
     <div class="footer-bottom">
-      <p>&copy; {currentYear} Drift Lab. All rights reserved.</p>
-      <p class="attribution">CAMPUS Research Institute • Politehnica București • Room 515</p>
+      <p>&copy; {currentYear} Drift Lab. <span class="dim">Created by <a href="https://bylazar.com" target="_blank" rel="noopener noreferrer" class="creator-link">Lazar</a></span></p>
+      <div class="footer-logos">
+        <span class="logo-text">Politehnica București</span>
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: #000;
-    padding: 4rem 0 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--color-text-muted);
+    background: #050508;
+    padding: 6rem 0 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--color-text-dim);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
   }
 
   .footer-content {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 4rem;
   }
 
   .footer-main {
@@ -41,25 +60,34 @@ const currentYear = new Date().getFullYear();
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .footer-brand h3 {
     color: var(--color-text-main);
     font-size: 1.5rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  
+  .footer-brand p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
   }
 
-  .footer-links {
+  .footer-nav {
     display: flex;
     gap: 2rem;
   }
 
-  .footer-links a {
+  .footer-link {
+    color: var(--color-text-muted);
     transition: color 0.2s;
+    font-size: 0.95rem;
   }
 
-  .footer-links a:hover {
+  .footer-link:hover {
     color: var(--color-primary);
   }
 
@@ -68,21 +96,44 @@ const currentYear = new Date().getFullYear();
     justify-content: space-between;
     align-items: center;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.85rem;
     flex-wrap: wrap;
     gap: 1rem;
   }
+  
+  .creator-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.2s;
+  }
 
-  .attribution {
-    opacity: 0.8;
+  .creator-link:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+
+  .dim {
+    color: var(--color-text-dim);
+    opacity: 0.4;
   }
   
+  .logo-text {
+    opacity: 0.6;
+    font-weight: 500;
+  }
+
   @media (max-width: 600px) {
     .footer-main, .footer-bottom {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+    
+    .footer-nav {
+        flex-direction: column;
+        gap: 1rem;
     }
   }
 </style>

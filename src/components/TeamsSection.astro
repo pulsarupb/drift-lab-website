@@ -2,21 +2,21 @@
 const teams = [
   {
     id: "pulsar",
-    name: "PULSAR",
-    focus: "Autonomous Vehicles",
-    description: "Student team developing cutting-edge autonomous vehicle systems for research and competition.",
+    name: "PULSAR Team",
+    focus: "European Rover Challenge",
+    description: "Student team designing and building autonomous planetary rovers for the European Rover Challenge.",
     color: "var(--color-accent-pulsar)"
   },
   {
     id: "bosch",
-    name: "Anonim Bosch Future Mobility",
+    name: "Bosch Future Mobility",
     focus: "BFMC Competition",
     description: "Competing in the Bosch Future Mobility Challenge with autonomous driving solutions.",
     color: "var(--color-accent-bosch)"
   },
   {
     id: "nxp",
-    name: "Anonim NXP Cup",
+    name: "NXP Cup",
     focus: "NXP Cup Competition",
     description: "Developing high-speed autonomous racing vehicles for the NXP Cup competition.",
     color: "var(--color-accent-nxp)"
@@ -37,8 +37,11 @@ const teams = [
           <div class="card-accent" style={`--accent: ${team.color}`}></div>
           <div class="card-content">
             <h3 class="team-name">{team.name}</h3>
-            <span class="team-focus" style={`color: ${team.color}`}>{team.focus}</span>
+            <span class="team-focus" style={`color: ${team.color}; border-color: ${team.color}40; background: ${team.color}10`}>{team.focus}</span>
             <p class="team-desc">{team.description}</p>
+          </div>
+          <div class="card-arrow" style={`--accent: ${team.color}`}>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
       ))}
@@ -48,48 +51,79 @@ const teams = [
 
 <style>
   .teams-section {
-    padding: 8rem 0;
+    padding: 10rem 0;
     position: relative;
-    background: linear-gradient(to bottom, var(--color-bg), #0f1014);
+    /* Subtle background texture */
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 50%);
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
   }
 
   .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #fff, #9ca3af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .section-desc {
     color: var(--color-text-muted);
     max-width: 600px;
     margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
   }
 
   .teams-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    perspective: 1000px;
   }
 
   .team-card {
     position: relative;
-    background: var(--color-surface);
+    background: rgba(255, 255, 255, 0.02);
     border-radius: var(--radius-lg);
-    padding: 2.5rem;
+    padding: 3rem 2.5rem;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 320px;
+  }
+
+  .team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Full background gradient that fades in */
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .team-card:hover::before {
+    opacity: 1;
   }
 
   .team-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
   }
 
   .card-accent {
@@ -97,8 +131,16 @@ const teams = [
     top: 0;
     left: 0;
     width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.7;
+    transition: all 0.3s;
+  }
+  
+  .team-card:hover .card-accent {
     height: 4px;
-    background: var(--accent);
+    opacity: 1;
+    box-shadow: 0 0 20px var(--accent);
   }
 
   .card-content {
@@ -107,23 +149,67 @@ const teams = [
   }
 
   .team-name {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
+    min-height: 4.4rem;
+    display: flex;
+    align-items: flex-end;
   }
 
   .team-focus {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    display: block;
+    margin-bottom: 2rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
   }
 
   .team-desc {
     color: var(--color-text-muted);
-    line-height: 1.6;
-    font-size: 0.95rem;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
   }
-</style>
+  
+  .card-arrow {
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.02);
+  }
+  
+  .card-arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.3s;
+  }
+  
+  .team-card:hover .card-arrow {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    transform: rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2.5rem;
+    }
+  }

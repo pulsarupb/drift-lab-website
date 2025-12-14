@@ -1,30 +1,47 @@
 ---
 ---
 <section class="hero">
-  <div class="container hero-content">
-    <div class="logos">
-      <img src="/campus-logo.png" alt="CAMPUS Research Institute" class="partner-logo campus-logo" />
-      <div class="poli-logo-wrapper">
-        <img src="/poli-logo.png" alt="Politehnica University of Bucharest" class="partner-logo poli-logo" />
-      </div>
-    </div>
-    
-    <h1 class="title">
-      Autonomous <br />
-      <span class="gradient-text">Vehicles</span>
-    </h1>
-    <p class="subtitle">
-      Developing cutting-edge autonomous vehicle technologies through student innovation and research.
-    </p>
-    
-    <div class="cta-group">
-      <a href="#teams" class="btn btn-primary">Our Teams</a>
-      <a href="/contact" class="btn btn-secondary">Contact Us</a>
-    </div>
+  <div class="background-grid"></div>
+  <div class="ambient-glow"></div>
+  
+  <div class="container hover-container">
+    <div class="hero-layout">
+      <div class="hero-text">
+        <h1 class="title">
+          Autonomous <br />
+          <span class="text-gradient">Intelligence</span>
+        </h1>
+        
+        <p class="subtitle">
+          Pioneering the next generation of self-driving technology through student-led innovation at CAMPUS Research Institute.
+        </p>
+        
+        <div class="cta-group">
+          <a href="#teams" class="btn btn-primary">
+            Explore Teams
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="icon"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="/contact" class="btn btn-secondary">Join Lab</a>
+        </div>
 
-    <div class="attribution">
-      <p>Drift Lab • CAMPUS Research Institute • Politehnica București</p>
-      <p class="location">Room 515</p>
+        <div class="partners-strip">
+          <span class="partners-label">Supported by:</span>
+          <div class="partner-logos">
+            <img src="/campus-logo.png" alt="CAMPUS" title="CAMPUS Research Institute" />
+            <div class="divider"></div>
+            <div class="poli-wrapper">
+              <img src="/poli-logo.png" alt="UPB" title="Politehnica București" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="logo-container">
+          <div class="logo-glow"></div>
+          <img src="/drift.svg" alt="Drift Lab Logo" class="hero-logo" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -32,177 +49,276 @@
 <style>
   .hero {
     min-height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 80px;
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-top: 80px;
-    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, var(--color-bg) 70%);
-    text-align: center;
-    position: relative;
     overflow: hidden;
+    background: #030305;
   }
 
-  .hero::before {
-    content: '';
+  /* Background Effects */
+  .background-grid {
     position: absolute;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
+    inset: 0;
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    transform: perspective(500px) rotateX(60deg);
-    animation: grid-move 20s linear infinite;
-    z-index: 1;
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .ambient-glow {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+    filter: blur(80px);
+    z-index: 0;
     pointer-events: none;
   }
-  
-  @keyframes grid-move {
-    0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-    100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
-  }
 
-  .hero-content {
+  .hero-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    align-items: center;
     position: relative;
-    z-index: 2;
-    max-width: 800px;
+    z-index: 1;
   }
 
-  .logos {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-    margin-bottom: 2.5rem;
-    align-items: center;
-  }
-
-  .partner-logo {
-    height: 80px;
-    width: auto;
-  }
-
-  .campus-logo {
-    height: 60px;
-  }
-
-  .poli-logo {
-    height: 90px;
-  }
-
-  .poli-logo-wrapper {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .poli-logo-wrapper .poli-logo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
+  /* Typography */
   .title {
-    font-size: 3.5rem;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1;
     margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    color: #fff;
   }
 
-  .gradient-text {
-    background: linear-gradient(135deg, #fff 0%, var(--color-primary) 100%);
+  .text-gradient {
+    background: linear-gradient(to right, #3b82f6, #a855f7);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .subtitle {
     font-size: 1.25rem;
     color: var(--color-text-muted);
-    margin-bottom: 2.5rem;
     line-height: 1.6;
+    margin-bottom: 3rem;
+    max-width: 500px;
   }
 
+  /* Buttons */
   .cta-group {
     display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 4rem;
+    gap: 1.5rem;
+    margin-bottom: 5rem;
   }
 
   .btn {
-    padding: 0.8rem 2rem;
-    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
     font-weight: 600;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    text-decoration: none;
   }
 
   .btn-primary {
-    background: var(--color-primary);
+    background: #fff;
     color: #000;
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
   }
 
   .btn-primary:hover {
-    background: #60a5fa;
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
     transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
   }
 
   .btn-secondary {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--color-text-main);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .btn-secondary:hover {
-    border-color: var(--color-text-main);
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
   }
 
-  .attribution {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    opacity: 0.7;
-    margin-top: 2rem;
-  }
-
-  .location {
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
+  /* Partners */
+  .partners-strip {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
     opacity: 0.6;
+    transition: opacity 0.3s;
   }
 
-  @media (max-width: 768px) {
-    .title {
-      font-size: 2.5rem;
+  .partners-strip:hover {
+    opacity: 1;
+  }
+
+  .partners-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .partner-logos {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .partner-logos > img {
+    height: 40px;
+    width: auto;
+    filter: grayscale(100%) brightness(1.5);
+    transition: filter 0.3s;
+  }
+  
+  .poli-wrapper {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+  
+  .poli-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(1.5);
+    transition: filter 0.3s;
+  }
+
+  .partners-strip:hover .partner-logos > img,
+  .partners-strip:hover .poli-wrapper img {
+    filter: grayscale(0%) brightness(1);
+  }
+  
+  .partners-strip:hover .poli-wrapper {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Hero Visual */
+  .hero-visual {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-container {
+    position: relative;
+    width: 300px; /* Adjust based on logo needs */
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .hero-logo {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.3));
+  }
+
+  .logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: 1;
+    animation: glow-pulse 4s infinite alternate;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes glow-pulse {
+    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+    100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @media (max-width: 1024px) {
+    .hero-layout {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 3rem;
     }
-    .hero-content {
-        padding: 0 1.5rem;
+    
+    .hero-visual {
+      height: 300px;
     }
+    
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .cta-group {
-        flex-direction: column;
+      justify-content: center;
     }
-    .partner-logo {
-      height: 50px;
+
+    .partners-strip {
+      flex-direction: column;
+      gap: 1rem;
     }
-    .campus-logo {
-      height: 40px;
+    
+    .title {
+        font-size: 3rem;
     }
-    .poli-logo-wrapper {
-      width: 60px;
-      height: 60px;
-    }
-    .logos {
-      gap: 1.5rem;
+    
+    .logo-container {
+        width: 200px;
+        height: 200px;
     }
   }
 </style>
