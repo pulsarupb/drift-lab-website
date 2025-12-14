@@ -3,20 +3,13 @@
 <header class="header">
   <div class="container header-content">
     <a href="/" class="logo">
-      AMRE <span class="highlight">Lab</span>
+      <img src="/drift-logo.png" alt="Drift Lab" class="logo-img" />
+      <span class="logo-text">Drift <span class="highlight">Lab</span></span>
     </a>
 
     <nav class="nav">
       <ul class="nav-list">
         <li><a href="/" class="nav-link">Home</a></li>
-        <li class="dropdown">
-          <button class="nav-link dropdown-trigger">Teams</button>
-          <ul class="dropdown-menu">
-            <li><a href="/teams/pulsar">Pulsar (Rovers)</a></li>
-            <li><a href="/teams/team1">Team1 (Cars)</a></li>
-            <li><a href="/teams/team2">Team2 (Drones)</a></li>
-          </ul>
-        </li>
         <li><a href="/contact" class="nav-link">Contact</a></li>
       </ul>
     </nav>
@@ -61,6 +54,19 @@
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-img {
+    height: 36px;
+    width: auto;
+  }
+
+  .logo-text {
+    display: flex;
+    gap: 0.25rem;
   }
 
   .highlight {
@@ -88,49 +94,6 @@
 
   .nav-link:hover {
     color: var(--color-primary);
-  }
-
-  /* Dropdown */
-  .dropdown {
-    position: relative;
-  }
-
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: var(--color-surface);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-md);
-    padding: 0.5rem 0;
-    min-width: 160px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  }
-  
-  .dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  .dropdown-menu li {
-    display: block;
-  }
-
-  .dropdown-menu a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: var(--color-text-muted);
-    transition: all 0.2s;
-  }
-
-  .dropdown-menu a:hover {
-    background: var(--color-surface-hover);
-    color: var(--color-text-main);
   }
 
   /* Mobile */
@@ -176,27 +139,6 @@
       flex-direction: column;
       gap: 1rem;
       text-align: center;
-    }
-    
-    .dropdown-menu {
-        position: static;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        padding-left: 0;
-        display: none;
-    }
-
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
-    
-    .dropdown-trigger::after {
-        content: ' ▼';
-        font-size: 0.8em;
     }
   }
 </style>

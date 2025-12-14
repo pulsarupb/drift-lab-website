@@ -2,12 +2,19 @@
 ---
 <section class="hero">
   <div class="container hero-content">
+    <div class="logos">
+      <img src="/campus-logo.png" alt="CAMPUS Research Institute" class="partner-logo campus-logo" />
+      <div class="poli-logo-wrapper">
+        <img src="/poli-logo.png" alt="Politehnica University of Bucharest" class="partner-logo poli-logo" />
+      </div>
+    </div>
+    
     <h1 class="title">
-      Applied Mechatronics <br />
-      <span class="gradient-text">& Robotics</span>
+      Autonomous <br />
+      <span class="gradient-text">Vehicles</span>
     </h1>
     <p class="subtitle">
-      Pushing the boundaries of autonomous systems with student-led innovation.
+      Developing cutting-edge autonomous vehicle technologies through student innovation and research.
     </p>
     
     <div class="cta-group">
@@ -16,25 +23,25 @@
     </div>
 
     <div class="attribution">
-      <p>Powered by CAMPUS research institute, Politehnica Bucuresti</p>
+      <p>Drift Lab • CAMPUS Research Institute • Politehnica București</p>
+      <p class="location">Room 515</p>
     </div>
   </div>
 </section>
 
 <style>
   .hero {
-    min-height: 100vh; /* Full viewport height */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 80px; /* Offset for fixed header */
+    padding-top: 80px;
     background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, var(--color-bg) 70%);
     text-align: center;
     position: relative;
     overflow: hidden;
   }
 
-  /* Background Grid Effect */
   .hero::before {
     content: '';
     position: absolute;
@@ -61,6 +68,43 @@
     position: relative;
     z-index: 2;
     max-width: 800px;
+  }
+
+  .logos {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    align-items: center;
+  }
+
+  .partner-logo {
+    height: 80px;
+    width: auto;
+  }
+
+  .campus-logo {
+    height: 60px;
+  }
+
+  .poli-logo {
+    height: 90px;
+  }
+
+  .poli-logo-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .poli-logo-wrapper .poli-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .title {
@@ -129,7 +173,12 @@
     color: var(--color-text-muted);
     opacity: 0.7;
     margin-top: 2rem;
-    font-style: italic;
+  }
+
+  .location {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    opacity: 0.6;
   }
 
   @media (max-width: 768px) {
@@ -141,6 +190,19 @@
     }
     .cta-group {
         flex-direction: column;
+    }
+    .partner-logo {
+      height: 50px;
+    }
+    .campus-logo {
+      height: 40px;
+    }
+    .poli-logo-wrapper {
+      width: 60px;
+      height: 60px;
+    }
+    .logos {
+      gap: 1.5rem;
     }
   }
 </style>

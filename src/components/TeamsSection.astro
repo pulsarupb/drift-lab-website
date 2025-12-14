@@ -2,27 +2,24 @@
 const teams = [
   {
     id: "pulsar",
-    name: "Pulsar",
-    focus: "Planetary Rovers",
-    description: "Developing autonomous rovers for extreme planetary environments.",
-    color: "var(--color-accent-pulsar)",
-    href: "/teams/pulsar"
+    name: "PULSAR",
+    focus: "Autonomous Vehicles",
+    description: "Student team developing cutting-edge autonomous vehicle systems for research and competition.",
+    color: "var(--color-accent-pulsar)"
   },
   {
-    id: "team1",
-    name: "Team1",
-    focus: "Autonomous Racing",
-    description: "Engineering high-performance electric racing vehicles.",
-    color: "var(--color-accent-cars)",
-    href: "/teams/team1"
+    id: "bosch",
+    name: "Anonim Bosch Future Mobility",
+    focus: "BFMC Competition",
+    description: "Competing in the Bosch Future Mobility Challenge with autonomous driving solutions.",
+    color: "var(--color-accent-bosch)"
   },
   {
-    id: "team2",
-    name: "Team2",
-    focus: "Aerial Drones",
-    description: "Next-generation aerial robotics for surveillance and rescue.",
-    color: "var(--color-accent-drones)",
-    href: "/teams/team2"
+    id: "nxp",
+    name: "Anonim NXP Cup",
+    focus: "NXP Cup Competition",
+    description: "Developing high-speed autonomous racing vehicles for the NXP Cup competition.",
+    color: "var(--color-accent-nxp)"
   }
 ];
 ---
@@ -30,21 +27,20 @@ const teams = [
 <section id="teams" class="teams-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Our Research Teams</h2>
-      <p class="section-desc">Three specialized divisions pushing the envelope of robotics.</p>
+      <h2 class="section-title">Our Teams</h2>
+      <p class="section-desc">Three specialized teams pushing the boundaries of autonomous vehicle technology.</p>
     </div>
 
     <div class="teams-grid">
       {teams.map((team) => (
-        <a href={team.href} class="team-card">
-          <div class="card-bg" style={`--accent: ${team.color}`}></div>
+        <div class="team-card">
+          <div class="card-accent" style={`--accent: ${team.color}`}></div>
           <div class="card-content">
             <h3 class="team-name">{team.name}</h3>
             <span class="team-focus" style={`color: ${team.color}`}>{team.focus}</span>
             <p class="team-desc">{team.description}</p>
-            <span class="learn-more">Explore Team &rarr;</span>
           </div>
-        </a>
+        </div>
       ))}
     </div>
   </div>
@@ -86,8 +82,6 @@ const teams = [
     border-radius: var(--radius-lg);
     padding: 2.5rem;
     overflow: hidden;
-    height: 100%;
-    display: flex;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
@@ -98,62 +92,38 @@ const teams = [
     border-color: rgba(255, 255, 255, 0.1);
   }
 
-  .card-bg {
+  .card-accent {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top right, var(--accent), transparent 60%);
-    opacity: 0.05;
-    transition: opacity 0.3s;
-  }
-
-  .team-card:hover .card-bg {
-    opacity: 0.1;
+    height: 4px;
+    background: var(--accent);
   }
 
   .card-content {
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
   }
 
   .team-name {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
   }
 
   .team-focus {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 600;
     margin-bottom: 1.5rem;
+    display: block;
   }
 
   .team-desc {
     color: var(--color-text-muted);
-    margin-bottom: 2rem;
     line-height: 1.6;
-    flex-grow: 1;
-  }
-
-  .learn-more {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--color-text-main);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: gap 0.2s;
-  }
-
-  .team-card:hover .learn-more {
-    gap: 0.8rem;
-    color: var(--color-primary);
+    font-size: 0.95rem;
   }
 </style>

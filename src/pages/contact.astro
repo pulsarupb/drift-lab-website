@@ -10,39 +10,23 @@ import Footer from '../components/Footer.astro';
     <div class="container">
       <div class="contact-content">
         <h1>Get in Touch</h1>
-        <p class="subtitle">Interested in collaborating or joining one of our teams?</p>
+        <p class="subtitle">Interested in autonomous vehicles research or joining one of our teams?</p>
         
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="info-item">
-              <h3>Visit Us</h3>
-              <p>Politehnica University of Bucharest<br/>Splaiul Independenței 313<br/>Bucharest, Romania</p>
+        <div class="contact-info">
+          <div class="info-item">
+            <h3>Location</h3>
+            <p>CAMPUS Research Institute<br/>Room 515<br/>Politehnica University of Bucharest</p>
+          </div>
+          
+          <div class="info-item">
+            <h3>Team Contacts</h3>
+            <div class="contact-person">
+              <strong>Andrei Iatagan</strong>
             </div>
-            
-            <div class="info-item">
-              <h3>Email</h3>
-              <p><a href="mailto:contact@amrelab.ro">contact@amrelab.ro</a></p>
+            <div class="contact-person">
+              <strong>Cosmin Rusu</strong>
             </div>
           </div>
-
-          <form class="contact-form" onsubmit="event.preventDefault();">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" placeholder="Your name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
-            </div>
-            
-            <button type="submit" class="btn-submit">Send Message</button>
-          </form>
         </div>
       </div>
     </div>
@@ -58,8 +42,9 @@ import Footer from '../components/Footer.astro';
   }
 
   .contact-content {
-    max-width: 900px;
+    max-width: 600px;
     margin: 0 auto;
+    text-align: center;
   }
 
   h1 {
@@ -76,19 +61,25 @@ import Footer from '../components/Footer.astro';
     margin-bottom: 3rem;
   }
 
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 4rem;
+  .contact-info {
+    background: var(--color-surface);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .info-item {
     margin-bottom: 2rem;
   }
 
+  .info-item:last-child {
+    margin-bottom: 0;
+  }
+
   .info-item h3 {
     color: var(--color-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
   }
 
   .info-item p {
@@ -96,60 +87,12 @@ import Footer from '../components/Footer.astro';
     color: var(--color-text-muted);
   }
 
-  .contact-form {
-    background: var(--color-surface);
-    padding: 2rem;
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-
-  label {
-    display: block;
+  .contact-person {
     margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
+    color: var(--color-text-muted);
   }
 
-  input, textarea {
-    width: 100%;
-    padding: 0.8rem;
-    background: var(--color-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-sm);
+  .contact-person strong {
     color: var(--color-text-main);
-    font-family: inherit;
-    transition: border-color 0.2s;
-  }
-
-  input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--color-primary);
-  }
-
-  .btn-submit {
-    width: 100%;
-    padding: 1rem;
-    background: var(--color-primary);
-    color: #000;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-
-  .btn-submit:hover {
-    background: #60a5fa;
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
   }
 </style>
