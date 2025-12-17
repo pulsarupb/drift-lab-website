@@ -1,37 +1,42 @@
 :root {
-  /* Rich Dark Palette */
   --color-bg: #030305;
   --color-surface: #0f1016;
   --color-surface-hover: #181920;
   --color-surface-glass: rgba(15, 16, 22, 0.6);
   --color-border: rgba(255, 255, 255, 0.08);
-  
+
   --color-text-main: #ffffff;
   --color-text-muted: #9ca3af;
   --color-text-dim: #6b7280;
-  
-  /* Brand Gradients */
+
   --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  --gradient-glow: conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a855f7 180deg, #2a8af6 360deg);
-  
+  --gradient-glow: conic-gradient(
+    from 180deg at 50% 50%,
+    #2a8af6 0deg,
+    #a855f7 180deg,
+    #2a8af6 360deg
+  );
+
   --color-primary: #3b82f6;
   --color-accent-pulsar: #a855f7;
   --color-accent-bosch: #22c55e;
   --color-accent-nxp: #f59e0b;
-  
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  
+
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 24px;
   --radius-full: 9999px;
-  
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-  --shadow-lg: 0 10px 30px -10px rgba(0,0,0,0.5);
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -50,9 +55,16 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 25%);
+  background-image: radial-gradient(
+      circle at 15% 50%,
+      rgba(59, 130, 246, 0.08) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(168, 85, 247, 0.08) 0%,
+      transparent 25%
+    );
 }
 
 a {
@@ -67,7 +79,6 @@ button {
   background: none;
 }
 
-/* Utilities */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -75,7 +86,6 @@ button {
   padding: 0 1.5rem;
 }
 
-/* Glassmorphism Utility */
 .glass {
   background: var(--color-surface-glass);
   backdrop-filter: blur(12px);
@@ -88,7 +98,6 @@ button {
   border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Text Gradients */
 .text-gradient {
   background: linear-gradient(135deg, #fff 30%, #9ca3af 100%);
   background-clip: text;

@@ -1,5 +1,7 @@
 ---
+
 ---
+
 <header class="header">
   <div class="header-inner">
     <a href="/" class="logo">
@@ -12,7 +14,7 @@
         <li><a href="/#teams" class="nav-link">Teams</a></li>
         <li><a href="/contact" class="nav-link">Contact</a></li>
       </ul>
-      <a href="/contact" class="nav-cta">Join Us</a>
+      <a href="/contact" class="nav-cta">Contact Us</a>
     </nav>
 
     <button class="mobile-menu-toggle" aria-label="Toggle Menu">
@@ -24,14 +26,24 @@
 </header>
 
 <script>
-    const toggle = document.querySelector('.mobile-menu-toggle');
-    const nav = document.querySelector('.nav');
+  const toggle = document.querySelector(".mobile-menu-toggle")
+  const nav = document.querySelector(".nav")
 
-    toggle?.addEventListener('click', () => {
-        nav?.classList.toggle('active');
-        toggle.classList.toggle('active');
-        document.body.style.overflow = nav?.classList.contains('active') ? 'hidden' : '';
-    });
+  toggle?.addEventListener("click", () => {
+    nav?.classList.toggle("active")
+    toggle.classList.toggle("active")
+    document.body.style.overflow = nav?.classList.contains("active")
+      ? "hidden"
+      : ""
+  })
+
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav?.classList.remove("active")
+      toggle?.classList.remove("active")
+      document.body.style.overflow = ""
+    })
+  })
 </script>
 
 <style>
@@ -41,7 +53,7 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(3, 3, 5, 0.85); /* Slightly darker/more opaque */
+    background: rgba(3, 3, 5, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -120,7 +132,7 @@
   }
 
   .nav-link::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -4px;
     left: 0;
@@ -136,7 +148,7 @@
     transform: scaleX(1);
     transform-origin: left;
   }
-  
+
   .nav-cta {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -149,13 +161,12 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  
+
   .nav-cta:hover {
     background: #fff;
     color: #000;
   }
 
-  /* Mobile */
   .mobile-menu-toggle {
     display: none;
     flex-direction: column;
@@ -165,7 +176,7 @@
     background: none;
     border: none;
   }
-  
+
   .mobile-menu-toggle span {
     display: block;
     width: 24px;
@@ -173,7 +184,7 @@
     background-color: var(--color-text-main);
     transition: 0.3s;
   }
-  
+
   .mobile-menu-toggle.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
@@ -203,13 +214,13 @@
     .nav.active {
       transform: translateY(0);
     }
-    
+
     .nav-list {
       flex-direction: column;
       gap: 2rem;
       margin-bottom: 2rem;
     }
-    
+
     .nav-link {
       font-size: 1.5rem;
     }

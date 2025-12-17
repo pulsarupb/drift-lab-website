@@ -4,47 +4,72 @@ const teams = [
     id: "pulsar",
     name: "PULSAR Team",
     focus: "European Rover Challenge",
-    description: "Student team designing and building autonomous planetary rovers for the European Rover Challenge.",
-    color: "var(--color-accent-pulsar)"
+    description:
+      "Student team designing and building autonomous planetary rovers for the European Rover Challenge.",
+    color: "var(--color-accent-pulsar)",
   },
   {
     id: "bosch",
     name: "Bosch Future Mobility",
     focus: "BFMC Competition",
-    description: "Competing in the Bosch Future Mobility Challenge with autonomous driving solutions.",
-    color: "var(--color-accent-bosch)"
+    description:
+      "Competing in the Bosch Future Mobility Challenge with autonomous driving solutions.",
+    color: "var(--color-accent-bosch)",
   },
   {
     id: "nxp",
     name: "NXP Cup",
     focus: "NXP Cup Competition",
-    description: "Developing high-speed autonomous racing vehicles for the NXP Cup competition.",
-    color: "var(--color-accent-nxp)"
-  }
-];
+    description:
+      "Developing high-speed autonomous racing vehicles for the NXP Cup competition.",
+    color: "var(--color-accent-nxp)",
+  },
+]
 ---
 
 <section id="teams" class="teams-section">
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">Our Teams</h2>
-      <p class="section-desc">Three specialized teams pushing the boundaries of autonomous vehicle technology.</p>
+      <p class="section-desc">
+        Three specialized teams pushing the boundaries of autonomous vehicle
+        technology.
+      </p>
     </div>
 
     <div class="teams-grid">
-      {teams.map((team) => (
-        <div class="team-card">
-          <div class="card-accent" style={`--accent: ${team.color}`}></div>
-          <div class="card-content">
-            <h3 class="team-name">{team.name}</h3>
-            <span class="team-focus" style={`color: ${team.color}; border-color: ${team.color}40; background: ${team.color}10`}>{team.focus}</span>
-            <p class="team-desc">{team.description}</p>
+      {
+        teams.map((team) => (
+          <div class="team-card">
+            <div class="card-accent" style={`--accent: ${team.color}`} />
+            <div class="card-content">
+              <h3 class="team-name">{team.name}</h3>
+              <span
+                class="team-focus"
+                style={`color: ${team.color}; border-color: ${team.color}40; background: ${team.color}10`}
+              >
+                {team.focus}
+              </span>
+              <p class="team-desc">{team.description}</p>
+            </div>
+            <div class="card-arrow" style={`--accent: ${team.color}`}>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L12 19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
           </div>
-          <div class="card-arrow" style={`--accent: ${team.color}`}>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
@@ -53,8 +78,11 @@ const teams = [
   .teams-section {
     padding: 10rem 0;
     position: relative;
-    /* Subtle background texture */
-    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 50%
+    );
   }
 
   .section-header {
@@ -103,13 +131,17 @@ const teams = [
   }
 
   .team-card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; /* Full background gradient that fades in */
-    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent 40%);
+    height: 100%;
+    background: radial-gradient(
+      800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
     opacity: 0;
     transition: opacity 0.5s;
     z-index: 0;
@@ -136,7 +168,7 @@ const teams = [
     opacity: 0.7;
     transition: all 0.3s;
   }
-  
+
   .team-card:hover .card-accent {
     height: 4px;
     opacity: 1;
@@ -167,9 +199,9 @@ const teams = [
     margin-bottom: 2rem;
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     white-space: nowrap;
   }
 
@@ -179,28 +211,28 @@ const teams = [
     font-size: 1.05rem;
     margin-bottom: 2rem;
   }
-  
+
   .card-arrow {
     align-self: flex-end;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text-muted);
     transition: all 0.3s;
-    background: rgba(255,255,255,0.02);
+    background: rgba(255, 255, 255, 0.02);
   }
-  
+
   .card-arrow svg {
     width: 20px;
     height: 20px;
     fill: currentColor;
     transition: transform 0.3s;
   }
-  
+
   .team-card:hover .card-arrow {
     background: var(--accent);
     border-color: var(--accent);
@@ -213,3 +245,4 @@ const teams = [
       font-size: 2.5rem;
     }
   }
+</style>

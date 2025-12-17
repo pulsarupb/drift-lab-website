@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Layout from "../layouts/Layout.astro"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
 ---
 
 <Layout title="Contact Us">
@@ -11,9 +11,12 @@ import Footer from '../components/Footer.astro';
     <div class="container">
       <div class="contact-header">
         <h1>Get in Touch</h1>
-        <p class="subtitle">Interested in autonomous vehicles research or joining one of our teams?</p>
+        <p class="subtitle">
+          Interested in autonomous vehicles research or joining one of our
+          teams?
+        </p>
       </div>
-      
+
       <div class="contact-grid">
         <!-- Location Card -->
         <div class="contact-card">
@@ -28,26 +31,47 @@ import Footer from '../components/Footer.astro';
                 <p>Bulevardul Iuliu Maniu 6</p>
               </div>
             </div>
-            <a href="https://www.google.com/maps/place/Centrul+CAMPUS/@44.4351178,26.0462069,18.5z/data=!4m6!3m5!1s0x40b201c4f8a217a7:0x39b9e6d086b107fa!8m2!3d44.4349924!4d26.0458088!16s%2Fg%2F11cmgxdw0y?entry=ttu" target="_blank" class="card-link">
-              View Map 
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            <a
+              href="https://www.google.com/maps/place/Centrul+CAMPUS/@44.4351178,26.0462069,18.5z/data=!4m6!3m5!1s0x40b201c4f8a217a7:0x39b9e6d086b107fa!8m2!3d44.4349924!4d26.0458088!16s%2Fg%2F11cmgxdw0y?entry=ttu"
+              target="_blank"
+              class="card-link"
+            >
+              View Map
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"
+                >
+                </path>
+              </svg>
             </a>
           </div>
         </div>
 
         <!-- Team Contacts Card -->
         <div class="contact-card">
-          <div class="card-accent" style="--accent: var(--color-accent-pulsar)"></div>
+          <div class="card-accent" style="--accent: var(--color-accent-pulsar)">
+          </div>
           <div class="card-content">
             <h3 class="card-title">Team Contacts</h3>
             <div class="card-body">
               <div class="contact-entry">
                 <p class="person-name">Cosmin Rusu</p>
-                <a href="tel:+40759023649" class="person-phone">+40 759 023 649</a>
+                <a href="tel:+40759023649" class="person-phone">
+                  rusucosminconstantin@gmail.com 
+                </a>
               </div>
               <div class="contact-entry">
                 <p class="person-name">Iatagan Andrei</p>
-                <a href="tel:+40737030284" class="person-phone">+40 737 030 284</a>
+                <a href="tel:+40737030284" class="person-phone">
+                  iatagan.andrei@gmail.com
+                </a>
               </div>
             </div>
           </div>
@@ -71,7 +95,7 @@ import Footer from '../components/Footer.astro';
   .background-grid {
     position: absolute;
     inset: 0;
-    background-image: 
+    background-image:
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
@@ -115,7 +139,6 @@ import Footer from '../components/Footer.astro';
     z-index: 1;
   }
 
-  /* Consistent Card Styles */
   .contact-card {
     position: relative;
     background: rgba(255, 255, 255, 0.02);
@@ -177,11 +200,11 @@ import Footer from '../components/Footer.astro';
     flex-direction: column;
     gap: 0.25rem;
   }
-  
+
   .address-details p {
     margin: 0;
   }
-  
+
   .highlight-text {
     color: var(--color-text-main);
     font-weight: 600;
@@ -192,21 +215,21 @@ import Footer from '../components/Footer.astro';
     flex-direction: column;
     gap: 0.25rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
-  
+
   .contact-entry:last-child {
     border-bottom: none;
     padding-bottom: 0;
   }
-  
+
   .person-name {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-text-main);
     margin: 0;
   }
-  
+
   .person-phone {
     color: var(--color-text-muted);
     text-decoration: none;
@@ -216,7 +239,7 @@ import Footer from '../components/Footer.astro';
     align-items: center;
     gap: 0.5rem;
   }
-  
+
   .person-phone:hover {
     color: var(--color-primary);
   }
@@ -243,7 +266,7 @@ import Footer from '../components/Footer.astro';
     padding-top: 1rem;
     transition: color 0.2s;
   }
-  
+
   .card-link:hover {
     color: var(--color-primary);
   }

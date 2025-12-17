@@ -1,9 +1,11 @@
 ---
+
 ---
+
 <section class="hero">
   <div class="background-grid"></div>
   <div class="ambient-glow"></div>
-  
+
   <div class="container hover-container">
     <div class="hero-layout">
       <div class="hero-text">
@@ -11,26 +13,50 @@
           Autonomous <br />
           <span class="text-gradient">Intelligence</span>
         </h1>
-        
+
         <p class="subtitle">
-          Pioneering the next generation of self-driving technology through student-led innovation at CAMPUS Research Institute.
+          Pioneering the next generation of self-driving technology through
+          student-led innovation at CAMPUS Research Institute.
         </p>
-        
+
         <div class="cta-group">
           <a href="#teams" class="btn btn-primary">
-            Explore Teams
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="icon"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Teams
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              class="icon"
+            >
+              <path
+                d="M5 12H19M19 12L12 5M19 12L12 19"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+              </path>
+            </svg>
           </a>
-          <a href="/contact" class="btn btn-secondary">Join Lab</a>
+          <a href="/contact" class="btn btn-secondary">Contact</a>
         </div>
 
         <div class="partners-strip">
           <span class="partners-label">Supported by:</span>
           <div class="partner-logos">
-            <img src="/campus-logo.png" alt="CAMPUS" title="CAMPUS Research Institute" />
+            <img
+              src="/campus-logo.png"
+              alt="CAMPUS"
+              title="CAMPUS Research Institute"
+            />
             <div class="divider"></div>
             <div class="poli-wrapper">
-              <img src="/poli-logo.png" alt="UPB" title="Politehnica București" />
+              <img
+                src="/poli-logo.png"
+                alt="UPB"
+                title="Politehnica București"
+              />
             </div>
           </div>
         </div>
@@ -58,11 +84,10 @@
     background: #030305;
   }
 
-  /* Background Effects */
   .background-grid {
     position: absolute;
     inset: 0;
-    background-image: 
+    background-image:
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
@@ -77,7 +102,11 @@
     right: -10%;
     width: 80vw;
     height: 80vw;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.08) 0%,
+      transparent 70%
+    );
     filter: blur(80px);
     z-index: 0;
     pointer-events: none;
@@ -92,7 +121,6 @@
     z-index: 1;
   }
 
-  /* Typography */
   .title {
     font-size: clamp(3.5rem, 6vw, 5.5rem);
     font-weight: 800;
@@ -117,7 +145,6 @@
     max-width: 500px;
   }
 
-  /* Buttons */
   .cta-group {
     display: flex;
     gap: 1.5rem;
@@ -156,7 +183,6 @@
     border-color: #fff;
   }
 
-  /* Partners */
   .partners-strip {
     display: flex;
     align-items: center;
@@ -188,19 +214,19 @@
     filter: grayscale(100%) brightness(1.5);
     transition: filter 0.3s;
   }
-  
+
   .poli-wrapper {
     width: 45px;
     height: 45px;
     border-radius: 50%;
     overflow: hidden;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
   }
-  
+
   .poli-wrapper img {
     width: 100%;
     height: 100%;
@@ -213,9 +239,9 @@
   .partners-strip:hover .poli-wrapper img {
     filter: grayscale(0%) brightness(1);
   }
-  
+
   .partners-strip:hover .poli-wrapper {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
   }
 
   .divider {
@@ -224,7 +250,6 @@
     background: rgba(255, 255, 255, 0.2);
   }
 
-  /* Hero Visual */
   .hero-visual {
     position: relative;
     height: 500px;
@@ -235,7 +260,7 @@
 
   .logo-container {
     position: relative;
-    width: 300px; /* Adjust based on logo needs */
+    width: 300px;
     height: 300px;
     display: flex;
     align-items: center;
@@ -260,25 +285,45 @@
     transform: translate(-50%, -50%);
     width: 120%;
     height: 120%;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.3) 0%,
+      transparent 70%
+    );
     filter: blur(40px);
     z-index: 1;
     animation: glow-pulse 4s infinite alternate;
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
   }
 
   @keyframes glow-pulse {
-    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
-    100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+    0% {
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    100% {
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
   }
 
   @media (max-width: 1024px) {
@@ -287,11 +332,11 @@
       text-align: center;
       gap: 3rem;
     }
-    
+
     .hero-visual {
       height: 300px;
     }
-    
+
     .hero-text {
       display: flex;
       flex-direction: column;
@@ -311,14 +356,14 @@
       flex-direction: column;
       gap: 1rem;
     }
-    
+
     .title {
-        font-size: 3rem;
+      font-size: 3rem;
     }
-    
+
     .logo-container {
-        width: 200px;
-        height: 200px;
+      width: 200px;
+      height: 200px;
     }
   }
 </style>
