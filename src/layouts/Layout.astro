@@ -3,23 +3,119 @@ import '../styles/global.css';
 
 interface Props {
 	title: string;
+	description?: string;
+	image?: string;
+	type?: string;
+	noindex?: boolean;
 }
 
-const { title } = Astro.props;
+const { 
+	title, 
+	description = "Drift Lab - Pioneering the next generation of self-driving technology through student-led innovation at CAMPUS Research Institute, Politehnica University of Bucharest.",
+	image = "https://driftlab.ro/drift-logo.png",
+	type = "website",
+	noindex = false
+} = Astro.props;
+
+const siteUrl = "https://driftlab.ro";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const fullTitle = `${title} | Drift Lab`;
+
+// Structured data schemas
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "ResearchOrganization",
+	"name": "Drift Lab",
+	"alternateName": "Drift Laboratory",
+	"url": siteUrl,
+	"logo": `${siteUrl}/drift-logo.png`,
+	"description": "Autonomous Vehicles Research Laboratory at CAMPUS Research Institute",
+	"address": {
+		"@type": "PostalAddress",
+		"streetAddress": "Bulevardul Iuliu Maniu 6, Room 515",
+		"addressLocality": "Bucharest",
+		"addressCountry": "RO"
+	},
+	"parentOrganization": {
+		"@type": "Organization",
+		"name": "CAMPUS Research Institute",
+		"parentOrganization": {
+			"@type": "EducationalOrganization",
+			"name": "Politehnica University of Bucharest"
+		}
+	},
+	"sameAs": []
+};
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": "Drift Lab",
+	"url": siteUrl,
+	"description": description,
+	"publisher": {
+		"@type": "Organization",
+		"name": "Drift Lab"
+	}
+};
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Drift Lab - Autonomous Vehicles Research at CAMPUS Research Institute" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/png" href="/drift-logo.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 		<meta name="generator" content={Astro.generator} />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-		<title>{title} | Drift Lab</title>
+		
+		<!-- Primary Meta Tags -->
+		<title>{fullTitle}</title>
+		<meta name="title" content={fullTitle} />
+		<meta name="description" content={description} />
+		<meta name="author" content="Drift Lab" />
+		<meta name="keywords" content="autonomous vehicles, self-driving cars, robotics, research, CAMPUS, Politehnica Bucharest, AI, machine learning, autonomous systems" />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalURL} />
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/drift-logo.png" />
+		<link rel="apple-touch-icon" href="/drift-logo.png" />
+		
+		<!-- Theme Color -->
+		<meta name="theme-color" content="#030305" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+		<meta property="og:site_name" content="Drift Lab" />
+		<meta property="og:locale" content="en_US" />
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalURL} />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image} />
+		
+		<!-- Resource Hints -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+		<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+		
+		<!-- Fonts with optimized loading -->
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		
+		<!-- Preload critical resources -->
+		<link rel="preload" href="/drift-logo.png" as="image" />
+		
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 	</head>
 	<body>
 		<slot />

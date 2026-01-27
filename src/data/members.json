@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Rusu Cosmin-Constantin",
+    "shortDesc": "Mechatronics Engineering final year with interest in Embedded Software and Electronics",
+    "team": "PULSAR",
+    "role": "Lab Responsible, TL Pulsar",
+    "photoLink": "",
+    "isSupervisor": true
+  },
+  {
+    "name": "Constantinescu Gabriel-Alexandru",
+    "shortDesc": "Industrial Engineering Student passionate about Power Electronics and Embedded Systems, with a particular passion for control theory and system modelling",
+    "team": "PULSAR, TechTrax",
+    "role": "Hardware Electronics, Embedded Software",
+    "photoLink": "",
+    "isSupervisor": false
+  },
+  {
+    "name": "Rentea Robert",
+    "shortDesc": "I am Robert Rentea, 21 years old, and a student at the University Politehnica of Bucharest, Faculty of Mechanical Engineering and Mechatronics, specializing in Mechatronics and Robotics. I am passionate about volleyball and sports in general, and I consider physical activity an important part of my life. I am part of the PULSAR team, in the Software Team, where I develop my technical skills and teamwork abilities. I am curious, motivated, and I enjoy constantly learning new things and improving myself.",
+    "team": "Pulsar",
+    "role": "Software",
+    "photoLink": "",
+    "isSupervisor": false
+  },
+  {
+    "name": "Bejenescu-Babușanu Ștefan",
+    "shortDesc": "Turning equations into machines that think.\n\nI am a Computer Science and Engineering student at the University Politehnica of Bucharest (UPB), with a strong focus on artificial intelligence, machine learning, and autonomous systems. My academic and research interests lie at the intersection of learning, decision-making, control, and simulation, with an emphasis on building systems that are both mathematically grounded and practically deployable.\n\nI have contributed to and co-authored research papers in applied machine learning and intelligent systems, gaining experience in formulating research questions, designing experiments, analyzing results, and communicating findings in an academic setting. My work often blends classical methods—such as optimization, probabilistic modeling, and control—with modern ML techniques, including reinforcement learning and data-driven approaches.\n\nAlongside research, I have built complex, end-to-end software systems, ranging from simulation environments and algorithmic prototypes to production-oriented platforms. I am particularly interested in autonomous navigation, perception-informed decision-making, and the software architectures that enable intelligent agents to operate in structured and unstructured environments.\n\nWithin team-based and lab settings, I value rigor, clarity, and collaboration. I enjoy working in multidisciplinary environments, iterating on ambitious ideas, and pushing projects beyond proofs of concept toward robust, well-engineered solutions. My long-term goal is to contribute to impactful research in AI, particularly in areas such as learning systems interacting with the physical world, multi-agent orchestration and multimodal general intelligence.",
+    "team": "TechTrax",
+    "role": "Software",
+    "photoLink": "",
+    "isSupervisor": false
+  },
+  {
+    "name": "Geala Stefan-Octavian",
+    "shortDesc": "I am a Computer Science and Engineering student at the University Politehnica of Bucharest, with a focus on artificial intelligence and autonomous systems. As a member of the lab, I work on research-oriented problems involving learning, decision-making, and system design. I am motivated by rigorous thinking, experimentation, and turning theory into deployable solutions.",
+    "team": "Pulsar, Rosetti Robotics",
+    "role": "Hardware Electronics, Embedded Software",
+    "photoLink": "",
+    "isSupervisor": false
+  },
+  {
+    "name": "Nisipeanu Ionut",
+    "shortDesc": "I am a senior software engineer, researcher, and student at Universitatea Politehnica din București (UPB) – FILS, with a strong interest in intelligent systems, robotics software, and applied machine learning. My work focuses on designing and building efficient, scalable software that connects theory with real-world engineering challenges.\n\nI have contributed to multiple research papers in the field of machine learning and have hands-on experience developing complex systems that combine algorithms, automation, and modern software architectures. Alongside my academic activity, I have worked on a wide range of production-level projects, from full-stack platforms to embedded-adjacent systems, always emphasizing performance, reliability, and clean design.\n\nWithin a robotics club environment, I am particularly interested in autonomous systems, control logic, data-driven decision-making, and the software layers that enable robots to interact intelligently with their environment. I enjoy collaborating in multidisciplinary teams, sharing knowledge, and turning ambitious ideas into functional, well-engineered solutions.",
+    "team": "TechTrax",
+    "role": "Software, Research",
+    "photoLink": "",
+    "isSupervisor": false
+  },
+  {
+    "name": "Petrea Costel Valentin",
+    "shortDesc": "3rd Year Mechatronics & Robotics Student. Embedded Systems, CAD, Big fan of troubleshooting and fixing broken tech.",
+    "team": "Pulsar",
+    "role": "Hardware Mechanical",
+    "photoLink": "petrea-costel-valentin.jpeg",
+    "isSupervisor": false
+  },
+  {
+    "name": "Danilov Alexandru-Cristian",
+    "shortDesc": "I am a student at the Faculty of Automatic Control and Computers, driven by the intersection of AI, robotics, and embedded systems. My work focuses on bridging the gap between hardware and software to create intuitive technology. Notable personal projects include an off-road exploration robot and smart HUD glasses featuring voice-activated AI. Beyond robotics, I actively explore cybersecurity and software engineering, constantly seeking new ways to make complex systems accessible and helpful in daily life.",
+    "team": "TechTrax",
+    "role": "Software",
+    "photoLink": "",
+    "isSupervisor": false
+  }
+]

@@ -5,13 +5,21 @@
 <header class="header">
   <div class="header-inner">
     <a href="/" class="logo">
-      <img src="/drift.svg" alt="Drift Lab" class="logo-img" />
+      <img 
+        src="/drift.svg" 
+        alt="Drift Lab - Autonomous Vehicles Research Laboratory" 
+        class="logo-img"
+        width="32"
+        height="32"
+        loading="eager"
+      />
     </a>
 
     <nav class="nav">
       <ul class="nav-list">
         <li><a href="/" class="nav-link">Home</a></li>
         <li><a href="/#teams" class="nav-link">Teams</a></li>
+        <li><a href="/#members" class="nav-link">Members</a></li>
         <li><a href="/contact" class="nav-link">Contact</a></li>
       </ul>
       <a href="/contact" class="nav-cta">Contact Us</a>
@@ -38,7 +46,26 @@
   })
 
   document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (e) => {
+      // Handle anchor links with smooth scroll
+      const href = link.getAttribute("href")
+      if (href && href.startsWith("#")) {
+        e.preventDefault()
+        const targetId = href.substring(1)
+        const targetElement = document.getElementById(targetId)
+        
+        if (targetElement) {
+          const headerHeight = 80 // Approximate header height
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth"
+          })
+        }
+      }
+      
+      // Close mobile menu
       nav?.classList.remove("active")
       toggle?.classList.remove("active")
       document.body.style.overflow = ""
@@ -62,7 +89,7 @@
   .header-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,7 +108,7 @@
   }
 
   .logo-img {
-    height: 32px;
+    height: clamp(28px, 4vw, 32px);
     width: auto;
   }
 
@@ -195,6 +222,16 @@
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
+  @media (max-width: 1024px) {
+    .nav {
+      gap: 2rem;
+    }
+
+    .nav-list {
+      gap: 1.5rem;
+    }
+  }
+
   @media (max-width: 768px) {
     .nav {
       position: fixed;
@@ -217,12 +254,17 @@
 
     .nav-list {
       flex-direction: column;
-      gap: 2rem;
+      gap: clamp(1.5rem, 4vw, 2rem);
       margin-bottom: 2rem;
     }
 
     .nav-link {
-      font-size: 1.5rem;
+      font-size: clamp(1.25rem, 5vw, 1.5rem);
+    }
+
+    .nav-cta {
+      font-size: clamp(0.875rem, 3vw, 1rem);
+      padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
     }
 
     .mobile-menu-toggle {

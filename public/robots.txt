@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://driftlab.ro/sitemap-index.xml
+Sitemap: https://driftlab.ro/sitemap-0.xml

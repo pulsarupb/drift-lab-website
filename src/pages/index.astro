@@ -3,14 +3,47 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import TeamsSection from '../components/TeamsSection.astro';
+import MembersSection from '../components/MembersSection.astro';
 import Footer from '../components/Footer.astro';
+import membersData from '../data/members.json';
+
+const siteUrl = "https://driftlab.ro";
+
+// Research Project schema for homepage
+const researchProjectSchema = {
+	"@context": "https://schema.org",
+	"@type": "ResearchProject",
+	"name": "Drift Lab - Autonomous Vehicles Research",
+	"description": "Pioneering the next generation of self-driving technology through student-led innovation at CAMPUS Research Institute",
+	"url": siteUrl,
+	"funder": {
+		"@type": "Organization",
+		"name": "CAMPUS Research Institute"
+	},
+	"member": membersData.map((member) => ({
+		"@type": "Person",
+		"name": member.name,
+		"jobTitle": member.role,
+		"memberOf": {
+			"@type": "Organization",
+			"name": member.team
+		}
+	}))
+};
 ---
 
-<Layout title="Home">
+<Layout 
+	title="Home"
+	description="Drift Lab - Pioneering the next generation of self-driving technology through student-led innovation at CAMPUS Research Institute, Politehnica University of Bucharest."
+	image={`${siteUrl}/drift-logo.png`}
+	type="website"
+>
+	<script type="application/ld+json" set:html={JSON.stringify(researchProjectSchema)} />
 	<Header />
 	<main>
 		<Hero />
 		<TeamsSection />
+		<MembersSection />
 	</main>
 	<Footer />
 </Layout>

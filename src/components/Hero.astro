@@ -5,6 +5,7 @@
 <section class="hero">
   <div class="background-grid"></div>
   <div class="ambient-glow"></div>
+  <canvas id="galaxy-canvas" class="galaxy-canvas"></canvas>
 
   <div class="container hover-container">
     <div class="hero-layout">
@@ -23,8 +24,6 @@
           <a href="#teams" class="btn btn-primary">
             Teams
             <svg
-              width="20"
-              height="20"
               viewBox="0 0 24 24"
               fill="none"
               class="icon"
@@ -41,31 +40,43 @@
           </a>
           <a href="/contact" class="btn btn-secondary">Contact</a>
         </div>
-
-        <div class="partners-strip">
-          <span class="partners-label">Supported by:</span>
-          <div class="partner-logos">
-            <img
-              src="/campus-logo.png"
-              alt="CAMPUS"
-              title="CAMPUS Research Institute"
-            />
-            <div class="divider"></div>
-            <div class="poli-wrapper">
-              <img
-                src="/poli-logo.png"
-                alt="UPB"
-                title="Politehnica București"
-              />
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="hero-visual">
         <div class="logo-container">
           <div class="logo-glow"></div>
-          <img src="/drift.svg" alt="Drift Lab Logo" class="hero-logo" />
+          <img 
+            src="/drift.svg" 
+            alt="Drift Lab Logo - Autonomous Vehicles Research" 
+            class="hero-logo"
+            width="300"
+            height="300"
+            loading="eager"
+          />
+        </div>
+        <div class="partners-strip">
+          <span class="partners-label">Supported by:</span>
+          <div class="partner-logos">
+            <img
+              src="/campus-logo.png"
+              alt="CAMPUS Research Institute"
+              title="CAMPUS Research Institute"
+              width="70"
+              height="70"
+              loading="lazy"
+            />
+            <div class="divider"></div>
+            <div class="poli-wrapper">
+              <img
+                src="/poli-logo.png"
+                alt="Politehnica University of Bucharest"
+                title="Politehnica București"
+                width="70"
+                height="70"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -75,8 +86,8 @@
 <style>
   .hero {
     min-height: 100vh;
-    padding-top: 120px;
-    padding-bottom: 80px;
+    padding-top: clamp(80px, 12vw, 120px);
+    padding-bottom: clamp(20px, 8vw, 80px);
     position: relative;
     display: flex;
     align-items: center;
@@ -112,10 +123,19 @@
     pointer-events: none;
   }
 
+  .galaxy-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
   .hero-layout {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
+    gap: clamp(2rem, 5vw, 4rem);
     align-items: center;
     position: relative;
     z-index: 1;
@@ -125,9 +145,11 @@
     font-size: clamp(3.5rem, 6vw, 5.5rem);
     font-weight: 800;
     line-height: 1;
-    margin-bottom: 1.5rem;
+    margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
     letter-spacing: -0.03em;
     color: #fff;
+    position: relative;
+    z-index: 2; /* Ensure text stays above galaxy background */
   }
 
   .text-gradient {
@@ -138,28 +160,40 @@
   }
 
   .subtitle {
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
     color: var(--color-text-muted);
-    line-height: 1.6;
-    margin-bottom: 3rem;
+    line-height: 1.5;
+    margin-bottom: clamp(1rem, 3vw, 3rem);
     max-width: 500px;
+    position: relative;
+    z-index: 2; /* Ensure text stays above galaxy background */
   }
 
   .cta-group {
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 5rem;
+    margin-bottom: clamp(1.5rem, 5vw, 5rem);
+    position: relative;
+    z-index: 2; /* Ensure buttons stay above galaxy background */
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 1rem 2rem;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
     border-radius: 12px;
     font-weight: 600;
+    font-size: clamp(0.875rem, 2vw, 1rem);
     transition: all 0.2s ease;
     text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .btn .icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
   }
 
   .btn-primary {
@@ -185,87 +219,82 @@
 
   .partners-strip {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    opacity: 0.6;
-    transition: opacity 0.3s;
-  }
-
-  .partners-strip:hover {
-    opacity: 1;
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+    margin-top: clamp(1rem, 3vw, 3rem);
   }
 
   .partners-label {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
     color: var(--color-text-muted);
+    font-weight: 500;
   }
 
   .partner-logos {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .partner-logos > img {
-    height: 40px;
+    height: clamp(50px, 8vw, 70px);
     width: auto;
-    filter: grayscale(100%) brightness(1.5);
-    transition: filter 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .partner-logos > img:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
   }
 
   .poli-wrapper {
-    width: 45px;
-    height: 45px;
+    width: clamp(50px, 8vw, 70px);
+    height: clamp(50px, 8vw, 70px);
     border-radius: 50%;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
   }
 
+  .poli-wrapper:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+  }
+
   .poli-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) brightness(1.5);
-    transition: filter 0.3s;
-  }
-
-  .partners-strip:hover .partner-logos > img,
-  .partners-strip:hover .poli-wrapper img {
-    filter: grayscale(0%) brightness(1);
-  }
-
-  .partners-strip:hover .poli-wrapper {
-    background: rgba(255, 255, 255, 0.2);
   }
 
   .divider {
     width: 1px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.2);
+    height: 35px;
+    background: rgba(255, 255, 255, 0.25);
   }
 
   .hero-visual {
     position: relative;
-    height: 500px;
+    height: clamp(300px, 50vh, 500px);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
   .logo-container {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: clamp(200px, 30vw, 300px);
+    height: clamp(200px, 30vw, 300px);
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: float 6s ease-in-out infinite;
   }
 
   .hero-logo {
@@ -287,33 +316,11 @@
     height: 120%;
     background: radial-gradient(
       circle,
-      rgba(59, 130, 246, 0.3) 0%,
+      rgba(59, 130, 246, 0.25) 0%,
       transparent 70%
     );
     filter: blur(40px);
     z-index: 1;
-    animation: glow-pulse 4s infinite alternate;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  @keyframes glow-pulse {
-    0% {
-      opacity: 0.5;
-      transform: translate(-50%, -50%) scale(0.9);
-    }
-    100% {
-      opacity: 0.8;
-      transform: translate(-50%, -50%) scale(1.1);
-    }
   }
 
   @keyframes blink {
@@ -327,14 +334,21 @@
   }
 
   @media (max-width: 1024px) {
+    .hero {
+      padding-top: clamp(80px, 10vw, 100px);
+      padding-bottom: clamp(20px, 4vw, 40px);
+    }
+
     .hero-layout {
       grid-template-columns: 1fr;
       text-align: center;
-      gap: 3rem;
+      gap: clamp(1.5rem, 4vw, 3rem);
     }
 
     .hero-visual {
-      height: 300px;
+      height: auto;
+      min-height: auto;
+      padding-bottom: clamp(0.5rem, 2vw, 2rem);
     }
 
     .hero-text {
@@ -350,20 +364,190 @@
 
     .cta-group {
       justify-content: center;
+      flex-wrap: nowrap;
+      width: 100%;
+      max-width: 500px;
     }
 
     .partners-strip {
-      flex-direction: column;
-      gap: 1rem;
+      margin-top: clamp(0.75rem, 2vw, 2rem);
+    }
+
+    .partner-logos {
+      gap: clamp(1rem, 3vw, 2rem);
+    }
+
+    .partner-logos > img {
+      height: clamp(40px, 6vw, 50px);
+    }
+
+    .poli-wrapper {
+      width: clamp(40px, 6vw, 50px);
+      height: clamp(40px, 6vw, 50px);
+    }
+
+    .divider {
+      height: clamp(20px, 4vw, 25px);
     }
 
     .title {
-      font-size: 3rem;
+      font-size: clamp(2rem, 7vw, 3rem);
+      margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
     }
 
     .logo-container {
-      width: 200px;
-      height: 200px;
+      width: clamp(120px, 20vw, 200px);
+      height: clamp(120px, 20vw, 200px);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-top: 70px;
+      padding-bottom: 2rem;
+      min-height: 100vh;
+      min-height: 100dvh; /* Use dynamic viewport height for mobile */
+      align-items: center; /* Center content vertically */
+      justify-content: center;
+    }
+
+    .hero .container {
+      padding-top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100dvh - 70px);
+    }
+
+    .hero-layout {
+      gap: 1.25rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .title {
+      font-size: clamp(1.875rem, 8vw, 2.5rem);
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: clamp(0.875rem, 3vw, 1rem);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+      max-width: 100%;
+      padding: 0 0.5rem;
+    }
+
+    .cta-group {
+      flex-direction: row;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 0.5rem;
+    }
+
+    .btn {
+      flex: 1;
+      width: auto;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      justify-content: center;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+
+    .btn .icon {
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+    }
+
+    .hero-visual {
+      height: auto;
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+
+    .logo-container {
+      width: clamp(100px, 24vw, 150px);
+      height: clamp(100px, 24vw, 150px);
+      margin-bottom: 0.75rem;
+    }
+
+    .partners-strip {
+      margin-top: 0.75rem;
+      gap: 0.625rem;
+    }
+
+    .partners-label {
+      font-size: 0.75rem;
+    }
+
+    .partner-logos {
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .partner-logos > img {
+      height: 36px;
+    }
+
+    .poli-wrapper {
+      width: 36px;
+      height: 36px;
+    }
+
+    .divider {
+      width: 1px;
+      height: 24px;
     }
   }
 </style>
+
+<script>
+  import { GalaxySystem } from './GalaxySystem.ts';
+
+  let galaxySystem: GalaxySystem | null = null;
+
+  function initGalaxySystem() {
+    const canvas = document.getElementById('galaxy-canvas') as HTMLCanvasElement;
+    if (canvas) {
+      try {
+        galaxySystem = new GalaxySystem(canvas);
+      } catch (error) {
+        console.error('Failed to initialize galaxy system:', error);
+      }
+    }
+  }
+
+  function cleanupGalaxySystem() {
+    if (galaxySystem) {
+      galaxySystem.destroy();
+      galaxySystem = null;
+    }
+  }
+
+  // Initialize when DOM is ready
+  function init() {
+    // Small delay to ensure canvas is fully rendered
+    setTimeout(() => {
+      initGalaxySystem();
+    }, 100);
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', cleanupGalaxySystem);
+  
+  // Handle visibility change for performance
+  document.addEventListener('visibilitychange', () => {
+    // The galaxy system handles visibility internally, no need to destroy/recreate
+  });
+</script>

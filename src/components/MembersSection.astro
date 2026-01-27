@@ -1,0 +1,543 @@
+---
+import membersData from '../data/members.json';
+
+interface Member {
+  name: string;
+  shortDesc: string;
+  team: string;
+  role: string;
+  photoLink: string;
+  isSupervisor: boolean;
+}
+
+const members: Member[] = membersData;
+const supervisors = members.filter(m => m.isSupervisor);
+const regularMembers = members.filter(m => !m.isSupervisor);
+
+// Helper function to get image path
+function getImagePath(photoLink: string, name: string): string {
+  if (!photoLink) {
+    // Generate filename from name for missing photos
+    const filename = name.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '') + '.jpg';
+    return `/images/members/${filename}`;
+  }
+  
+  // If it's already a filename (not a URL), use it directly
+  if (!photoLink.startsWith('http')) {
+    return `/images/members/${photoLink}`;
+  }
+  
+  // For URLs (imgur albums), create a filename from the member name
+  // Images should be downloaded and saved with this filename
+  const filename = name.toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') + '.jpg';
+  return `/images/members/${filename}`;
+}
+---
+
+<section id="members" class="members-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Our Members</h2>
+      <p class="section-desc">
+        Meet the talented individuals driving innovation in our laboratory.
+      </p>
+    </div>
+
+    {supervisors.length > 0 && (
+      <div class="supervisors-section">
+        <h3 class="subsection-title">Laboratory Supervisors</h3>
+        <div class="members-grid">
+          {supervisors.map((member) => (
+            <div class="member-card">
+              <div class="member-image-wrapper">
+                <img
+                  src={getImagePath(member.photoLink, member.name)}
+                  alt={`${member.name} - ${member.role} at ${member.team}`}
+                  class="member-image"
+                  loading="lazy"
+                  width="300"
+                  height="300"
+                />
+              </div>
+              <div class="member-content">
+                <h4 class="member-name">{member.name}</h4>
+                <span class="member-role">{member.role}</span>
+                <span class="member-team">{member.team}</span>
+                <p class="member-desc">{member.shortDesc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {regularMembers.length > 0 && (
+      <div class="regular-members-section">
+        <h3 class="subsection-title">Team Members</h3>
+        <div class="members-grid">
+          {regularMembers.map((member) => (
+            <div class="member-card">
+              <div class="member-image-wrapper">
+                <img
+                  src={getImagePath(member.photoLink, member.name)}
+                  alt={`${member.name} - ${member.role} at ${member.team}`}
+                  class="member-image"
+                  loading="lazy"
+                  width="300"
+                  height="300"
+                />
+              </div>
+              <div class="member-content">
+                <h4 class="member-name">{member.name}</h4>
+                <span class="member-role">{member.role}</span>
+                <span class="member-team">{member.team}</span>
+                <p class="member-desc">{member.shortDesc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+
+  <!-- Modal for full description -->
+  <div id="member-modal" class="member-modal" role="dialog" aria-labelledby="modal-member-name" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="modal-image-wrapper">
+        <img id="modal-member-image" src="" alt="" class="modal-member-image" width="250" height="250" />
+      </div>
+      <div class="modal-body">
+        <h3 id="modal-member-name" class="modal-member-name"></h3>
+        <span id="modal-member-role" class="modal-member-role"></span>
+        <span id="modal-member-team" class="modal-member-team"></span>
+        <p id="modal-member-desc" class="modal-member-desc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const modal = document.getElementById('member-modal');
+  const modalBackdrop = modal?.querySelector('.modal-backdrop');
+  const modalClose = modal?.querySelector('.modal-close');
+  const modalImage = document.getElementById('modal-member-image');
+  const modalName = document.getElementById('modal-member-name');
+  const modalRole = document.getElementById('modal-member-role');
+  const modalTeam = document.getElementById('modal-member-team');
+  const modalDesc = document.getElementById('modal-member-desc');
+
+  function openModal(member) {
+    if (!modal || !modalImage || !modalName || !modalRole || !modalTeam || !modalDesc) return;
+    
+    modalImage.src = member.image;
+    modalImage.alt = member.name;
+    modalName.textContent = member.name;
+    modalRole.textContent = member.role;
+    modalTeam.textContent = member.team;
+    modalDesc.textContent = member.desc;
+    
+    modal.setAttribute('aria-hidden', 'false');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.setAttribute('aria-hidden', 'true');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Add click handlers to all member cards
+  document.querySelectorAll('.member-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const member = {
+        name: card.querySelector('.member-name')?.textContent || '',
+        role: card.querySelector('.member-role')?.textContent || '',
+        team: card.querySelector('.member-team')?.textContent || '',
+        desc: card.querySelector('.member-desc')?.textContent || '',
+        image: card.querySelector('.member-image')?.getAttribute('src') || ''
+      };
+      openModal(member);
+    });
+  });
+
+  // Close modal handlers
+  modalBackdrop?.addEventListener('click', closeModal);
+  modalClose?.addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+      closeModal();
+    }
+  });
+</script>
+
+<style>
+  .members-section {
+    padding: clamp(5rem, 12vw, 10rem) 0;
+    position: relative;
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 50%
+    );
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #fff, #9ca3af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .section-desc {
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    padding: 0 1rem;
+  }
+
+  .supervisors-section,
+  .regular-members-section {
+    margin-bottom: clamp(4rem, 8vw, 6rem);
+  }
+
+  .subsection-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    color: var(--color-text-main);
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .member-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    min-height: 450px;
+    cursor: pointer;
+  }
+
+  .member-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .member-card:hover::before {
+    opacity: 1;
+  }
+
+  .member-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .member-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .member-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .member-card:hover .member-image {
+    transform: scale(1.1);
+  }
+
+  .member-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .member-name {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  .member-role {
+    font-size: 0.875rem;
+    color: var(--color-accent-pulsar);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .member-team {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-muted);
+  }
+
+  .member-desc {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+    margin-top: auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Modal Styles */
+  .member-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+  }
+
+  .member-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-content {
+    position: relative;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    transform: scale(0.9);
+    transition: transform 0.3s;
+    z-index: 1001;
+  }
+
+  /* Custom Scrollbar */
+  .modal-content::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .modal-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+    margin: 1rem 0;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.6), rgba(59, 130, 246, 0.6));
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.3s;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.8), rgba(59, 130, 246, 0.8));
+  }
+
+  /* Firefox scrollbar */
+  .modal-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(168, 85, 247, 0.6) rgba(255, 255, 255, 0.02);
+  }
+
+  .member-modal.active .modal-content {
+    transform: scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 1002;
+  }
+
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .modal-close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .modal-image-wrapper {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 2rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .modal-member-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .modal-body {
+    text-align: center;
+  }
+
+  .modal-member-name {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+
+  .modal-member-role {
+    font-size: 1rem;
+    color: var(--color-accent-pulsar);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .modal-member-team {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-muted);
+  }
+
+  .modal-member-desc {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    text-align: left;
+    white-space: pre-line;
+    max-width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    .members-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .member-card {
+      min-height: 400px;
+    }
+
+    .modal-content {
+      padding: 1.5rem;
+    }
+
+    .modal-content {
+      max-width: 95%;
+      padding: 1.5rem;
+    }
+
+    .modal-image-wrapper {
+      width: 180px;
+      height: 180px;
+    }
+  }
+</style>
