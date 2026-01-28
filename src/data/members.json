@@ -4,7 +4,7 @@
     "shortDesc": "Mechatronics Engineering final year with interest in Embedded Software and Electronics",
     "team": "PULSAR",
     "role": "Lab Responsible, TL Pulsar",
-    "photoLink": "",
+    "photoLink": "rusu-cosmin-constantin.jpeg",
     "isSupervisor": true
   },
   {
@@ -25,10 +25,10 @@
   },
   {
     "name": "Bejenescu-Babușanu Ștefan",
-    "shortDesc": "Turning equations into machines that think.\n\nI am a Computer Science and Engineering student at the University Politehnica of Bucharest (UPB), with a strong focus on artificial intelligence, machine learning, and autonomous systems. My academic and research interests lie at the intersection of learning, decision-making, control, and simulation, with an emphasis on building systems that are both mathematically grounded and practically deployable.\n\nI have contributed to and co-authored research papers in applied machine learning and intelligent systems, gaining experience in formulating research questions, designing experiments, analyzing results, and communicating findings in an academic setting. My work often blends classical methods—such as optimization, probabilistic modeling, and control—with modern ML techniques, including reinforcement learning and data-driven approaches.\n\nAlongside research, I have built complex, end-to-end software systems, ranging from simulation environments and algorithmic prototypes to production-oriented platforms. I am particularly interested in autonomous navigation, perception-informed decision-making, and the software architectures that enable intelligent agents to operate in structured and unstructured environments.\n\nWithin team-based and lab settings, I value rigor, clarity, and collaboration. I enjoy working in multidisciplinary environments, iterating on ambitious ideas, and pushing projects beyond proofs of concept toward robust, well-engineered solutions. My long-term goal is to contribute to impactful research in AI, particularly in areas such as learning systems interacting with the physical world, multi-agent orchestration and multimodal general intelligence.",
+    "shortDesc": "Turning equations into machines that think.\n\nI am a Computer Science and Engineering student at the University Politehnica of Bucharest (UPB), with a strong focus on artificial intelligence, machine learning, and autonomous systems. My academic and research interests lie at the intersection of learning, decision-making, control, and simulation, with an emphasis on building systems that are both mathematically grounded and practically deployable.\n\nI have contributed to and co-authored research papers in applied machine learning and intelligent systems, gaining experience in formulating research questions, designing experiments, analyzing results, and communicating findings in an academic setting. My work often blends classical methods—such as optimization, probabilistic modeling, and control—with modern ML techniques, including reinforcement learning and data-driven approaches.\n\nAlongside research, I have built complex, end-to-end software systems, ranging from simulation environments and algorithmic prototypes to production-oriented platforms. I am particularly interested in autonomous navigation, perception-informed decision-making, and the software architectures that enable intelligent agents to operate in structured and unstructured environments.\n\nWithin team-based and lab settings, I value rigor, clarity, and collaboration. I enjoy working in multidisciplinary environments, iterating on ambitious ideas, and pushing projects beyond proofs of concept toward robust, well-engineered solutions. My long-term goal is to contribute to impactful research in AI, particularly in areas such as: learning systems that interact with the physical world, multi-agent orchestration and multimodal general intelligence.",
     "team": "TechTrax",
     "role": "Software",
-    "photoLink": "",
+    "photoLink": "WhatsApp Image 2026-01-27 at 17.40.12.jpeg",
     "isSupervisor": false
   },
   {
@@ -60,7 +60,47 @@
     "shortDesc": "I am a student at the Faculty of Automatic Control and Computers, driven by the intersection of AI, robotics, and embedded systems. My work focuses on bridging the gap between hardware and software to create intuitive technology. Notable personal projects include an off-road exploration robot and smart HUD glasses featuring voice-activated AI. Beyond robotics, I actively explore cybersecurity and software engineering, constantly seeking new ways to make complex systems accessible and helpful in daily life.",
     "team": "TechTrax",
     "role": "Software",
+    "photoLink": "danilov-cristian.jpeg",
+    "isSupervisor": false
+  },
+  {
+    "name": "Bachynskyi Roi",
+    "shortDesc": "I am a 3rd year Computer Science student at Faculty of Engineering in Foreign Languages, passionate about Embedded Systems, Algorithms, Operating Systems, and Programming Languages. Trying to get to the lowest level of understanding of concepts, love working on optimizations, and building reliable and performant solutions from scratch. Eager to contribute in solving complex problems.",
+    "team": "Pulsar",
+    "role": "Software",
+    "photoLink": "roi.png",
+    "isSupervisor": false
+  },
+  {
+    "name": "Bukhanevych Artem",
+    "shortDesc": "Engineering student at the University Politehnica of Bucharest. Focused on robotics, control systems, embedded programming, and mechatronics. Experienced in microcontroller-based projects, sensors, with science fair work including a Stewart platform and a 2D plotter projects. Proficient in Python, Java, and basic web technologies, with interest in applied engineering systems.",
+    "team": "Pulsar",
+    "role": "Software",
     "photoLink": "",
+    "isSupervisor": false
+  },
+  {
+    "name": "Lazăr Dragoș George",
+    "shortDesc": "Robotics enthusiast and Full-Stack Developer with a focus on Embedded Systems and UI/UX Design. Experienced in FTC robot control, autonomous navigation, and 3D engineering, with a passion for building open-source tools that seamlessly blend functionality with art. See my work at https://bylazar.com.",
+    "team": "Pulsar",
+    "role": "Software",
+    "photoLink": "bylazar.png",
+    "isSupervisor": false
+  },
+  {
+    "name": "Georgescu Andrei",
+    "shortDesc": "I am a first-year Systems Engineering student at the University Politehnica of Bucharest, Faculty of Automatic Control and Computers. I am passionate about robotics and embedded systems, with a strong interest in microcontrollers, sensors, and hardware–software integration. I enjoy learning through hands-on projects and experimenting with electronic systems, automation, and basic control concepts. My goal is to build a solid engineering foundation while developing practical skills in robotics and intelligent systems.",
+    "team": "Pulsar",
+    "role": "Software",
+    "photoLink": "georgescu-andrei.jpeg",
+    "isSupervisor": false
+  },
+  {
+    "name": "Ungureanu Paul - Andrei",
+    "shortDesc": "Applied sciences second year with interest in using physics, mathematics and computational tools to understand and build models for the nature that surrounds us",
+    "team": "Pulsar",
+    "role": "Science",
+    "photoLink": "ungureanu-paul.jpeg",
     "isSupervisor": false
   }
 ]
