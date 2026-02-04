@@ -17,11 +17,7 @@ const regularMembers = members.filter(m => !m.isSupervisor).sort((a, b) => a.nam
 // Helper function to get image path
 function getImagePath(photoLink: string, name: string): string {
   if (!photoLink) {
-    // Generate filename from name for missing photos
-    const filename = name.toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '') + '.jpg';
-    return `/images/members/${filename}`;
+    return '/images/members/roi.png';
   }
   
   // If it's already a filename (not a URL), use it directly
