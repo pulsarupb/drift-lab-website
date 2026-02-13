@@ -8,6 +8,14 @@
     "isSupervisor": true
   },
   {
+    "name": "Iatagan Andrei",
+    "shortDesc": "Mechatronics engineering student passionate about autonomous robots and manufacturing technologies.",
+    "team": "Drift Lab",
+    "role": "Lab Lead",
+    "photoLink": "andrei-iatagan.jpeg",
+    "isSupervisor": true
+  },
+  {
     "name": "Constantinescu Gabriel-Alexandru",
     "shortDesc": "Industrial Engineering Student passionate about Power Electronics and Embedded Systems, with a particular passion for control theory and system modelling",
     "team": "PULSAR, TechTrax",
@@ -28,7 +36,7 @@
     "shortDesc": "Turning equations into machines that think.\n\nI am a Computer Science and Engineering student at the University Politehnica of Bucharest (UPB), with a strong focus on artificial intelligence, machine learning, and autonomous systems. My academic and research interests lie at the intersection of learning, decision-making, control, and simulation, with an emphasis on building systems that are both mathematically grounded and practically deployable.\n\nI have contributed to and co-authored research papers in applied machine learning and intelligent systems, gaining experience in formulating research questions, designing experiments, analyzing results, and communicating findings in an academic setting. My work often blends classical methods—such as optimization, probabilistic modeling, and control—with modern ML techniques, including reinforcement learning and data-driven approaches.\n\nAlongside research, I have built complex, end-to-end software systems, ranging from simulation environments and algorithmic prototypes to production-oriented platforms. I am particularly interested in autonomous navigation, perception-informed decision-making, and the software architectures that enable intelligent agents to operate in structured and unstructured environments.\n\nWithin team-based and lab settings, I value rigor, clarity, and collaboration. I enjoy working in multidisciplinary environments, iterating on ambitious ideas, and pushing projects beyond proofs of concept toward robust, well-engineered solutions. My long-term goal is to contribute to impactful research in AI, particularly in areas such as: learning systems that interact with the physical world, multi-agent orchestration and multimodal general intelligence.",
     "team": "TechTrax",
     "role": "Software",
-    "photoLink": "WhatsApp Image 2026-01-27 at 17.40.12.jpeg",
+    "photoLink": "roi.png",
     "isSupervisor": false
   },
   {
@@ -44,7 +52,7 @@
     "shortDesc": "I am a senior software engineer, researcher, and student at Universitatea Politehnica din București (UPB) – FILS, with a strong interest in intelligent systems, robotics software, and applied machine learning. My work focuses on designing and building efficient, scalable software that connects theory with real-world engineering challenges.\n\nI have contributed to multiple research papers in the field of machine learning and have hands-on experience developing complex systems that combine algorithms, automation, and modern software architectures. Alongside my academic activity, I have worked on a wide range of production-level projects, from full-stack platforms to embedded-adjacent systems, always emphasizing performance, reliability, and clean design.\n\nWithin a robotics club environment, I am particularly interested in autonomous systems, control logic, data-driven decision-making, and the software layers that enable robots to interact intelligently with their environment. I enjoy collaborating in multidisciplinary teams, sharing knowledge, and turning ambitious ideas into functional, well-engineered solutions.",
     "team": "TechTrax",
     "role": "Software, Research",
-    "photoLink": "",
+    "photoLink": "nisipeanu-ionut.jpg",
     "isSupervisor": false
   },
   {

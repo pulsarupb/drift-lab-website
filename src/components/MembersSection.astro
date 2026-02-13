@@ -11,13 +11,27 @@ interface Member {
 }
 
 const members: Member[] = membersData;
-const supervisors = members.filter(m => m.isSupervisor);
-const regularMembers = members.filter(m => !m.isSupervisor).sort((a, b) => a.name.localeCompare(b.name));
+const MOCK_MEMBER_IMAGE = '/images/members/roi.png';
+
+const fallbackMemberPhotos: Record<string, string> = {
+  'nisipeanu-ionut': 'nisipeanu-ionut.jpg',
+  'iatagan-andrei': 'andrei-iatagan.jpeg'
+};
+
+function toSlug(value: string): string {
+  return value.toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
 
 // Helper function to get image path
 function getImagePath(photoLink: string, name: string): string {
   if (!photoLink) {
-    return '/images/members/roi.png';
+    const fallbackPhoto = fallbackMemberPhotos[toSlug(name)];
+    if (fallbackPhoto) {
+      return `/images/members/${fallbackPhoto}`;
+    }
+    return MOCK_MEMBER_IMAGE;
   }
   
   // If it's already a filename (not a URL), use it directly
@@ -27,11 +41,31 @@ function getImagePath(photoLink: string, name: string): string {
   
   // For URLs (imgur albums), create a filename from the member name
   // Images should be downloaded and saved with this filename
-  const filename = name.toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '') + '.jpg';
+  const filename = `${toSlug(name)}.jpg`;
   return `/images/members/${filename}`;
 }
+
+function hasRealPhoto(member: Member): boolean {
+  return getImagePath(member.photoLink, member.name) !== MOCK_MEMBER_IMAGE;
+}
+
+function sortMembersByPhotoThenName(a: Member, b: Member): number {
+  const aHasPhoto = hasRealPhoto(a);
+  const bHasPhoto = hasRealPhoto(b);
+
+  if (aHasPhoto !== bHasPhoto) {
+    return aHasPhoto ? -1 : 1;
+  }
+
+  return a.name.localeCompare(b.name);
+}
+
+const supervisors = members
+  .filter(m => m.isSupervisor)
+  .sort(sortMembersByPhotoThenName);
+const regularMembers = members
+  .filter(m => !m.isSupervisor)
+  .sort(sortMembersByPhotoThenName);
 ---
 
 <section id="members" class="members-section">
