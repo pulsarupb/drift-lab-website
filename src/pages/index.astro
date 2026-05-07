@@ -5,7 +5,7 @@ import Hero from '../components/Hero.astro';
 import TeamsSection from '../components/TeamsSection.astro';
 import MembersSection from '../components/MembersSection.astro';
 import Footer from '../components/Footer.astro';
-import membersData from '../data/members/index';
+import { sortedMembers } from '../data/members/index';
 import { teamDisplayName } from '../data/teams/index';
 
 const siteUrl = "https://driftlab.ro";
@@ -21,7 +21,7 @@ const researchProjectSchema = {
 		"@type": "Organization",
 		"name": "CAMPUS Research Institute"
 	},
-	"member": membersData.map((member) => ({
+	"member": sortedMembers.map((member) => ({
 		"@type": "Person",
 		"name": member.name,
 		"jobTitle": member.role.join(', '),

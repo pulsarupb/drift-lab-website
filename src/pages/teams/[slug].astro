@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro"
 import Header from "../../components/Header.astro"
 import Footer from "../../components/Footer.astro"
 import MemberCard from "../../components/MemberCard.astro"
-import members from "../../data/members/index"
+import { sortedMembers } from "../../data/members/index"
 import teams, {
   teamSlug,
   TeamSocialPlatform,
@@ -20,9 +20,7 @@ export function getStaticPaths() {
 
 const { team } = Astro.props as { team: Team }
 
-const teamMembers = members
-  .filter((member) => member.team.includes(team.id))
-  .sort((a, b) => a.name.localeCompare(b.name))
+const teamMembers = sortedMembers.filter((member) => member.team.includes(team.id))
 
 const metaDescription = `${team.name}: ${team.focus}. ${teamMembers.length} active members.`
 const heroImage = team.heroImageUrl ?? team.galleryImages?.[0] ?? null
