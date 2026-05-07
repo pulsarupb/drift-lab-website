@@ -2,7 +2,10 @@
 import Layout from "../../layouts/Layout.astro"
 import Header from "../../components/Header.astro"
 import Footer from "../../components/Footer.astro"
-import members, { memberSlug, mockMemberPhotoUrl } from "../../data/members/index"
+import members, {
+  memberSlug,
+  mockMemberPhotoUrl,
+} from "../../data/members/index"
 import teams, {
   teamSlug,
   TeamSocialPlatform,
@@ -30,24 +33,40 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   if (platform === TeamSocialPlatform.GITHUB) return "ph ph-github-logo"
   return "ph ph-instagram-logo"
 }
+
+function splitMemberNameForCard(name: string): string[] {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length === 2) {
+    return parts
+  }
+
+  return [name]
+}
 ---
 
-<Layout title={`${team.name} Team`} description={metaDescription} image={heroImage} type="website">
+<Layout
+  title={`${team.name} Team`}
+  description={metaDescription}
+  image={heroImage}
+  type="website"
+>
   <Header />
   <main class="team-page" style={`--team-accent: ${team.color}`}>
     <div class="container">
       <a href="/#teams" class="back-link">← Back to teams</a>
 
       <section class="hero-card">
-        {heroImage && (
-          <img
-            src={heroImage}
-            alt={`${team.name} team highlight`}
-            class="hero-image"
-            width="1400"
-            height="788"
-          />
-        )}
+        {
+          heroImage && (
+            <img
+              src={heroImage}
+              alt={`${team.name} team highlight`}
+              class="hero-image"
+              width="1400"
+              height="788"
+            />
+          )
+        }
         <div class="hero-content">
           <span class="badge">{team.focus}</span>
           <h1>{team.name}</h1>
@@ -62,69 +81,87 @@ function socialIconClass(platform: TeamSocialPlatform): string {
               <span class="stat-value">{team.focus}</span>
             </div>
           </div>
-          {team.socialLinks.length > 0 && (
-            <div class="socials">
-              {team.socialLinks.map((link) => (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="social-link"
-                >
-                  <i class={socialIconClass(link.platform)} aria-hidden="true"></i>
-                  <span>{link.platform}</span>
-                </a>
-              ))}
-            </div>
-          )}
+          {
+            team.socialLinks.length > 0 && (
+              <div class="socials">
+                {team.socialLinks.map((link) => (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link"
+                  >
+                    <i
+                      class={socialIconClass(link.platform)}
+                      aria-hidden="true"
+                    />
+                    <span>{link.platform}</span>
+                  </a>
+                ))}
+              </div>
+            )
+          }
         </div>
       </section>
 
-      {team.galleryImages && team.galleryImages.length > 0 && (
-        <section class="gallery-section">
-          <h2>Gallery</h2>
-          <div class="gallery-grid">
-            {team.galleryImages.map((image, index) => (
-              <img
-                src={image}
-                alt={`${team.name} gallery image ${index + 1}`}
-                loading="lazy"
-                width="700"
-                height="394"
-              />
-            ))}
-          </div>
-        </section>
-      )}
+      {
+        team.galleryImages && team.galleryImages.length > 0 && (
+          <section class="gallery-section">
+            <h2>Gallery</h2>
+            <div class="gallery-grid">
+              {team.galleryImages.map((image, index) => (
+                <img
+                  src={image}
+                  alt={`${team.name} gallery image ${index + 1}`}
+                  loading="lazy"
+                  width="700"
+                  height="394"
+                />
+              ))}
+            </div>
+          </section>
+        )
+      }
 
       <section class="members-section">
         <div class="members-section-header">
           <h2>Team Members</h2>
-          <p>{teamMembers.length} contributors currently listed in this team.</p>
+          <p>
+            {teamMembers.length} contributors currently listed in this team.
+          </p>
         </div>
         <div class="members-grid">
-          {teamMembers.map((member) => (
-            <article class="member-card">
-              <a
-                class="member-link"
-                href={`/members/${memberSlug(member)}`}
-                aria-label={`View profile for ${member.name}`}
-              ></a>
-              <img
-                src={member.photoUrl ?? mockMemberPhotoUrl}
-                alt={`${member.name} portrait`}
-                width="180"
-                height="180"
-                class="member-photo"
-                loading="lazy"
-              />
-              <div class="member-content">
-                <h3>{member.name}</h3>
-                <p class="role">{member.role.join(", ")}</p>
-                <p class="desc">{member.shortDesc}</p>
-              </div>
-            </article>
-          ))}
+          {
+            teamMembers.map((member) => (
+              <article class="member-card">
+                <a
+                  class="member-link"
+                  href={`/members/${memberSlug(member)}`}
+                  aria-label={`View profile for ${member.name}`}
+                />
+                <img
+                  src={member.photoUrl ?? mockMemberPhotoUrl}
+                  alt={`${member.name} portrait`}
+                  width="180"
+                  height="180"
+                  class="member-photo"
+                  loading="lazy"
+                />
+                <div class="member-content">
+                  <h3>
+                    {splitMemberNameForCard(member.name).map((part, index, parts) => (
+                      <>
+                        {part}
+                        {index < parts.length - 1 && <br />}
+                      </>
+                    ))}
+                  </h3>
+                  <p class="role">{member.role.join(", ")}</p>
+                  <p class="desc">{member.shortDesc}</p>
+                </div>
+              </article>
+            ))
+          }
         </div>
       </section>
     </div>
@@ -136,7 +173,12 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   .team-page {
     min-height: 100vh;
     padding: calc(clamp(2rem, 4vw, 4rem) + 80px) 0 clamp(3rem, 6vw, 6rem);
-    background: radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.03) 0%, transparent 45%),
+    background:
+      radial-gradient(
+        circle at 80% 10%,
+        rgba(255, 255, 255, 0.03) 0%,
+        transparent 45%
+      ),
       var(--color-bg);
   }
 
@@ -287,7 +329,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
 
   .members-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.8rem;
   }
 
@@ -299,6 +341,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     padding: 0.8rem;
+    min-height: 126px;
   }
 
   .member-link {
@@ -322,13 +365,20 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   }
 
   .member-content h3 {
-    margin: 0 0 0.35rem;
+    margin: 0;
+    align-self: end;
     color: #fff;
     font-size: 1rem;
   }
 
+  .member-content {
+    display: grid;
+    grid-template-rows: 3fr 1fr auto;
+    min-height: 0;
+  }
+
   .role {
-    margin: 0 0 0.35rem;
+    margin: 0;
     color: var(--team-accent);
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -337,7 +387,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   }
 
   .desc {
-    margin: 0;
+    margin: 0.35rem 0 0;
     color: var(--color-text-muted);
     font-size: 0.8rem;
     line-height: 1.4;
@@ -349,6 +399,10 @@ function socialIconClass(platform: TeamSocialPlatform): string {
 
   @media (max-width: 980px) {
     .hero-card {
+      grid-template-columns: 1fr;
+    }
+
+    .members-grid {
       grid-template-columns: 1fr;
     }
   }
