@@ -24,7 +24,6 @@ Official website for Drift Lab - Autonomous Vehicles Research Laboratory at CAMP
 
 ## Features
 
-- **Interactive Galaxy Animation**: Procedurally generated spiral galaxy using Three.js with realistic physics-based motion
 - **Responsive Design**: Fully responsive layout optimized for mobile, tablet, and desktop devices
 - **SEO Optimized**: Comprehensive meta tags, Open Graph, Twitter Cards, and structured data (JSON-LD)
 - **Performance Optimized**: Image optimization, lazy loading, font optimization, and resource hints
@@ -35,7 +34,6 @@ Official website for Drift Lab - Autonomous Vehicles Research Laboratory at CAMP
 ## Tech Stack
 
 - **Framework**: [Astro](https://astro.build) 5.16.4 - Static site generator with component islands
-- **3D Graphics**: [Three.js](https://threejs.org/) 0.182.0 - WebGL-based galaxy animation
 - **Language**: TypeScript - Type-safe development
 - **Styling**: CSS with CSS Variables - Component-scoped styles
 - **Deployment**: GitHub Pages via GitHub Actions
@@ -56,9 +54,8 @@ drift-lab-website/
 ├── src/
 │   ├── components/
 │   │   ├── Footer.astro        # Site footer component
-│   │   ├── GalaxySystem.ts     # Three.js galaxy animation system
 │   │   ├── Header.astro        # Navigation header
-│   │   ├── Hero.astro          # Landing section with galaxy
+│   │   ├── Hero.astro          # Landing section
 │   │   ├── MembersSection.astro # Member directory display
 │   │   └── TeamsSection.astro  # Teams showcase
 │   ├── data/
@@ -241,7 +238,6 @@ The site follows a component-based architecture:
 Layout.astro (Base Layout)
 ├── Header.astro (Navigation)
 ├── Hero.astro (Landing Section)
-│   └── GalaxySystem.ts (Three.js Animation)
 ├── TeamsSection.astro (Teams Display)
 ├── MembersSection.astro (Members Display)
 └── Footer.astro (Footer)
@@ -276,18 +272,8 @@ members.json → MembersSection.astro → index.astro → Layout.astro → HTML 
 
 #### Hero.astro
 - Landing section with hero text
-- Integrates `GalaxySystem.ts` for background animation
 - Call-to-action buttons
 - Partner logos display
-
-#### GalaxySystem.ts
-- Three.js-based procedural galaxy generator
-- Creates realistic spiral galaxy with physics-based motion
-- Performance optimizations:
-  - Device-specific particle counts (mobile: 30%, tablet: 60%, desktop: 100%)
-  - Visibility API pauses animation when tab is hidden
-  - Responsive camera positioning
-  - Optimized rendering settings
 
 #### TeamsSection.astro
 - Displays research teams in a grid layout
@@ -308,17 +294,6 @@ members.json → MembersSection.astro → index.astro → Layout.astro → HTML 
 - **Component Styles**: Scoped styles in each `.astro` component
 - **Responsive Design**: Uses `clamp()` for fluid typography and spacing
 - **Design System**: Color tokens, spacing scale, border radius values
-
-### Three.js Integration
-
-The galaxy animation is integrated as follows:
-
-1. **Component**: `Hero.astro` includes a `<canvas>` element
-2. **Script**: Client-side script imports `GalaxySystem.ts`
-3. **Initialization**: Creates `GalaxySystem` instance on page load
-4. **Cleanup**: Properly destroys instance on page unload
-
-The animation runs entirely client-side and doesn't require server-side rendering.
 
 ## Building for Production
 
@@ -471,7 +446,6 @@ The workflow file (`.github/workflows/deploy.yml`) handles:
 - **Resource Hints**: Preload critical resources, dns-prefetch
 - **Code Splitting**: Automatic code splitting by Astro
 - **Minification**: CSS and JavaScript minified in production
-- **Three.js Optimization**: Device-specific rendering, visibility API
 
 ### Core Web Vitals
 
@@ -481,29 +455,6 @@ The site is optimized for:
 - **CLS** (Cumulative Layout Shift): Proper image dimensions
 
 ## Key Features Explained
-
-### Three.js Galaxy Animation
-
-The galaxy animation (`GalaxySystem.ts`) creates a procedurally generated spiral galaxy:
-
-**How it works**:
-1. Generates particles in a logarithmic spiral pattern
-2. Applies realistic density distribution (more particles near center)
-3. Implements differential rotation (inner particles orbit faster)
-4. Adds velocity dispersion for realism
-5. Uses additive blending for starlight accumulation
-
-**Performance Optimizations**:
-- **Device Detection**: Reduces particle count on mobile (30%) and tablet (60%)
-- **Visibility API**: Pauses animation when browser tab is hidden
-- **Pixel Ratio**: Limits pixel ratio based on device
-- **Camera Optimization**: Adjusts FOV and position per device
-
-**Technical Details**:
-- Uses Three.js Sprites for efficient rendering
-- Implements realistic orbital mechanics
-- Creates 4 spiral arms with configurable parameters
-- Color gradient from center (bright blue) to edges (darker blue)
 
 ### Responsive Design
 
@@ -532,7 +483,7 @@ Main Astro configuration:
 ### package.json
 
 Dependencies and scripts:
-- **dependencies**: Astro, Three.js, sitemap integration
+- **dependencies**: Astro and sitemap integration
 - **devDependencies**: TypeScript types
 - **scripts**: Development and build commands
 
@@ -589,17 +540,6 @@ node --version
 2. Check filename matches `photoLink` in JSON (case-sensitive)
 3. Ensure file extension is correct (.jpg, .png, etc.)
 4. Check browser console for 404 errors
-
-### Galaxy Animation Not Working
-
-**Issue**: Three.js animation doesn't appear
-
-**Solution**:
-1. Check browser console for errors
-2. Verify WebGL is supported (most modern browsers)
-3. Check if JavaScript is enabled
-4. Try disabling browser extensions
-5. Verify Three.js is installed: `npm list three`
 
 ### Deployment Fails
 
@@ -671,7 +611,6 @@ This project is proprietary and belongs to Drift Lab, CAMPUS Research Institute,
 ## Credits
 
 - **Framework**: Built with [Astro](https://astro.build)
-- **3D Graphics**: Powered by [Three.js](https://threejs.org/)
 - **Deployment**: Hosted on GitHub Pages
 - **Design**: Custom design by Drift Lab team
 

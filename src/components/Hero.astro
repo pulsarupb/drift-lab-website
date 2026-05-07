@@ -5,7 +5,6 @@
 <section class="hero">
   <div class="background-grid"></div>
   <div class="ambient-glow"></div>
-  <canvas id="galaxy-canvas" class="galaxy-canvas"></canvas>
 
   <div class="container hover-container">
     <div class="hero-layout">
@@ -123,15 +122,6 @@
     pointer-events: none;
   }
 
-  .galaxy-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-
   .hero-layout {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -149,7 +139,7 @@
     letter-spacing: -0.03em;
     color: #fff;
     position: relative;
-    z-index: 2; /* Ensure text stays above galaxy background */
+    z-index: 2;
   }
 
   .text-gradient {
@@ -166,7 +156,7 @@
     margin-bottom: clamp(1rem, 3vw, 3rem);
     max-width: 500px;
     position: relative;
-    z-index: 2; /* Ensure text stays above galaxy background */
+    z-index: 2;
   }
 
   .cta-group {
@@ -174,7 +164,7 @@
     gap: 1.5rem;
     margin-bottom: clamp(1.5rem, 5vw, 5rem);
     position: relative;
-    z-index: 2; /* Ensure buttons stay above galaxy background */
+    z-index: 2;
   }
 
   .btn {
@@ -505,49 +495,3 @@
     }
   }
 </style>
-
-<script>
-  import { GalaxySystem } from './GalaxySystem.ts';
-
-  let galaxySystem: GalaxySystem | null = null;
-
-  function initGalaxySystem() {
-    const canvas = document.getElementById('galaxy-canvas') as HTMLCanvasElement;
-    if (canvas) {
-      try {
-        galaxySystem = new GalaxySystem(canvas);
-      } catch (error) {
-        console.error('Failed to initialize galaxy system:', error);
-      }
-    }
-  }
-
-  function cleanupGalaxySystem() {
-    if (galaxySystem) {
-      galaxySystem.destroy();
-      galaxySystem = null;
-    }
-  }
-
-  // Initialize when DOM is ready
-  function init() {
-    // Small delay to ensure canvas is fully rendered
-    setTimeout(() => {
-      initGalaxySystem();
-    }, 100);
-  }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-  
-  // Cleanup on page unload
-  window.addEventListener('beforeunload', cleanupGalaxySystem);
-  
-  // Handle visibility change for performance
-  document.addEventListener('visibilitychange', () => {
-    // The galaxy system handles visibility internally, no need to destroy/recreate
-  });
-</script>

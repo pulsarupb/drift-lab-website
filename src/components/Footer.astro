@@ -1,5 +1,26 @@
 ---
-const currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear()
+
+const contributors = [
+  {
+    name: "Lazăr",
+    url: "https://bylasza.com",
+  },
+  {
+    name: "other contributors",
+    url: "#",
+  },
+  // Add more contributors here if needed
+]
+
+function getSeparator(index: number) {
+  if (index === contributors.length - 2) {
+    return " and "
+  } else if (index < contributors.length - 2) {
+    return ", "
+  }
+  return ""
+}
 ---
 
 <footer class="footer">
@@ -18,9 +39,23 @@ const currentYear = new Date().getFullYear();
         <a href="/contact" class="footer-link">Contact</a>
       </div>
     </div>
-    
+
     <div class="footer-bottom">
-      <p>&copy; {currentYear} Drift Lab. <span class="dim">Created with love by Drift Lab members</span></p>
+      <p>
+        &copy; {currentYear} Drift Lab. <span class="dim">
+          Created with <span aria-label="love">❤</span>
+          by {
+            contributors.map((c, index) => (
+              <>
+                <a href={c.url} class="footer-link" target="_blank">
+                  {c.name}
+                </a>{" "}
+                {getSeparator(index)}
+              </>
+            ))
+          }
+        </span>
+      </p>
       <div class="footer-logos">
         <span class="logo-text">Politehnica București</span>
       </div>
@@ -39,14 +74,19 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(59, 130, 246, 0.5),
+      transparent
+    );
   }
 
   .footer-content {
@@ -70,7 +110,7 @@ const currentYear = new Date().getFullYear();
     margin-bottom: 0.5rem;
     letter-spacing: -0.01em;
   }
-  
+
   .footer-brand p {
     font-size: clamp(0.875rem, 2vw, 0.95rem);
     color: var(--color-text-muted);
@@ -101,12 +141,12 @@ const currentYear = new Date().getFullYear();
     flex-wrap: wrap;
     gap: 1rem;
   }
-  
+
   .dim {
     color: var(--color-text-dim);
     opacity: 0.4;
   }
-  
+
   .logo-text {
     opacity: 0.6;
     font-weight: 500;
@@ -127,12 +167,13 @@ const currentYear = new Date().getFullYear();
   }
 
   @media (max-width: 600px) {
-    .footer-main, .footer-bottom {
+    .footer-main,
+    .footer-bottom {
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
-    
+
     .footer-nav {
       flex-direction: column;
       gap: 1rem;
