@@ -2,6 +2,7 @@
 import members, { memberSlug, mockMemberPhotoUrl } from "../data/members/index"
 import type { Member } from "../data/members/index"
 import { SocialPlatform } from "../data/members/index"
+import { teamDisplayName } from "../data/teams/index"
 import "@phosphor-icons/web/regular"
 
 function getImagePath(member: Member): string {
@@ -9,7 +10,7 @@ function getImagePath(member: Member): string {
 }
 
 function formatMemberTeams(member: Member): string {
-  return member.team.join(", ")
+  return member.team.map(teamDisplayName).join(", ")
 }
 
 function formatMemberRoles(member: Member): string {

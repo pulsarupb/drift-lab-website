@@ -1,0 +1,355 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Header from "../../components/Header.astro"
+import Footer from "../../components/Footer.astro"
+import members, { memberSlug, mockMemberPhotoUrl } from "../../data/members/index"
+import teams, {
+  teamSlug,
+  TeamSocialPlatform,
+  type Team,
+} from "../../data/teams/index"
+import "@phosphor-icons/web/regular"
+
+export function getStaticPaths() {
+  return teams.map((team) => ({
+    params: { slug: teamSlug(team) },
+    props: { team },
+  }))
+}
+
+const { team } = Astro.props as { team: Team }
+
+const teamMembers = members
+  .filter((member) => member.team.includes(team.id))
+  .sort((a, b) => a.name.localeCompare(b.name))
+
+const metaDescription = `${team.name}: ${team.focus}. ${teamMembers.length} active members.`
+const heroImage = team.heroImageUrl ?? team.galleryImages?.[0] ?? null
+
+function socialIconClass(platform: TeamSocialPlatform): string {
+  if (platform === TeamSocialPlatform.GITHUB) return "ph ph-github-logo"
+  return "ph ph-instagram-logo"
+}
+---
+
+<Layout title={`${team.name} Team`} description={metaDescription} image={heroImage} type="website">
+  <Header />
+  <main class="team-page" style={`--team-accent: ${team.color}`}>
+    <div class="container">
+      <a href="/#teams" class="back-link">← Back to teams</a>
+
+      <section class="hero-card">
+        {heroImage && (
+          <img
+            src={heroImage}
+            alt={`${team.name} team highlight`}
+            class="hero-image"
+            width="1400"
+            height="788"
+          />
+        )}
+        <div class="hero-content">
+          <span class="badge">{team.focus}</span>
+          <h1>{team.name}</h1>
+          <p>{team.description}</p>
+          <div class="stats-row">
+            <div class="stat-item">
+              <span class="stat-label">Members</span>
+              <span class="stat-value">{teamMembers.length}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Specialization</span>
+              <span class="stat-value">{team.focus}</span>
+            </div>
+          </div>
+          {team.socialLinks.length > 0 && (
+            <div class="socials">
+              {team.socialLinks.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link"
+                >
+                  <i class={socialIconClass(link.platform)} aria-hidden="true"></i>
+                  <span>{link.platform}</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {team.galleryImages && team.galleryImages.length > 0 && (
+        <section class="gallery-section">
+          <h2>Gallery</h2>
+          <div class="gallery-grid">
+            {team.galleryImages.map((image, index) => (
+              <img
+                src={image}
+                alt={`${team.name} gallery image ${index + 1}`}
+                loading="lazy"
+                width="700"
+                height="394"
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section class="members-section">
+        <div class="members-section-header">
+          <h2>Team Members</h2>
+          <p>{teamMembers.length} contributors currently listed in this team.</p>
+        </div>
+        <div class="members-grid">
+          {teamMembers.map((member) => (
+            <article class="member-card">
+              <a
+                class="member-link"
+                href={`/members/${memberSlug(member)}`}
+                aria-label={`View profile for ${member.name}`}
+              ></a>
+              <img
+                src={member.photoUrl ?? mockMemberPhotoUrl}
+                alt={`${member.name} portrait`}
+                width="180"
+                height="180"
+                class="member-photo"
+                loading="lazy"
+              />
+              <div class="member-content">
+                <h3>{member.name}</h3>
+                <p class="role">{member.role.join(", ")}</p>
+                <p class="desc">{member.shortDesc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .team-page {
+    min-height: 100vh;
+    padding: calc(clamp(2rem, 4vw, 4rem) + 80px) 0 clamp(3rem, 6vw, 6rem);
+    background: radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.03) 0%, transparent 45%),
+      var(--color-bg);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.85rem;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .hero-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 320px;
+  }
+
+  .hero-content {
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--team-accent) 60%, transparent);
+    color: var(--team-accent);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-heading);
+  }
+
+  h1 {
+    margin: 0.85rem 0 0.65rem;
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    font-family: var(--font-heading);
+  }
+
+  .hero-content > p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .stats-row {
+    margin-top: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    border: 1px solid var(--color-border);
+    padding: 0.7rem 0.8rem;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+  }
+
+  .stat-value {
+    display: block;
+    margin-top: 0.25rem;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .socials {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .social-link:hover {
+    border-color: var(--team-accent);
+    color: #000;
+    background: var(--team-accent);
+  }
+
+  .gallery-section,
+  .members-section {
+    margin-top: clamp(1.8rem, 4vw, 3rem);
+  }
+
+  h2 {
+    margin: 0 0 0.8rem;
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+    color: #fff;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 0.75rem;
+  }
+
+  .gallery-grid img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .members-section-header p {
+    margin: 0 0 1rem;
+    color: var(--color-text-muted);
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 0.8rem;
+  }
+
+  .member-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 0.9rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 0.8rem;
+  }
+
+  .member-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .member-photo,
+  .member-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .member-photo {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .member-content h3 {
+    margin: 0 0 0.35rem;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .role {
+    margin: 0 0 0.35rem;
+    color: var(--team-accent);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-heading);
+  }
+
+  .desc {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 980px) {
+    .hero-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -4,6 +4,7 @@ import members, { memberSlug, mockMemberPhotoUrl } from "../../data/members/inde
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { SocialPlatform } from "../../data/members/index";
+import { teamDisplayName } from "../../data/teams/index";
 import "@phosphor-icons/web/regular";
 
 export function getStaticPaths() {
@@ -15,7 +16,7 @@ export function getStaticPaths() {
 
 const { member } = Astro.props;
 
-const metaDescription = `${member.name} - ${member.role.join(", ")} at ${member.team.join(", ")}.`;
+const metaDescription = `${member.name} - ${member.role.join(", ")} at ${member.team.map(teamDisplayName).join(", ")}.`;
 const image = member.photoUrl ?? mockMemberPhotoUrl;
 
 function formatDate(date: string | undefined): string | null {
@@ -32,8 +33,14 @@ function formatDate(date: string | undefined): string | null {
 }
 
 const details = [
-  { label: "Team", value: member.team.join(", ") },
-  { label: "Role", value: member.role.join(", ") },
+  {
+    label: member.team.length > 1 ? "Teams" : "Team",
+    value: member.team.map(teamDisplayName).join(", "),
+  },
+  {
+    label: member.role.length > 1 ? "Roles" : "Role",
+    value: member.role.join(", "),
+  },
   { label: "University", value: member.university ?? null },
   { label: "Faculty", value: member.faculty ?? null },
   { label: "Study Cycle", value: member.studyCycle ?? null },
@@ -188,7 +195,7 @@ function socialIconClass(platform: SocialPlatform): string {
 
   .details-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
   }
 
@@ -257,6 +264,10 @@ function socialIconClass(platform: SocialPlatform): string {
 
   @media (max-width: 900px) {
     .member-profile {
+      grid-template-columns: 1fr;
+    }
+
+    .details-grid {
       grid-template-columns: 1fr;
     }
   }

@@ -1,5 +1,11 @@
 ---
-import teams from "../data/teams/index"
+import members from "../data/members/index"
+import teams, { teamSlug } from "../data/teams/index"
+import type { TeamId } from "../data/teams/index"
+
+function memberCount(teamId: TeamId): number {
+  return members.filter((member) => member.team.includes(teamId)).length
+}
 ---
 
 <section id="teams" class="teams-section">
@@ -15,7 +21,12 @@ import teams from "../data/teams/index"
     <div class="teams-grid">
       {
         teams.map((team) => (
-          <div class="team-card" style={`--accent: ${team.color}`}>
+          <article class="team-card" style={`--accent: ${team.color}`}>
+            <a
+              class="team-card-link"
+              href={`/teams/${teamSlug(team)}`}
+              aria-label={`View ${team.name} team page`}
+            ></a>
             <div class="card-content">
               <h3 class="team-name">{team.name}</h3>
               <span
@@ -24,6 +35,7 @@ import teams from "../data/teams/index"
               >
                 {team.focus}
               </span>
+              <p class="team-meta">{memberCount(team.id)} members</p>
               <p class="team-desc">{team.description}</p>
             </div>
             <div class="card-arrow">
@@ -41,7 +53,7 @@ import teams from "../data/teams/index"
                 />
               </svg>
             </div>
-          </div>
+          </article>
         ))
       }
     </div>
@@ -104,6 +116,12 @@ import teams from "../data/teams/index"
     min-height: clamp(280px, 40vh, 320px);
   }
 
+  .team-card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+
   .team-card:hover {
     background: var(--color-surface-hover);
     border-color: var(--accent);
@@ -113,7 +131,23 @@ import teams from "../data/teams/index"
 
   .card-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .card-arrow {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .team-meta {
+    margin: 0 0 1rem;
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
   }
 
   .team-name {

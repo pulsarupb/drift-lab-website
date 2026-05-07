@@ -9,11 +9,12 @@ import petreaCostelValentinPhoto from "./photos/petrea-costel-valentin.jpeg?url"
 import roiPhoto from "./photos/roi.png?url"
 import rusuCosminConstantinPhoto from "./photos/rusu-cosmin-constantin.jpeg?url"
 import ungureanuPaulPhoto from "./photos/ungureanu-paul.jpeg?url"
+import { TeamId } from "../teams/index"
 
 export interface Member {
   name: string
   shortDesc: string
-  team: Team[]
+  team: TeamId[]
   role: Role[]
   photoUrl: string | null
   isSupervisor: boolean
@@ -82,13 +83,11 @@ export enum Country {
 
 export const COUNTRY_OPTIONS: Country[] = [Country.ROMANIA, Country.UKRAINE]
 
-export enum Team {
-  DRIFT_LAB = "Drift Lab",
-  PULSAR = "Pulsar",
-  TECHTRAX = "TechTrax",
-}
-
-export const TEAM_OPTIONS: Team[] = [Team.DRIFT_LAB, Team.PULSAR, Team.TECHTRAX]
+export const TEAM_OPTIONS: TeamId[] = [
+  TeamId.PULSAR,
+  TeamId.TECHTRAX,
+  TeamId.NOXP,
+]
 
 export enum Role {
   LAB_RESPONSIBLE = "Lab Responsible",
@@ -128,7 +127,7 @@ export const members = [
     name: "Rusu Cosmin-Constantin",
     shortDesc:
       "Mechatronics Engineering final year with interest in Embedded Software and Electronics",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.LAB_RESPONSIBLE],
     socialLinks: [
       {
@@ -147,7 +146,7 @@ export const members = [
     name: "Iatagan Andrei",
     shortDesc:
       "Mechatronics engineering student passionate about autonomous robots and manufacturing technologies.",
-    team: [Team.DRIFT_LAB],
+    team: [TeamId.PULSAR],
     role: [Role.LAB_LEAD],
     socialLinks: [
       {
@@ -162,7 +161,7 @@ export const members = [
     name: "Constantinescu Gabriel-Alexandru",
     shortDesc:
       "Industrial Engineering Student passionate about Power Electronics and Embedded Systems, with a particular passion for control theory and system modelling",
-    team: [Team.PULSAR, Team.TECHTRAX],
+    team: [TeamId.PULSAR, TeamId.TECHTRAX],
     role: [Role.ELECTRONICS, Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.INDUSTRIAL_ENGINEERING_AND_ROBOTICS,
@@ -187,7 +186,7 @@ export const members = [
     name: "Rentea Robert",
     shortDesc:
       "I am Robert Rentea, 21 years old, and a student at the University Politehnica of Bucharest, Faculty of Mechanical Engineering and Mechatronics, specializing in Mechatronics and Robotics. I am passionate about volleyball and sports in general, and I consider physical activity an important part of my life. I am part of the PULSAR team, in the Software Team, where I develop my technical skills and teamwork abilities. I am curious, motivated, and I enjoy constantly learning new things and improving myself.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -208,7 +207,7 @@ export const members = [
     name: "Bejenescu-Babușanu Ștefan",
     shortDesc:
       "Turning equations into machines that think.\n\nI am a Computer Science and Engineering student at the University Politehnica of Bucharest (UPB), with a strong focus on artificial intelligence, machine learning, and autonomous systems. My academic and research interests lie at the intersection of learning, decision-making, control, and simulation, with an emphasis on building systems that are both mathematically grounded and practically deployable.\n\nI have contributed to and co-authored research papers in applied machine learning and intelligent systems, gaining experience in formulating research questions, designing experiments, analyzing results, and communicating findings in an academic setting. My work often blends classical methods—such as optimization, probabilistic modeling, and control—with modern ML techniques, including reinforcement learning and data-driven approaches.\n\nAlongside research, I have built complex, end-to-end software systems, ranging from simulation environments and algorithmic prototypes to production-oriented platforms. I am particularly interested in autonomous navigation, perception-informed decision-making, and the software architectures that enable intelligent agents to operate in structured and unstructured environments.\n\nWithin team-based and lab settings, I value rigor, clarity, and collaboration. I enjoy working in multidisciplinary environments, iterating on ambitious ideas, and pushing projects beyond proofs of concept toward robust, well-engineered solutions. My long-term goal is to contribute to impactful research in AI, particularly in areas such as: learning systems that interact with the physical world, multi-agent orchestration and multimodal general intelligence.",
-    team: [Team.TECHTRAX],
+    team: [TeamId.TECHTRAX],
     role: [Role.SOFTWARE],
     photoUrl: roiPhoto,
     isSupervisor: false,
@@ -217,7 +216,7 @@ export const members = [
     name: "Geala Stefan-Octavian",
     shortDesc:
       "I am a Computer Science and Engineering student at the University Politehnica of Bucharest, with a focus on artificial intelligence and autonomous systems. As a member of the lab, I work on research-oriented problems involving learning, decision-making, and system design. I am motivated by rigorous thinking, experimentation, and turning theory into deployable solutions.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.ELECTRONICS, Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.ENGINEERING_IN_FOREIGN_LANGUAGES,
@@ -232,7 +231,7 @@ export const members = [
     name: "Nisipeanu Ionut",
     shortDesc:
       "I am a senior software engineer, researcher, and student at Universitatea Politehnica din București (UPB) – FILS, with a strong interest in intelligent systems, robotics software, and applied machine learning. My work focuses on designing and building efficient, scalable software that connects theory with real-world engineering challenges.\n\nI have contributed to multiple research papers in the field of machine learning and have hands-on experience developing complex systems that combine algorithms, automation, and modern software architectures. Alongside my academic activity, I have worked on a wide range of production-level projects, from full-stack platforms to embedded-adjacent systems, always emphasizing performance, reliability, and clean design.\n\nWithin a robotics club environment, I am particularly interested in autonomous systems, control logic, data-driven decision-making, and the software layers that enable robots to interact intelligently with their environment. I enjoy collaborating in multidisciplinary teams, sharing knowledge, and turning ambitious ideas into functional, well-engineered solutions.",
-    team: [Team.TECHTRAX],
+    team: [TeamId.TECHTRAX],
     role: [Role.SOFTWARE, Role.RESEARCH],
     socialLinks: [
       {
@@ -251,7 +250,7 @@ export const members = [
     name: "Petrea Costel Valentin",
     shortDesc:
       "3rd Year Mechatronics & Robotics Student. Embedded Systems, CAD, Big fan of troubleshooting and fixing broken tech.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -266,7 +265,7 @@ export const members = [
     name: "Danilov Alexandru-Cristian",
     shortDesc:
       "I am a student at the Faculty of Automatic Control and Computers, driven by the intersection of AI, robotics, and embedded systems. My work focuses on bridging the gap between hardware and software to create intuitive technology. Notable personal projects include an off-road exploration robot and smart HUD glasses featuring voice-activated AI. Beyond robotics, I actively explore cybersecurity and software engineering, constantly seeking new ways to make complex systems accessible and helpful in daily life.",
-    team: [Team.TECHTRAX],
+    team: [TeamId.TECHTRAX],
     role: [Role.SOFTWARE],
     photoUrl: danilovCristianPhoto,
     isSupervisor: false,
@@ -275,7 +274,7 @@ export const members = [
     name: "Bachynskyi Roi",
     shortDesc:
       "I am a 3rd year Computer Science student at Faculty of Engineering in Foreign Languages, passionate about Embedded Systems, Algorithms, Operating Systems, and Programming Languages. Trying to get to the lowest level of understanding of concepts, love working on optimizations, and building reliable and performant solutions from scratch. Eager to contribute in solving complex problems.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.ENGINEERING_IN_FOREIGN_LANGUAGES,
@@ -300,7 +299,7 @@ export const members = [
     name: "Bukhanevych Artem",
     shortDesc:
       "Engineering student at the University Politehnica of Bucharest. Focused on robotics, control systems, embedded programming, and mechatronics. Experienced in microcontroller-based projects, sensors, with science fair work including a Stewart platform and a 2D plotter projects. Proficient in Python, Java, and basic web technologies, with interest in applied engineering systems.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -315,7 +314,7 @@ export const members = [
     name: "Lazăr Dragoș George",
     shortDesc:
       "Robotics enthusiast and Full-Stack Developer with a focus on Embedded Systems and UI/UX Design. Experienced in FTC robot control, autonomous navigation, and 3D engineering, with a passion for building open-source tools that seamlessly blend functionality with art.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.AUTOMATIC_CONTROL_AND_COMPUTERS,
@@ -344,7 +343,7 @@ export const members = [
     name: "Georgescu Andrei",
     shortDesc:
       "I am a first-year Systems Engineering student at the University Politehnica of Bucharest, Faculty of Automatic Control and Computers. I am passionate about robotics and embedded systems, with a strong interest in microcontrollers, sensors, and hardware–software integration. I enjoy learning through hands-on projects and experimenting with electronic systems, automation, and basic control concepts. My goal is to build a solid engineering foundation while developing practical skills in robotics and intelligent systems.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.AUTOMATIC_CONTROL_AND_COMPUTERS,
@@ -359,7 +358,7 @@ export const members = [
     name: "Ungureanu Paul - Andrei",
     shortDesc:
       "Applied sciences second year with interest in using physics, mathematics and computational tools to understand and build models for the nature that surrounds us",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SCIENCE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.SCIENCE,
@@ -374,7 +373,7 @@ export const members = [
     name: "Dochia Tudor",
     shortDesc:
       "ETTI bachelor student interested in electronics and practical systems.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.ELECTRONICS],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.ELECTRONICS_TELECOM_IT,
@@ -389,7 +388,7 @@ export const members = [
     name: "Moscaliuc Teodor",
     shortDesc:
       "Mechatronics student focused on mechanical subsystems including bogie pivot, bogie, and robotic arm work.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -410,7 +409,7 @@ export const members = [
     name: "Popa Andrei-Cristian",
     shortDesc:
       "Industrial Engineering and Robotics student contributing to software work with SLAM interests.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.INDUSTRIAL_ENGINEERING_AND_ROBOTICS,
@@ -425,7 +424,7 @@ export const members = [
     name: "Petre Emilia",
     shortDesc:
       "Engineering student contributing to communication and graphic design initiatives.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.COMMUNICATION_GRAPHIC_DESIGN],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.ENGINEERING_IN_FOREIGN_LANGUAGES,
@@ -440,7 +439,7 @@ export const members = [
     name: "Chirea Iulia",
     shortDesc:
       "Electrical Engineering student contributing to electronics activities.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.ELECTRONICS],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.ELECTRICAL_ENGINEERING,
@@ -455,7 +454,7 @@ export const members = [
     name: "Begeac Mihaela-Alexandra",
     shortDesc:
       "Mechatronics student working on mechanical subsystem development, including differential work.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -470,7 +469,7 @@ export const members = [
     name: "Stanescu Serban-Nicolae",
     shortDesc:
       "Mechatronics student contributing to hardware mechanical tasks.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -485,7 +484,7 @@ export const members = [
     name: "Tutănescu Andrei-Ioan",
     shortDesc:
       "Mechatronics student active in communication and graphic design work.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.COMMUNICATION_GRAPHIC_DESIGN],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -499,7 +498,7 @@ export const members = [
   {
     name: "Chirciu-Marinca Mihai-Alexandru",
     shortDesc: "Mechatronics student contributing to software efforts.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -513,7 +512,7 @@ export const members = [
   {
     name: "Stefan Andrei-Alexandru",
     shortDesc: "Mechatronics student and active team contributor.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -528,7 +527,7 @@ export const members = [
     name: "Albu Mara-Sanziana",
     shortDesc:
       "Mechatronics student contributing to team activities and prototyping.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -543,7 +542,7 @@ export const members = [
     name: "Ciubotariu Alice-Margareta",
     shortDesc:
       "Mechatronics student active in communication, graphic design, marketing, and PR support.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.COMMUNICATION_GRAPHIC_DESIGN],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -558,7 +557,7 @@ export const members = [
     name: "Hrabac Alex-Teodor",
     shortDesc:
       "Master student in mechatronics with work on robotic arm development.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -572,7 +571,7 @@ export const members = [
   {
     name: "Zamfirescu Mihai-Octavian",
     shortDesc: "Mechatronics student contributing to team activities.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
@@ -587,7 +586,7 @@ export const members = [
     name: "Nicola Andrei-George",
     shortDesc:
       "Automatic Control and Computer Science student contributing to electronics activities.",
-    team: [Team.PULSAR],
+    team: [TeamId.PULSAR],
     role: [Role.ELECTRONICS],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.AUTOMATIC_CONTROL_AND_COMPUTERS,
