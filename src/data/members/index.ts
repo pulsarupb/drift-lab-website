@@ -594,7 +594,7 @@ export const members = [
     shortDesc:
       "I am a Mechatronics student passionate about electronics and autonomous robots. I enjoy understanding how intelligent systems work and working on projects that combine hardware, software, and automation.",
     team: [TeamId.NOXP],
-    role: [Role.ELECTRONICS],
+    role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
     studyCycle: StudyCycle.BACHELORS,
