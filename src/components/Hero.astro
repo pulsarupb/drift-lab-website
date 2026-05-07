@@ -21,11 +21,7 @@
         <div class="cta-group">
           <a href="#teams" class="btn btn-primary">
             Teams
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              class="icon"
-            >
+            <svg viewBox="0 0 24 24" fill="none" class="icon">
               <path
                 d="M5 12H19M19 12L12 5M19 12L12 19"
                 stroke="currentColor"
@@ -38,7 +34,6 @@
           </a>
           <a href="/contact" class="btn btn-secondary">Contact</a>
         </div>
-
       </div>
     </div>
   </div>
@@ -91,8 +86,6 @@
     z-index: 0;
   }
 
-
-
   .hero-layout {
     display: flex;
     flex-direction: column;
@@ -115,7 +108,7 @@
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     font-weight: 800;
     line-height: 1;
-    margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
+    margin-bottom: 0;
     letter-spacing: -0.03em;
     color: #fff;
     position: relative;
@@ -133,7 +126,8 @@
     font-size: clamp(1rem, 2.5vw, 1.25rem);
     color: var(--color-text-muted);
     line-height: 1.5;
-    margin-bottom: clamp(1rem, 3vw, 3rem);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     max-width: 600px;
     position: relative;
     z-index: 2;
@@ -271,10 +265,6 @@
     background: rgba(255, 255, 255, 0.25);
   }
 
-
-
-
-
   @keyframes blink {
     0%,
     100% {
@@ -295,19 +285,12 @@
       gap: clamp(1.5rem, 4vw, 3rem);
     }
 
-    .subtitle {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
     .cta-group {
       justify-content: center;
       flex-wrap: nowrap;
       width: 100%;
       max-width: 500px;
     }
-
-
 
     .partner-logos {
       gap: clamp(1rem, 3vw, 2rem);
@@ -328,7 +311,6 @@
 
     .title {
       font-size: clamp(2rem, 5vw, 2.75rem);
-      margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
     }
   }
 
@@ -358,13 +340,11 @@
 
     .title {
       font-size: clamp(1.75rem, 6vw, 2.25rem);
-      margin-bottom: 0.75rem;
       line-height: 1.1;
     }
 
     .subtitle {
       font-size: clamp(0.875rem, 3vw, 1rem);
-      margin-bottom: 1.25rem;
       line-height: 1.5;
       max-width: 100%;
       padding: 0 0.5rem;
@@ -394,10 +374,6 @@
       height: 1em;
       flex-shrink: 0;
     }
-
-
-
-
 
     .partners-label {
       font-size: 0.75rem;
