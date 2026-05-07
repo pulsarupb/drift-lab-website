@@ -9,9 +9,11 @@ import petreaCostelValentinPhoto from "./photos/petrea-costel-valentin.jpeg?url"
 import roiPhoto from "./photos/roi.png?url"
 import rusuCosminConstantinPhoto from "./photos/rusu-cosmin-constantin.jpeg?url"
 import ungureanuPaulPhoto from "./photos/ungureanu-paul.jpeg?url"
+import renteaRobertPhoto from "./photos/rentea-robert.jpeg?url"
+import gealaStefanOctavianPhoto from "./photos/geala-stefan-octavian.jpeg?url"
 import { TeamId } from "../teams/index"
 
-export interface Member {
+export type Member = {
   name: string
   shortDesc: string
   team: TeamId[]
@@ -196,11 +198,15 @@ export const members = [
     birthdate: "2004-05-02",
     socialLinks: [
       {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/robert-ren%C8%9Bea-6774362b8/",
+      },
+      {
         platform: SocialPlatform.GITHUB,
         url: "https://github.com/orgs/pulsarupb/people/RoberTpp0502",
       },
     ],
-    photoUrl: null,
+    photoUrl: renteaRobertPhoto,
     isSupervisor: false,
   },
   {
@@ -213,18 +219,28 @@ export const members = [
     isSupervisor: false,
   },
   {
-    name: "Geala Stefan-Octavian",
+    name: "Geală Ștefan-Octavian",
     shortDesc:
-      "I am a Computer Science and Engineering student at the University Politehnica of Bucharest, with a focus on artificial intelligence and autonomous systems. As a member of the lab, I work on research-oriented problems involving learning, decision-making, and system design. I am motivated by rigorous thinking, experimentation, and turning theory into deployable solutions.",
+      "I am an Electronics Engineering student at the University Politehnica of Bucharest, with a focus on artificial intelligence and autonomous systems. As a member of the lab, I work on research-oriented problems involving learning, decision-making, and system design. I am motivated by rigorous thinking, experimentation, and turning theory into deployable solutions.",
     team: [TeamId.PULSAR],
-    role: [Role.ELECTRONICS, Role.MECHANICAL],
+    role: [Role.ELECTRONICS],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.ENGINEERING_IN_FOREIGN_LANGUAGES,
     studyCycle: StudyCycle.BACHELORS,
     studyYear: 1,
     country: Country.ROMANIA,
     birthdate: "2006-04-05",
-    photoUrl: null,
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/stefan-geala",
+      },
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/UnwiseGiraffeX86",
+      },
+    ],
+    photoUrl: gealaStefanOctavianPhoto,
     isSupervisor: false,
   },
   {
