@@ -417,6 +417,10 @@ export const members = [
         platform: SocialPlatform.LINKEDIN,
         url: "https://www.linkedin.com/in/teodor-moscaliuc-4aa5ba271/",
       },
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/RedKyet",
+      },
     ],
     photoUrl: moscaliucTeodorPhoto,
     isSupervisor: false,
