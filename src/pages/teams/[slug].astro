@@ -9,6 +9,7 @@ import teams, {
   TeamSocialPlatform,
   type Team,
 } from "../../data/teams/index"
+import { getPostsByTeam, postSlug } from "../../data/blog"
 import "@phosphor-icons/web/regular"
 
 export function getStaticPaths() {
@@ -21,6 +22,7 @@ export function getStaticPaths() {
 const { team } = Astro.props as { team: Team }
 
 const teamMembers = sortedMembers.filter((member) => member.team.includes(team.id))
+const teamPosts = await getPostsByTeam(team.id)
 
 const metaDescription = `${team.name}: ${team.focus}. ${teamMembers.length} active members.`
 const heroImage = team.heroImageUrl ?? team.galleryImages?.[0] ?? null
@@ -180,6 +182,30 @@ function socialIconClass(platform: TeamSocialPlatform): string {
           }
         </div>
       </section>
+
+      <section class="members-section">
+        <div class="members-section-header">
+          <h2>Team Posts</h2>
+          <p>
+            {teamPosts.length > 0
+              ? `${teamPosts.length} posts linked to this team.`
+              : "No posts linked to this team yet."}
+          </p>
+        </div>
+        {teamPosts.length > 0 ? (
+          <div class="team-posts-grid">
+            {teamPosts.map((post) => (
+              <a class="team-post-card" href={`/blog/${postSlug(post)}`}>
+                <p>{post.data.publishDate.toLocaleDateString("en-GB")}</p>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="team-posts-empty">Create a post in <code>src/data/blog</code> with <code>team: {team.id}</code>.</p>
+        )}
+      </section>
     </div>
   </main>
   <Footer />
@@ -313,6 +339,45 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   .gallery-section,
   .members-section {
     margin-top: clamp(1.8rem, 4vw, 3rem);
+  }
+
+  .team-posts-grid {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .team-post-card {
+    display: block;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .team-post-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .team-post-card h3 {
+    margin: 0.45rem 0;
+    font-size: 1rem;
+  }
+
+  .team-post-card h3 {
+    color: #fff;
+  }
+
+  .team-post-card:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+  }
+
+  .team-posts-empty {
+    margin: 0;
+    color: var(--color-text-muted);
   }
 
   h2 {

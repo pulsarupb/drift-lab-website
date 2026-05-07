@@ -1,0 +1,195 @@
+---
+import { getCollection, render } from "astro:content"
+import Layout from "../../layouts/Layout.astro"
+import Header from "../../components/Header.astro"
+import Footer from "../../components/Footer.astro"
+import {
+  getPublishedPosts,
+  postSlug,
+  resolvePostMembers,
+} from "../../data/blog"
+import { memberSlug } from "../../data/members"
+import teams, { teamDisplayName, teamSlug } from "../../data/teams"
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", (entry) => !entry.data.draft)
+
+  return posts.map((post) => ({
+    params: { slug: postSlug(post) },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+const postMembers = resolvePostMembers(post)
+const team = teams.find((entry) => entry.id === post.data.team)
+const allPosts = await getPublishedPosts()
+
+const relatedPosts = allPosts
+  .filter((entry) => entry.id !== post.id)
+  .filter((entry) => {
+    const sameTeam = entry.data.team === post.data.team
+    const hasSharedMembers = entry.data.members.some((slug) =>
+      post.data.members.includes(slug),
+    )
+    return sameTeam || hasSharedMembers
+  })
+  .slice(0, 4)
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  })
+}
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+>
+  <Header />
+  <main class="post-page">
+    <article class="container post-article">
+      <a href="/blog" class="back-link">← Back to blog</a>
+      <p class="meta">
+        {formatDate(post.data.publishDate)}
+      </p>
+      <h1>{post.data.title}</h1>
+      <p class="dek">{post.data.description}</p>
+
+      {
+        team && (
+          <p class="relations">
+            Team: <a href={`/teams/${teamSlug(team)}`}>{team.name}</a>
+          </p>
+        )
+      }
+
+      {
+        postMembers.length > 0 && (
+          <p class="relations">
+            Members:{" "}
+            {postMembers.map((member, index) => (
+              <>
+                <a href={`/members/${memberSlug(member)}`}>{member.name}</a>
+                {index < postMembers.length - 1 && <span>, </span>}
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      <div class="content">
+        <Content />
+      </div>
+
+      {
+        relatedPosts.length > 0 && (
+          <section class="related-posts">
+            <h2>Related Posts</h2>
+            <div class="related-grid">
+              {relatedPosts.map((entry) => (
+                <article class="related-card">
+                  <p>{entry.data.publishDate.toLocaleDateString("en-GB")}</p>
+                  <h3>
+                    <a href={`/blog/${postSlug(entry)}`}>{entry.data.title}</a>
+                  </h3>
+                  <p>{entry.data.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .post-page {
+    min-height: 100vh;
+    padding: calc(clamp(2rem, 4vw, 4rem) + 80px) 0 clamp(3rem, 6vw, 6rem);
+  }
+
+  .post-article {
+    max-width: 760px;
+  }
+
+  .back-link {
+    all: unset;
+    display: inline-block;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.85rem;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .back-link:hover {
+    color: #000;
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  .relations a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .meta,
+  .dek,
+  .relations {
+    color: var(--color-text-muted);
+  }
+
+  .content {
+    margin-top: 1.25rem;
+    line-height: 1.7;
+  }
+
+  .related-posts {
+    margin-top: 2rem;
+  }
+
+  .related-grid {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .related-card {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 0.9rem;
+  }
+
+  .related-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .related-card h3 {
+    margin: 0.45rem 0;
+    font-size: 1rem;
+  }
+
+  .related-card a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .content :global(p),
+  .content :global(li) {
+    color: #fff;
+  }
+</style>
