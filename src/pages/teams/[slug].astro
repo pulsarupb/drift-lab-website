@@ -121,7 +121,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
 
       {
         team.galleryImages && team.galleryImages.length > 0 && (
-          <div class="gallery-modal" data-gallery-modal hidden>
+          <div class="gallery-modal" data-gallery-modal hidden style="display: none;">
             <button
               class="gallery-modal-close"
               type="button"
@@ -481,11 +481,13 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     const openModal = (index) => {
       showImage(index)
       modal.removeAttribute("hidden")
+      modal.style.display = "grid"
       document.body.style.overflow = "hidden"
     }
 
     const closeModal = () => {
       modal.setAttribute("hidden", "")
+      modal.style.display = "none"
       document.body.style.overflow = ""
     }
 
