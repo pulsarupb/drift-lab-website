@@ -135,11 +135,9 @@ const localBusinessSchema = {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(circle at 50% 0%, black 40%, transparent 80%);
-    pointer-events: none;
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
     z-index: 0;
   }
 
@@ -156,11 +154,10 @@ const localBusinessSchema = {
     font-size: clamp(3rem, 5vw, 4rem);
     font-weight: 800;
     margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.05em;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    color: var(--color-primary);
   }
 
   .subtitle {
@@ -181,45 +178,30 @@ const localBusinessSchema = {
 
   .contact-card {
     position: relative;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border-radius: 0;
     padding: clamp(2rem, 4vw, 3rem);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--color-border);
+    transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
     gap: clamp(1.5rem, 3vw, 2rem);
   }
 
   .contact-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
   }
 
-  .card-accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.5;
-    transition: all 0.3s;
-  }
 
-  .contact-card:hover .card-accent {
-    height: 3px;
-    opacity: 1;
-    box-shadow: 0 0 20px var(--accent);
-  }
 
   .card-title {
     font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: 700;
     color: #fff;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     display: flex;
     align-items: center;
     gap: 0.75rem;

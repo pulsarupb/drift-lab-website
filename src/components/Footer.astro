@@ -65,28 +65,12 @@ function getSeparator(index: number) {
 
 <style>
   .footer {
-    background: #050508;
+    background: var(--color-bg);
     padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 4vw, 3rem);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--color-border);
     color: var(--color-text-dim);
     position: relative;
     overflow: hidden;
-  }
-
-  .footer::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(59, 130, 246, 0.5),
-      transparent
-    );
   }
 
   .footer-content {
@@ -108,7 +92,9 @@ function getSeparator(index: number) {
     font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: 700;
     margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.05em;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
   }
 
   .footer-brand p {

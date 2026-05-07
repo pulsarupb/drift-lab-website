@@ -1,37 +1,38 @@
 :root {
-  --color-bg: #030305;
-  --color-surface: #0f1016;
-  --color-surface-hover: #181920;
-  --color-surface-glass: rgba(15, 16, 22, 0.6);
-  --color-border: rgba(255, 255, 255, 0.08);
+  --color-bg: #0a0a0c;
+  --color-surface: #121215;
+  --color-surface-hover: #1a1a1f;
+  --color-surface-glass: rgba(18, 18, 21, 0.85);
+  --color-border: #333333;
 
-  --color-text-main: #ffffff;
-  --color-text-muted: #9ca3af;
-  --color-text-dim: #6b7280;
+  --color-text-main: #f3f4f6;
+  --color-text-muted: #8b8b99;
+  --color-text-dim: #555566;
 
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  --color-primary: #CCFF00;
+  --gradient-primary: linear-gradient(135deg, #CCFF00 0%, #99cc00 100%);
   --gradient-glow: conic-gradient(
     from 180deg at 50% 50%,
-    #2a8af6 0deg,
-    #a855f7 180deg,
-    #2a8af6 360deg
+    #CCFF00 0deg,
+    #ff5500 180deg,
+    #CCFF00 360deg
   );
 
-  --color-primary: #3b82f6;
-  --color-accent-pulsar: #a855f7;
-  --color-accent-bosch: #22c55e;
-  --color-accent-nxp: #f59e0b;
+  --color-accent-pulsar: #ff5500;
+  --color-accent-bosch: #00ffcc;
+  --color-accent-nxp: #ff0055;
 
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-heading: "Science Gothic", system-ui, -apple-system, sans-serif;
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 24px;
-  --radius-full: 9999px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-full: 0px;
 
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
+  --shadow-sm: 4px 4px 0px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 8px 8px 0px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 15px rgba(204, 255, 0, 0.2);
 }
 
 *,
@@ -55,16 +56,15 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  background-image: radial-gradient(
-      circle at 15% 50%,
-      rgba(59, 130, 246, 0.08) 0%,
-      transparent 25%
-    ),
-    radial-gradient(
-      circle at 85% 30%,
-      rgba(168, 85, 247, 0.08) 0%,
-      transparent 25%
-    );
+  background-color: var(--color-bg);
+}
+
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: var(--font-heading);
+  font-stretch: 120%;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 a {
@@ -99,15 +99,12 @@ button {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #fff 30%, #9ca3af 100%);
+  background: var(--gradient-primary);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-primary {
-  background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-primary);
 }
