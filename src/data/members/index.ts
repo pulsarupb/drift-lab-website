@@ -1,7 +1,9 @@
 import andreiIataganPhoto from "./photos/andrei-iatagan.jpeg?url"
 import bylazarPhoto from "./photos/bylazar.png?url"
+import constantinescuGabrielAlexandruPhoto from "./photos/constantinescu-gabriel-alexandru.jpg?url"
 import danilovCristianPhoto from "./photos/danilov-cristian.jpeg?url"
 import georgescuAndreiPhoto from "./photos/georgescu-andrei.jpeg?url"
+import moscaliucTeodorPhoto from "./photos/moscaliuc-teodor.jpg?url"
 import nisipeanuIonutPhoto from "./photos/nisipeanu-ionut.jpg?url"
 import petreaCostelValentinPhoto from "./photos/petrea-costel-valentin.jpeg?url"
 import roiPhoto from "./photos/roi.png?url"
@@ -128,6 +130,16 @@ export const members = [
       "Mechatronics Engineering final year with interest in Embedded Software and Electronics",
     team: [Team.PULSAR],
     role: [Role.LAB_RESPONSIBLE],
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/cosmin-constantin-rusu-351962249/",
+      },
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/orgs/pulsarupb/people/rusucc",
+      },
+    ],
     photoUrl: rusuCosminConstantinPhoto,
     isSupervisor: true,
   },
@@ -137,6 +149,12 @@ export const members = [
       "Mechatronics engineering student passionate about autonomous robots and manufacturing technologies.",
     team: [Team.DRIFT_LAB],
     role: [Role.LAB_LEAD],
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/andrei-iatagan-53a952252/",
+      },
+    ],
     photoUrl: andreiIataganPhoto,
     isSupervisor: true,
   },
@@ -152,7 +170,17 @@ export const members = [
     studyYear: 3,
     country: Country.ROMANIA,
     birthdate: "2003-11-08",
-    photoUrl: null,
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/alexandru-constantinescu-03856316a/",
+      },
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/Alex-C-EE",
+      },
+    ],
+    photoUrl: constantinescuGabrielAlexandruPhoto,
     isSupervisor: false,
   },
   {
@@ -167,6 +195,12 @@ export const members = [
     studyYear: 3,
     country: Country.ROMANIA,
     birthdate: "2004-05-02",
+    socialLinks: [
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/orgs/pulsarupb/people/RoberTpp0502",
+      },
+    ],
     photoUrl: null,
     isSupervisor: false,
   },
@@ -200,6 +234,16 @@ export const members = [
       "I am a senior software engineer, researcher, and student at Universitatea Politehnica din București (UPB) – FILS, with a strong interest in intelligent systems, robotics software, and applied machine learning. My work focuses on designing and building efficient, scalable software that connects theory with real-world engineering challenges.\n\nI have contributed to multiple research papers in the field of machine learning and have hands-on experience developing complex systems that combine algorithms, automation, and modern software architectures. Alongside my academic activity, I have worked on a wide range of production-level projects, from full-stack platforms to embedded-adjacent systems, always emphasizing performance, reliability, and clean design.\n\nWithin a robotics club environment, I am particularly interested in autonomous systems, control logic, data-driven decision-making, and the software layers that enable robots to interact intelligently with their environment. I enjoy collaborating in multidisciplinary teams, sharing knowledge, and turning ambitious ideas into functional, well-engineered solutions.",
     team: [Team.TECHTRAX],
     role: [Role.SOFTWARE, Role.RESEARCH],
+    socialLinks: [
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/orgs/pulsarupb/people/Nasapan23",
+      },
+      {
+        platform: SocialPlatform.PORTFOLIO_WEBSITE,
+        url: "https://nisipeanutech.ro/",
+      },
+    ],
     photoUrl: nisipeanuIonutPhoto,
     isSupervisor: false,
   },
@@ -239,6 +283,16 @@ export const members = [
     studyYear: 3,
     country: Country.UKRAINE,
     birthdate: "2005-06-28",
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/roi-bachynskyi-311a95325/",
+      },
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/orgs/pulsarupb/people/frihetselsker",
+      },
+    ],
     photoUrl: roiPhoto,
     isSupervisor: false,
   },
@@ -343,7 +397,13 @@ export const members = [
     studyYear: 1,
     country: Country.ROMANIA,
     birthdate: "2006-07-19",
-    photoUrl: null,
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/teodor-moscaliuc-4aa5ba271/",
+      },
+    ],
+    photoUrl: moscaliucTeodorPhoto,
     isSupervisor: false,
   },
   {
