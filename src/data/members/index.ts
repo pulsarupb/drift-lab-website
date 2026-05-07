@@ -162,7 +162,7 @@ export const members = [
     shortDesc:
       "Industrial Engineering Student passionate about Power Electronics and Embedded Systems, with a particular passion for control theory and system modelling",
     team: [TeamId.PULSAR, TeamId.TECHTRAX],
-    role: [Role.ELECTRONICS, Role.MECHANICAL],
+    role: [Role.ELECTRONICS, Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.INDUSTRIAL_ENGINEERING_AND_ROBOTICS,
     studyCycle: StudyCycle.BACHELORS,

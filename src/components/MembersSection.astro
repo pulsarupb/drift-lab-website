@@ -1,7 +1,6 @@
 ---
 import { sortedMembers } from "../data/members/index"
 import MemberCard from "./MemberCard.astro"
-import "@phosphor-icons/web/regular"
 ---
 
 <section id="members" class="members-section">
@@ -20,7 +19,9 @@ import "@phosphor-icons/web/regular"
             member={member}
             variant="big"
             roleColor="#ff5500"
-            nearbyName={sortedMembers[index % 2 === 0 ? index + 1 : index - 1]?.name}
+            nearbyName={
+              sortedMembers[index % 2 === 0 ? index + 1 : index - 1]?.name
+            }
           />
         ))
       }

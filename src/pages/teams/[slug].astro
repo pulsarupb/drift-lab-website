@@ -98,16 +98,65 @@ function socialIconClass(platform: TeamSocialPlatform): string {
             <h2>Gallery</h2>
             <div class="gallery-grid">
               {team.galleryImages.map((image, index) => (
-                <img
-                  src={image}
-                  alt={`${team.name} gallery image ${index + 1}`}
-                  loading="lazy"
-                  width="700"
-                  height="394"
-                />
+                <button
+                  class="gallery-item"
+                  type="button"
+                  data-gallery-item
+                  data-index={index}
+                  aria-label={`Open ${team.name} gallery image ${index + 1}`}
+                >
+                  <img
+                    src={image}
+                    alt={`${team.name} gallery image ${index + 1}`}
+                    loading="lazy"
+                    width="700"
+                    height="394"
+                  />
+                </button>
               ))}
             </div>
           </section>
+        )
+      }
+
+      {
+        team.galleryImages && team.galleryImages.length > 0 && (
+          <div class="gallery-modal" data-gallery-modal hidden>
+            <button
+              class="gallery-modal-close"
+              type="button"
+              aria-label="Close gallery"
+              data-gallery-close
+            >
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+            <button
+              class="gallery-nav gallery-nav-prev"
+              type="button"
+              aria-label="Previous photo"
+              data-gallery-prev
+            >
+              <i class="ph ph-caret-left" aria-hidden="true"></i>
+            </button>
+            <figure class="gallery-modal-figure">
+              <img
+                class="gallery-modal-image"
+                data-gallery-image
+                src=""
+                alt=""
+                width="1400"
+                height="788"
+              />
+            </figure>
+            <button
+              class="gallery-nav gallery-nav-next"
+              type="button"
+              aria-label="Next photo"
+              data-gallery-next
+            >
+              <i class="ph ph-caret-right" aria-hidden="true"></i>
+            </button>
+          </div>
         )
       }
 
@@ -281,12 +330,107 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     gap: 0.75rem;
   }
 
-  .gallery-grid img {
+  .gallery-item {
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .gallery-item:hover {
+    border-color: var(--team-accent);
+  }
+
+  .gallery-item img {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.03);
+  }
+
+  .gallery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(6, 6, 10, 0.9);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: clamp(0.8rem, 2vw, 1.5rem);
+  }
+
+  .gallery-modal[hidden] {
+    display: none !important;
+  }
+
+  .gallery-modal-figure {
+    margin: 0;
+    width: 100%;
+    max-width: min(92vw, 1300px);
+    justify-self: center;
+  }
+
+  .gallery-modal-image {
+    width: 100%;
+    max-height: 86vh;
+    object-fit: contain;
     border: 1px solid var(--color-border);
-    background: var(--color-surface);
+    background: #09090d;
+  }
+
+  .gallery-nav,
+  .gallery-modal-close {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--color-border);
+    background: rgba(12, 12, 18, 0.92);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .gallery-nav:hover,
+  .gallery-modal-close:hover {
+    border-color: var(--team-accent);
+    color: var(--team-accent);
+  }
+
+  .gallery-modal-close {
+    position: absolute;
+    top: clamp(0.75rem, 2vw, 1.25rem);
+    right: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  @media (max-width: 720px) {
+    .gallery-modal {
+      grid-template-columns: 1fr 1fr;
+      justify-items: stretch;
+      gap: 1rem;
+    }
+
+    .gallery-modal-figure {
+      grid-column: 1 / -1;
+    }
+
+    .gallery-nav-prev {
+      grid-column: 1;
+      justify-self: start;
+    }
+
+    .gallery-nav-next {
+      grid-column: 2;
+      justify-self: end;
+    }
   }
 
   .members-section-header p {
@@ -310,3 +454,58 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     }
   }
 </style>
+
+<script>
+  const modal = document.querySelector("[data-gallery-modal]")
+  const modalImage = document.querySelector("[data-gallery-image]")
+  const closeButton = document.querySelector("[data-gallery-close]")
+  const prevButton = document.querySelector("[data-gallery-prev]")
+  const nextButton = document.querySelector("[data-gallery-next]")
+  const galleryItems = Array.from(document.querySelectorAll("[data-gallery-item]"))
+
+  if (modal && modalImage && galleryItems.length > 0) {
+    const images = galleryItems
+      .map((item) => item.querySelector("img"))
+      .filter((img) => img instanceof HTMLImageElement)
+
+    let currentIndex = 0
+
+    const showImage = (index) => {
+      if (images.length === 0) return
+      currentIndex = (index + images.length) % images.length
+      const source = images[currentIndex]
+      modalImage.src = source.currentSrc || source.src
+      modalImage.alt = source.alt
+    }
+
+    const openModal = (index) => {
+      showImage(index)
+      modal.removeAttribute("hidden")
+      document.body.style.overflow = "hidden"
+    }
+
+    const closeModal = () => {
+      modal.setAttribute("hidden", "")
+      document.body.style.overflow = ""
+    }
+
+    galleryItems.forEach((item, index) => {
+      item.addEventListener("click", () => openModal(index))
+    })
+
+    prevButton?.addEventListener("click", () => showImage(currentIndex - 1))
+    nextButton?.addEventListener("click", () => showImage(currentIndex + 1))
+    closeButton?.addEventListener("click", closeModal)
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal()
+    })
+
+    document.addEventListener("keydown", (event) => {
+      if (modal.hasAttribute("hidden")) return
+      if (event.key === "Escape") closeModal()
+      if (event.key === "ArrowLeft") showImage(currentIndex - 1)
+      if (event.key === "ArrowRight") showImage(currentIndex + 1)
+    })
+  }
+</script>
