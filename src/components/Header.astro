@@ -5,9 +5,9 @@
 <header class="header">
   <div class="header-inner">
     <a href="/" class="logo">
-      <img 
-        src="/drift.svg" 
-        alt="Drift Lab - Autonomous Vehicles Research Laboratory" 
+      <img
+        src="/drift-wide.svg"
+        alt="Drift Lab - Autonomous Vehicles Research Laboratory"
         class="logo-img"
         width="32"
         height="32"
@@ -52,7 +52,7 @@
         e.preventDefault()
         window.scrollTo({
           top: 0,
-          behavior: "smooth"
+          behavior: "smooth",
         })
       }
 
@@ -60,18 +60,21 @@
         e.preventDefault()
         const targetId = href.substring(1)
         const targetElement = document.getElementById(targetId)
-        
+
         if (targetElement) {
           const headerHeight = 80 // Approximate header height
-          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight
-          
+          const targetPosition =
+            targetElement.getBoundingClientRect().top +
+            window.pageYOffset -
+            headerHeight
+
           window.scrollTo({
             top: targetPosition,
-            behavior: "smooth"
+            behavior: "smooth",
           })
         }
       }
-      
+
       // Close mobile menu
       nav?.classList.remove("active")
       toggle?.classList.remove("active")

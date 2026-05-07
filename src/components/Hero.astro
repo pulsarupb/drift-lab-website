@@ -41,6 +41,12 @@ import Rectorat from "./Rectorat.astro"
     </div>
   </div>
 
+  <div class="hero-vehicles" aria-hidden="true">
+    <img class="vehicle vehicle-car" src="/car.svg" alt="" loading="eager" />
+    <img class="vehicle vehicle-rover" src="/rover.svg" alt="" loading="eager" />
+    <img class="vehicle vehicle-drone" src="/drone.svg" alt="" loading="eager" />
+  </div>
+
   <div class="partners-strip">
     <span class="partners-label">Supported by:</span>
     <div class="partner-logos">
@@ -156,6 +162,41 @@ import Rectorat from "./Rectorat.astro"
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+  }
+
+  .hero-vehicles {
+    position: absolute !important;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .vehicle {
+    position: absolute !important;
+    display: block;
+    width: clamp(80px, 11vw, 140px);
+    height: auto;
+    object-fit: contain;
+    opacity: 0.22;
+    filter: grayscale(1) contrast(120%);
+  }
+
+  .vehicle-car {
+    left: clamp(0.5rem, 4vw, 4rem);
+    top: clamp(20%, 26vh, 30%);
+    transform: rotate(-18deg);
+  }
+
+  .vehicle-rover {
+    right: clamp(0.5rem, 4vw, 4rem);
+    top: clamp(22%, 28vh, 34%);
+    transform: rotate(16deg);
+  }
+
+  .vehicle-drone {
+    right: clamp(0.75rem, 6vw, 6rem);
+    bottom: clamp(16%, 18vh, 24%);
+    transform: rotate(10deg);
   }
 
   .cta-group {
@@ -377,6 +418,26 @@ import Rectorat from "./Rectorat.astro"
       width: 100%;
       max-width: 100%;
       padding: 0 0.5rem;
+    }
+
+    .vehicle {
+      width: clamp(62px, 16vw, 90px);
+      opacity: 0.16;
+    }
+
+    .vehicle-car {
+      left: -0.25rem;
+      top: 24%;
+    }
+
+    .vehicle-rover {
+      right: -0.25rem;
+      top: 30%;
+    }
+
+    .vehicle-drone {
+      right: 0.2rem;
+      bottom: 26%;
     }
 
     .btn {
