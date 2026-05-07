@@ -138,7 +138,7 @@ export const members = [
       },
       {
         platform: SocialPlatform.GITHUB,
-        url: "https://github.com/orgs/pulsarupb/people/rusucc",
+        url: "https://github.com/rusucc",
       },
     ],
     photoUrl: rusuCosminConstantinPhoto,
@@ -203,7 +203,7 @@ export const members = [
       },
       {
         platform: SocialPlatform.GITHUB,
-        url: "https://github.com/orgs/pulsarupb/people/RoberTpp0502",
+        url: "https://github.com/RoberTpp0502",
       },
     ],
     photoUrl: renteaRobertPhoto,
@@ -252,7 +252,7 @@ export const members = [
     socialLinks: [
       {
         platform: SocialPlatform.GITHUB,
-        url: "https://github.com/orgs/pulsarupb/people/Nasapan23",
+        url: "https://github.com/Nasapan23",
       },
       {
         platform: SocialPlatform.PORTFOLIO_WEBSITE,
@@ -305,7 +305,7 @@ export const members = [
       },
       {
         platform: SocialPlatform.GITHUB,
-        url: "https://github.com/orgs/pulsarupb/people/frihetselsker",
+        url: "https://github.com/frihetselsker",
       },
     ],
     photoUrl: roiPhoto,
