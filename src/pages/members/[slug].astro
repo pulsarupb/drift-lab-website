@@ -4,7 +4,7 @@ import members, { memberSlug, mockMemberPhotoUrl } from "../../data/members/inde
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { SocialPlatform } from "../../data/members/index";
-import { teamDisplayName } from "../../data/teams/index";
+import teams, { teamDisplayName, teamSlug } from "../../data/teams/index";
 import "@phosphor-icons/web/regular";
 
 export function getStaticPaths() {
@@ -49,6 +49,18 @@ const details = [
   { label: "Birthdate", value: formatDate(member.birthdate) },
 ].filter((detail) => detail.value);
 
+const memberTeamLinks = member.team
+  .map((teamId) => {
+    const team = teams.find((entry) => entry.id === teamId);
+    if (!team) return null;
+
+    return {
+      label: teamDisplayName(teamId),
+      href: `/teams/${teamSlug(team)}`,
+    };
+  })
+  .filter(Boolean);
+
 function socialIconClass(platform: SocialPlatform): string {
   if (platform === SocialPlatform.GITHUB) return "ph ph-github-logo";
   if (platform === SocialPlatform.LINKEDIN) return "ph ph-linkedin-logo";
@@ -83,7 +95,20 @@ function socialIconClass(platform: SocialPlatform): string {
             {details.map((detail) => (
               <div class="detail-item">
                 <dt>{detail.label}</dt>
-                <dd>{detail.value}</dd>
+                <dd>
+                  {detail.label === "Team" || detail.label === "Teams" ? (
+                    <span class="team-links">
+                      {memberTeamLinks.map((teamLink, index) => (
+                        <>
+                          <a href={teamLink!.href} class="team-link">{teamLink!.label}</a>
+                          {index < memberTeamLinks.length - 1 && <span>, </span>}
+                        </>
+                      ))}
+                    </span>
+                  ) : (
+                    detail.value
+                  )}
+                </dd>
               </div>
             ))}
           </dl>
@@ -170,7 +195,7 @@ function socialIconClass(platform: SocialPlatform): string {
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: #fff;
     font-family: var(--font-heading);
   }
 
@@ -260,6 +285,21 @@ function socialIconClass(platform: SocialPlatform): string {
     line-height: 1.45;
     font-family: var(--font-heading);
     text-transform: uppercase;
+  }
+
+  .team-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    border: 1px solid transparent;
+    padding: 0.08rem 0.35rem;
+    margin: 0 -0.15rem;
+    transition: all 0.2s ease;
+  }
+
+  .team-link:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: #000;
   }
 
   @media (max-width: 900px) {
