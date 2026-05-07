@@ -13,7 +13,7 @@ interface Props {
 const { 
 	title, 
 	description = "Drift Lab - Pioneering the next generation of self-driving technology through student-led innovation at CAMPUS Research Institute, Politehnica University of Bucharest.",
-	image = "https://driftlab.ro/drift-logo.png",
+	image = "https://driftlab.ro/drift.svg",
 	type = "website",
 	noindex = false
 } = Astro.props;
@@ -29,7 +29,7 @@ const organizationSchema = {
 	"name": "Drift Lab",
 	"alternateName": "Drift Laboratory",
 	"url": siteUrl,
-	"logo": `${siteUrl}/drift-logo.png`,
+		"logo": `${siteUrl}/drift.svg`,
 	"description": "Autonomous Vehicles Research Laboratory at CAMPUS Research Institute",
 	"address": {
 		"@type": "PostalAddress",
@@ -80,8 +80,8 @@ const websiteSchema = {
 		<link rel="canonical" href={canonicalURL} />
 		
 		<!-- Favicon -->
-		<link rel="icon" type="image/png" href="/drift-logo.png" />
-		<link rel="apple-touch-icon" href="/drift-logo.png" />
+		<link rel="icon" type="image/svg+xml" href="/drift.svg" />
+		<link rel="apple-touch-icon" href="/drift.svg" />
 		
 		<!-- Theme Color -->
 		<meta name="theme-color" content="#030305" />
@@ -112,7 +112,7 @@ const websiteSchema = {
 		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Science+Gothic:wdth,wght@50..200,300..900&display=swap" rel="stylesheet" />
 		
 		<!-- Preload critical resources -->
-		<link rel="preload" href="/drift-logo.png" as="image" />
+		<link rel="preload" href="/drift.svg" as="image" />
 		
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
