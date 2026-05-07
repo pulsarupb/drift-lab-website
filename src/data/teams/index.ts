@@ -27,7 +27,7 @@ export enum TeamId {
 export enum TeamFocus {
   EUROPEAN_ROVER_CHALLENGE = "ERC Competition",
   BFMC_COMPETITION = "BFMC Competition",
-  NXP_CUP_COMPETITION = "NXP Cup Competition",
+  NXP_CUP_COMPETITION = "NXP Cup",
 }
 
 export enum TeamColor {
