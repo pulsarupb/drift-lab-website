@@ -1,0 +1,257 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import members, { memberSlug, mockMemberPhotoUrl } from "../../data/members/index";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SocialPlatform } from "../../data/members/index";
+import "@phosphor-icons/web/regular";
+
+export function getStaticPaths() {
+  return members.map((member) => ({
+    params: { slug: memberSlug(member) },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props;
+
+const metaDescription = `${member.name} - ${member.role.join(", ")} at ${member.team.join(", ")}.`;
+const image = member.photoUrl ?? mockMemberPhotoUrl;
+
+function formatDate(date: string | undefined): string | null {
+  if (!date) return null;
+
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) return date;
+
+  return parsed.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+const details = [
+  { label: "Team", value: member.team.join(", ") },
+  { label: "Role", value: member.role.join(", ") },
+  { label: "University", value: member.university ?? null },
+  { label: "Faculty", value: member.faculty ?? null },
+  { label: "Study Cycle", value: member.studyCycle ?? null },
+  { label: "Study Year", value: member.studyYear ? `Year ${member.studyYear}` : null },
+  { label: "Country", value: member.country ?? null },
+  { label: "Birthdate", value: formatDate(member.birthdate) },
+].filter((detail) => detail.value);
+
+function socialIconClass(platform: SocialPlatform): string {
+  if (platform === SocialPlatform.GITHUB) return "ph ph-github-logo";
+  if (platform === SocialPlatform.LINKEDIN) return "ph ph-linkedin-logo";
+  return "ph ph-globe";
+}
+---
+
+<Layout title={member.name} description={metaDescription} image={image} type="profile">
+  <Header />
+  <main class="member-page">
+    <div class="container">
+      <a href="/#members" class="back-link">← Back to members</a>
+
+      <article class="member-profile">
+        <div class="photo-column">
+          <img
+            src={image}
+            alt={`${member.name} portrait`}
+            class="profile-photo"
+            width="520"
+            height="520"
+          />
+        </div>
+
+        <div class="content-column">
+          <p class="eyebrow">Member Profile</p>
+          <h1>{member.name}</h1>
+          <p class="bio">{member.shortDesc}</p>
+
+          <dl class="details-grid">
+            {details.map((detail) => (
+              <div class="detail-item">
+                <dt>{detail.label}</dt>
+                <dd>{detail.value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          {member.socialLinks && member.socialLinks.length > 0 && (
+            <section class="socials">
+              <h2>Social Links</h2>
+              <ul>
+                {member.socialLinks.map((link) => (
+                  <li>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link">
+                      <i class={socialIconClass(link.platform)} aria-hidden="true"></i>
+                      <span>{link.platform}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      </article>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .member-page {
+    min-height: 100vh;
+    padding: clamp(2rem, 4vw, 4rem) 0 clamp(3rem, 6vw, 6rem);
+    background:
+      radial-gradient(circle at 85% 15%, rgba(255, 100, 80, 0.16), transparent 40%),
+      radial-gradient(circle at 15% 85%, rgba(100, 160, 255, 0.14), transparent 38%),
+      var(--color-bg);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.85rem;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-text-main);
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .member-profile {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    grid-template-columns: minmax(260px, 420px) 1fr;
+    background: rgba(10, 10, 14, 0.85);
+    border: 1px solid var(--color-border);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
+    padding: clamp(1.2rem, 2.5vw, 2.2rem);
+  }
+
+  .photo-column {
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .profile-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .eyebrow {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  h1 {
+    margin: 0.65rem 0 1rem;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-family: var(--font-heading);
+    color: var(--color-text-main);
+  }
+
+  .bio {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    white-space: pre-line;
+    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  }
+
+  .details-grid {
+    margin: 1.5rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .socials {
+    margin-top: 1.5rem;
+  }
+
+  .socials h2 {
+    margin: 0 0 0.8rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+  }
+
+  .socials ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.01);
+    transition: all 0.2s ease;
+  }
+
+  .social-link:hover {
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .social-link i {
+    font-size: 1rem;
+  }
+
+  .detail-item {
+    margin: 0;
+    border: 1px solid var(--color-border);
+    padding: 0.7rem 0.85rem;
+    background: rgba(255, 255, 255, 0.01);
+  }
+
+  dt {
+    margin: 0;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+  }
+
+  dd {
+    margin: 0.3rem 0 0;
+    color: var(--color-text-main);
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 900px) {
+    .member-profile {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
