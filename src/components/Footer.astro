@@ -6,11 +6,6 @@ const contributors = [
     name: "Lazăr",
     url: "https://bylasza.com",
   },
-  //{
-  //  name: "other contributors",
-  //  url: "#",
-  //},
-  // Add more contributors here if needed
 ]
 
 function getSeparator(index: number) {
@@ -25,39 +20,46 @@ function getSeparator(index: number) {
 
 <footer class="footer">
   <div class="container footer-content">
-    <div class="footer-main">
+    <div class="footer-top">
       <div class="footer-brand">
         <h3>Drift Lab</h3>
         <p>Autonomous Vehicles Research at CAMPUS Institute</p>
       </div>
-      <div class="footer-social">
-        <!-- Add social placeholders or keep links minimal -->
-      </div>
+      
       <div class="footer-nav">
-        <a href="/" class="footer-link">Home</a>
-        <a href="/#teams" class="footer-link">Teams</a>
-        <a href="/contact" class="footer-link">Contact</a>
+        <div class="nav-col">
+          <span class="nav-title">Navigation</span>
+          <a href="/" class="footer-link">Home</a>
+          <a href="/#teams" class="footer-link">Teams</a>
+          <a href="/contact" class="footer-link">Contact</a>
+        </div>
+        <div class="nav-col">
+          <span class="nav-title">Social</span>
+          <a href="https://www.instagram.com/drift.upb/" target="_blank" class="footer-link"><i class="ph ph-instagram-logo"></i> Instagram</a>
+          <a href="https://www.linkedin.com/company/drift-lab-team/posts/?feedView=all" target="_blank" class="footer-link"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>
+        </div>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>
-        &copy; {currentYear} Drift Lab. <span class="dim">
-          Created with <span aria-label="love">❤</span>
-          by {
+      <div class="footer-info">
+        <span class="copyright">&copy; {currentYear} Drift Lab</span>
+        <span class="separator">|</span>
+        <span class="affiliation">Politehnica București</span>
+      </div>
+      <div class="footer-dev">
+        <span class="dim">
+          Built with <span aria-label="love">❤</span> by
+          {
             contributors.map((c, index) => (
               <>
-                <a href={c.url} class="footer-link" target="_blank">
+                <a href={c.url} class="dev-link" target="_blank">
                   {c.name}
-                </a>{" "}
-                {getSeparator(index)}
+                </a>{getSeparator(index)}
               </>
             ))
-          }.
+          }
         </span>
-      </p>
-      <div class="footer-logos">
-        <span class="logo-text">Politehnica București</span>
       </div>
     </div>
   </div>
@@ -66,9 +68,7 @@ function getSeparator(index: number) {
 <style>
   .footer {
     background: var(--color-bg);
-    padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 4vw, 3rem);
     border-top: 1px solid var(--color-border);
-    color: var(--color-text-dim);
     position: relative;
     overflow: hidden;
   }
@@ -76,97 +76,202 @@ function getSeparator(index: number) {
   .footer-content {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
   }
 
-  .footer-main {
+  .footer-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 3rem;
+    padding: clamp(4rem, 6vw, 6rem) 0;
+  }
+
+  .footer-brand {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .footer-brand h3 {
     color: var(--color-text-main);
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.05em;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin: 0;
+    line-height: 1;
     font-family: var(--font-heading);
     text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .footer-brand p {
-    font-size: clamp(0.875rem, 2vw, 0.95rem);
+    font-size: 0.95rem;
     color: var(--color-text-muted);
+    font-family: var(--font-body);
+    margin: 0;
   }
 
   .footer-nav {
     display: flex;
-    gap: 2rem;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-title {
+    font-family: var(--font-heading);
+    color: var(--color-text-main);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
   }
 
   .footer-link {
     color: var(--color-text-muted);
-    transition: color 0.2s;
     font-size: 0.95rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    transition: color 0.2s ease;
+    padding: 0.25rem 0.5rem;
+    margin-left: -0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .footer-link i {
+    font-size: 1.1rem;
+  }
+
+  .footer-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+    z-index: -1;
   }
 
   .footer-link:hover {
-    color: var(--color-primary);
+    color: var(--color-bg);
+  }
+
+  .footer-link:hover::before {
+    transform: scaleX(1);
   }
 
   .footer-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-border);
     font-size: 0.85rem;
+    font-family: var(--font-body);
+    color: var(--color-text-dim);
     flex-wrap: wrap;
     gap: 1rem;
   }
 
-  .dim {
-    color: var(--color-text-dim);
-    opacity: 0.4;
+  .footer-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .logo-text {
+  .separator {
+    color: var(--color-border);
+  }
+
+  .affiliation {
+    color: var(--color-text-muted);
+  }
+
+  .footer-dev {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .dim {
+    color: var(--color-text-dim);
     opacity: 0.6;
+  }
+
+  .dev-link {
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+    padding: 0.1rem 0.3rem;
     font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dev-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+    z-index: -1;
+  }
+
+  .dev-link:hover {
+    color: var(--color-bg);
+  }
+
+  .dev-link:hover::before {
+    transform: scaleX(1);
   }
 
   @media (max-width: 768px) {
-    .footer-main {
+    .footer-top {
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 2rem;
+      gap: 3rem;
     }
 
     .footer-nav {
-      flex-direction: column;
-      gap: 1rem;
+      width: 100%;
     }
   }
 
-  @media (max-width: 600px) {
-    .footer-main,
-    .footer-bottom {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
+  @media (max-width: 480px) {
     .footer-nav {
       flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
       gap: 1rem;
     }
-
-    .footer-bottom {
-      font-size: clamp(0.75rem, 2vw, 0.85rem);
+    
+    .footer-info {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    
+    .separator {
+      display: none;
     }
   }
 </style>
