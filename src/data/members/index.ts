@@ -3,6 +3,7 @@ import bylazarPhoto from "./photos/bylazar.png?url"
 import constantinescuGabrielAlexandruPhoto from "./photos/constantinescu-gabriel-alexandru.jpg?url"
 import danilovCristianPhoto from "./photos/danilov-cristian.jpeg?url"
 import georgescuAndreiPhoto from "./photos/georgescu-andrei.jpeg?url"
+import mihaiZamfirescuPhoto from "./photos/mihai-zamfirescu.jpeg?url"
 import moscaliucTeodorPhoto from "./photos/moscaliuc-teodor.jpg?url"
 import nisipeanuIonutPhoto from "./photos/nisipeanu-ionut.jpg?url"
 import petreaCostelValentinPhoto from "./photos/petrea-costel-valentin.jpeg?url"
@@ -590,16 +591,23 @@ export const members = [
   },
   {
     name: "Zamfirescu Mihai-Octavian",
-    shortDesc: "Mechatronics student contributing to team activities.",
-    team: [TeamId.PULSAR],
-    role: [Role.MECHANICAL],
+    shortDesc:
+      "I am a Mechatronics student passionate about electronics and autonomous robots. I enjoy understanding how intelligent systems work and working on projects that combine hardware, software, and automation.",
+    team: [TeamId.NOXP],
+    role: [Role.ELECTRONICS],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
     studyCycle: StudyCycle.BACHELORS,
     studyYear: 2,
     country: Country.ROMANIA,
     birthdate: "2005-09-14",
-    photoUrl: null,
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/mihai-zamfirescu13",
+      },
+    ],
+    photoUrl: mihaiZamfirescuPhoto,
     isSupervisor: false,
   },
   {
