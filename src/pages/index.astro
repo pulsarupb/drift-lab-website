@@ -3,9 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import TeamsSection from '../components/TeamsSection.astro';
+import SponsorsSection from '../components/SponsorsSection.astro';
 import MembersSection from '../components/MembersSection.astro';
 import Footer from '../components/Footer.astro';
-import membersData from '../data/members.json';
+import { sortedMembers } from '../data/members/index';
+import { teamDisplayName } from '../data/teams/index';
 
 const siteUrl = "https://driftlab.ro";
 
@@ -20,13 +22,13 @@ const researchProjectSchema = {
 		"@type": "Organization",
 		"name": "CAMPUS Research Institute"
 	},
-	"member": membersData.map((member) => ({
+	"member": sortedMembers.map((member) => ({
 		"@type": "Person",
 		"name": member.name,
-		"jobTitle": member.role,
+		"jobTitle": member.role.join(', '),
 		"memberOf": {
 			"@type": "Organization",
-			"name": member.team
+			"name": member.team.map(teamDisplayName).join(', ')
 		}
 	}))
 };
@@ -35,7 +37,7 @@ const researchProjectSchema = {
 <Layout 
 	title="Home"
 	description="Drift Lab - Pioneering the next generation of self-driving technology through student-led innovation at CAMPUS Research Institute, Politehnica University of Bucharest."
-	image={`${siteUrl}/drift-logo.png`}
+	image={`${siteUrl}/drift.svg`}
 	type="website"
 >
 	<script type="application/ld+json" set:html={JSON.stringify(researchProjectSchema)} />
@@ -43,6 +45,7 @@ const researchProjectSchema = {
 	<main>
 		<Hero />
 		<TeamsSection />
+		<SponsorsSection />
 		<MembersSection />
 	</main>
 	<Footer />

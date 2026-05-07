@@ -1,0 +1,578 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Header from "../../components/Header.astro"
+import Footer from "../../components/Footer.astro"
+import MemberCard from "../../components/MemberCard.astro"
+import { sortedMembers } from "../../data/members/index"
+import teams, {
+  teamSlug,
+  TeamSocialPlatform,
+  type Team,
+} from "../../data/teams/index"
+import { getPostsByTeam, postSlug } from "../../data/blog"
+import "@phosphor-icons/web/regular"
+
+export function getStaticPaths() {
+  return teams.map((team) => ({
+    params: { slug: teamSlug(team) },
+    props: { team },
+  }))
+}
+
+const { team } = Astro.props as { team: Team }
+
+const teamMembers = sortedMembers.filter((member) => member.team.includes(team.id))
+const teamPosts = await getPostsByTeam(team.id)
+
+const metaDescription = `${team.name}: ${team.focus}. ${teamMembers.length} active members.`
+const heroImage = team.heroImageUrl ?? team.galleryImages?.[0] ?? null
+
+function socialIconClass(platform: TeamSocialPlatform): string {
+  if (platform === TeamSocialPlatform.GITHUB) return "ph ph-github-logo"
+  return "ph ph-instagram-logo"
+}
+
+---
+
+<Layout
+  title={`${team.name} Team`}
+  description={metaDescription}
+  image={heroImage}
+  type="website"
+>
+  <Header />
+  <main class="team-page" style={`--team-accent: ${team.color}`}>
+    <div class="container">
+      <a href="/#teams" class="back-link">← Back to teams</a>
+
+      <section class="hero-card">
+        {
+          heroImage && (
+            <img
+              src={heroImage}
+              alt={`${team.name} team highlight`}
+              class="hero-image"
+              width="1400"
+              height="788"
+            />
+          )
+        }
+        <div class="hero-content">
+          <span class="badge">{team.focus}</span>
+          <h1>{team.name}</h1>
+          <p>{team.description}</p>
+          <div class="stats-row">
+            <div class="stat-item">
+              <span class="stat-label">Members</span>
+              <span class="stat-value">{teamMembers.length}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Specialization</span>
+              <span class="stat-value">{team.focus}</span>
+            </div>
+          </div>
+          {
+            team.socialLinks.length > 0 && (
+              <div class="socials">
+                {team.socialLinks.map((link) => (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link"
+                  >
+                    <i
+                      class={socialIconClass(link.platform)}
+                      aria-hidden="true"
+                    />
+                    <span>{link.platform}</span>
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </section>
+
+      {
+        team.galleryImages && team.galleryImages.length > 0 && (
+          <section class="gallery-section">
+            <h2>Gallery</h2>
+            <div class="gallery-grid">
+              {team.galleryImages.map((image, index) => (
+                <button
+                  class="gallery-item"
+                  type="button"
+                  data-gallery-item
+                  data-index={index}
+                  aria-label={`Open ${team.name} gallery image ${index + 1}`}
+                >
+                  <img
+                    src={image}
+                    alt={`${team.name} gallery image ${index + 1}`}
+                    loading="lazy"
+                    width="700"
+                    height="394"
+                  />
+                </button>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        team.galleryImages && team.galleryImages.length > 0 && (
+          <div class="gallery-modal" data-gallery-modal hidden style="display: none;">
+            <button
+              class="gallery-modal-close"
+              type="button"
+              aria-label="Close gallery"
+              data-gallery-close
+            >
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+            <button
+              class="gallery-nav gallery-nav-prev"
+              type="button"
+              aria-label="Previous photo"
+              data-gallery-prev
+            >
+              <i class="ph ph-caret-left" aria-hidden="true"></i>
+            </button>
+            <figure class="gallery-modal-figure">
+              <img
+                class="gallery-modal-image"
+                data-gallery-image
+                src=""
+                alt=""
+                width="1400"
+                height="788"
+              />
+            </figure>
+            <button
+              class="gallery-nav gallery-nav-next"
+              type="button"
+              aria-label="Next photo"
+              data-gallery-next
+            >
+              <i class="ph ph-caret-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        )
+      }
+
+      <section class="members-section">
+        <div class="members-section-header">
+          <h2>Team Members</h2>
+          <p>
+            {teamMembers.length} contributors currently listed in this team.
+          </p>
+        </div>
+        <div class="members-grid">
+          {
+            teamMembers.map((member, index) => (
+              <MemberCard
+                member={member}
+                variant="small"
+                roleColor="var(--team-accent)"
+                nearbyName={teamMembers[index % 2 === 0 ? index + 1 : index - 1]?.name}
+              />
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="members-section">
+        <div class="members-section-header">
+          <h2>Team Posts</h2>
+          <p>
+            {teamPosts.length > 0
+              ? `${teamPosts.length} posts linked to this team.`
+              : "No posts linked to this team yet."}
+          </p>
+        </div>
+        {teamPosts.length > 0 ? (
+          <div class="team-posts-grid">
+            {teamPosts.map((post) => (
+              <a class="team-post-card" href={`/blog/${postSlug(post)}`}>
+                <p>{post.data.publishDate.toLocaleDateString("en-GB")}</p>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="team-posts-empty">Create a post in <code>src/data/blog</code> with <code>team: {team.id}</code>.</p>
+        )}
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .team-page {
+    min-height: 100vh;
+    padding: calc(clamp(2rem, 4vw, 4rem) + 80px) 0 clamp(3rem, 6vw, 6rem);
+    background:
+      radial-gradient(
+        circle at 80% 10%,
+        rgba(255, 255, 255, 0.03) 0%,
+        transparent 45%
+      ),
+      var(--color-bg);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.85rem;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .hero-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 320px;
+  }
+
+  .hero-content {
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--team-accent) 60%, transparent);
+    color: var(--team-accent);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-heading);
+  }
+
+  h1 {
+    margin: 0.85rem 0 0.65rem;
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    font-family: var(--font-heading);
+  }
+
+  .hero-content > p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .stats-row {
+    margin-top: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    border: 1px solid var(--color-border);
+    padding: 0.7rem 0.8rem;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+  }
+
+  .stat-value {
+    display: block;
+    margin-top: 0.25rem;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .socials {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .social-link:hover {
+    border-color: var(--team-accent);
+    color: #000;
+    background: var(--team-accent);
+  }
+
+  .gallery-section,
+  .members-section {
+    margin-top: clamp(1.8rem, 4vw, 3rem);
+  }
+
+  .team-posts-grid {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .team-post-card {
+    display: block;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .team-post-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .team-post-card h3 {
+    margin: 0.45rem 0;
+    font-size: 1rem;
+  }
+
+  .team-post-card h3 {
+    color: #fff;
+  }
+
+  .team-post-card:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+  }
+
+  .team-posts-empty {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  h2 {
+    margin: 0 0 0.8rem;
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+    color: #fff;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .gallery-item:hover {
+    border-color: var(--team-accent);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.03);
+  }
+
+  .gallery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(6, 6, 10, 0.9);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: clamp(0.8rem, 2vw, 1.5rem);
+  }
+
+  .gallery-modal[hidden] {
+    display: none !important;
+  }
+
+  .gallery-modal-figure {
+    margin: 0;
+    width: 100%;
+    max-width: min(92vw, 1300px);
+    justify-self: center;
+  }
+
+  .gallery-modal-image {
+    width: 100%;
+    max-height: 86vh;
+    object-fit: contain;
+    border: 1px solid var(--color-border);
+    background: #09090d;
+  }
+
+  .gallery-nav,
+  .gallery-modal-close {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--color-border);
+    background: rgba(12, 12, 18, 0.92);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .gallery-nav:hover,
+  .gallery-modal-close:hover {
+    border-color: var(--team-accent);
+    color: var(--team-accent);
+  }
+
+  .gallery-modal-close {
+    position: absolute;
+    top: clamp(0.75rem, 2vw, 1.25rem);
+    right: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  @media (max-width: 720px) {
+    .gallery-modal {
+      grid-template-columns: 1fr 1fr;
+      justify-items: stretch;
+      gap: 1rem;
+    }
+
+    .gallery-modal-figure {
+      grid-column: 1 / -1;
+    }
+
+    .gallery-nav-prev {
+      grid-column: 1;
+      justify-self: start;
+    }
+
+    .gallery-nav-next {
+      grid-column: 2;
+      justify-self: end;
+    }
+  }
+
+  .members-section-header p {
+    margin: 0 0 1rem;
+    color: var(--color-text-muted);
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 980px) {
+    .hero-card {
+      grid-template-columns: 1fr;
+    }
+
+    .members-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const modal = document.querySelector("[data-gallery-modal]")
+  const modalImage = document.querySelector("[data-gallery-image]")
+  const closeButton = document.querySelector("[data-gallery-close]")
+  const prevButton = document.querySelector("[data-gallery-prev]")
+  const nextButton = document.querySelector("[data-gallery-next]")
+  const galleryItems = Array.from(document.querySelectorAll("[data-gallery-item]"))
+
+  if (modal && modalImage && galleryItems.length > 0) {
+    const images = galleryItems
+      .map((item) => item.querySelector("img"))
+      .filter((img) => img instanceof HTMLImageElement)
+
+    let currentIndex = 0
+
+    const showImage = (index) => {
+      if (images.length === 0) return
+      currentIndex = (index + images.length) % images.length
+      const source = images[currentIndex]
+      modalImage.src = source.currentSrc || source.src
+      modalImage.alt = source.alt
+    }
+
+    const openModal = (index) => {
+      showImage(index)
+      modal.removeAttribute("hidden")
+      modal.style.display = "grid"
+      document.body.style.overflow = "hidden"
+    }
+
+    const closeModal = () => {
+      modal.setAttribute("hidden", "")
+      modal.style.display = "none"
+      document.body.style.overflow = ""
+    }
+
+    galleryItems.forEach((item, index) => {
+      item.addEventListener("click", () => openModal(index))
+    })
+
+    prevButton?.addEventListener("click", () => showImage(currentIndex - 1))
+    nextButton?.addEventListener("click", () => showImage(currentIndex + 1))
+    closeButton?.addEventListener("click", closeModal)
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal()
+    })
+
+    document.addEventListener("keydown", (event) => {
+      if (modal.hasAttribute("hidden")) return
+      if (event.key === "Escape") closeModal()
+      if (event.key === "ArrowLeft") showImage(currentIndex - 1)
+      if (event.key === "ArrowRight") showImage(currentIndex + 1)
+    })
+  }
+</script>

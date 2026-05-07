@@ -1,0 +1,346 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import members, { memberSlug, mockMemberPhotoUrl } from "../../data/members/index";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SocialPlatform } from "../../data/members/index";
+import teams, { teamDisplayName, teamSlug } from "../../data/teams/index";
+import { getPostsByMember, postSlug } from "../../data/blog";
+import "@phosphor-icons/web/regular";
+
+export function getStaticPaths() {
+  return members.map((member) => ({
+    params: { slug: memberSlug(member) },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props;
+
+const metaDescription = `${member.name} - ${member.role.join(", ")} at ${member.team.map(teamDisplayName).join(", ")}.`;
+const image = member.photoUrl ?? mockMemberPhotoUrl;
+const memberPosts = await getPostsByMember(member);
+
+function formatDate(date: string | undefined): string | null {
+  if (!date) return null;
+
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) return date;
+
+  return parsed.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+const details = [
+  {
+    label: member.team.length > 1 ? "Teams" : "Team",
+    value: member.team.map(teamDisplayName).join(", "),
+  },
+  {
+    label: member.role.length > 1 ? "Roles" : "Role",
+    value: member.role.join(", "),
+  },
+  { label: "University", value: member.university ?? null },
+  { label: "Faculty", value: member.faculty ?? null },
+  { label: "Study Cycle", value: member.studyCycle ?? null },
+  { label: "Study Year", value: member.studyYear ? `Year ${member.studyYear}` : null },
+  { label: "Country", value: member.country ?? null },
+  { label: "Birthdate", value: formatDate(member.birthdate) },
+].filter((detail) => detail.value);
+
+const memberTeamLinks = member.team
+  .map((teamId) => {
+    const team = teams.find((entry) => entry.id === teamId);
+    if (!team) return null;
+
+    return {
+      label: teamDisplayName(teamId),
+      href: `/teams/${teamSlug(team)}`,
+    };
+  })
+  .filter(Boolean);
+
+function socialIconClass(platform: SocialPlatform): string {
+  if (platform === SocialPlatform.GITHUB) return "ph ph-github-logo";
+  if (platform === SocialPlatform.LINKEDIN) return "ph ph-linkedin-logo";
+  return "ph ph-globe";
+}
+---
+
+<Layout title={member.name} description={metaDescription} image={image} type="profile">
+  <Header />
+  <main class="member-page">
+    <div class="container">
+      <a href="/#members" class="back-link">← Back to members</a>
+
+      <article class="member-profile">
+        <div class="photo-column">
+          <img
+            src={image}
+            alt={`${member.name} portrait`}
+            class="profile-photo"
+            width="520"
+            height="520"
+          />
+        </div>
+
+        <div class="content-column">
+          <h1>{member.name}</h1>
+
+          {member.socialLinks && member.socialLinks.length > 0 && (
+            <section class="socials">
+              <h2 class="section-title">Social Links</h2>
+              <ul>
+                {member.socialLinks.map((link) => (
+                  <li>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link">
+                      <i class={socialIconClass(link.platform)} aria-hidden="true"></i>
+                      <span>{link.platform}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <h2 class="section-title">About</h2>
+          <p class="bio">{member.shortDesc}</p>
+
+          <h2 class="section-title">Details</h2>
+          <dl class="details-grid">
+            {details.map((detail) => (
+              <div class="detail-item">
+                <dt>{detail.label}</dt>
+                <dd>
+                  {detail.label === "Team" || detail.label === "Teams" ? (
+                    <span class="team-links">
+                      {memberTeamLinks.map((teamLink, index) => (
+                        <>
+                          <a href={teamLink!.href} class="team-link">{teamLink!.label}</a>
+                          {index < memberTeamLinks.length - 1 && <span>, </span>}
+                        </>
+                      ))}
+                    </span>
+                  ) : (
+                    detail.value
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <section class="socials">
+            <h2 class="section-title">Blog Posts</h2>
+            {memberPosts.length > 0 ? (
+              <ul>
+                {memberPosts.map((post) => (
+                  <li>
+                    <a href={`/blog/${postSlug(post)}`} class="social-link">
+                      <span>{post.data.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="empty-posts">No posts attributed to this member yet.</p>
+            )}
+          </section>
+        </div>
+      </article>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .member-page {
+    min-height: 100vh;
+    padding: calc(clamp(2rem, 4vw, 4rem) + 80px) 0 clamp(3rem, 6vw, 6rem);
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 50%
+    );
+    background-color: var(--color-bg);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.85rem;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .back-link:hover {
+    color: #000;
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  .member-profile {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    grid-template-columns: minmax(260px, 420px) 1fr;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: clamp(1.2rem, 2.5vw, 2.2rem);
+  }
+
+  .photo-column {
+    align-self: start;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+
+  .profile-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  .section-title {
+    margin: 1.5rem 0 0.8rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: var(--font-heading);
+  }
+
+  h1 {
+    margin: 0.65rem 0 1rem;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-family: var(--font-heading);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bio {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    white-space: pre-line;
+    font-size: 0.85rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .socials {
+    margin-top: 1.5rem;
+  }
+
+  .socials ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    background: transparent;
+    transition: all 0.2s ease;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .social-link span {
+    white-space: normal;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .social-link:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: #000;
+  }
+
+  .social-link i {
+    font-size: 1rem;
+  }
+
+  .empty-posts {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .detail-item {
+    margin: 0;
+    border: 1px solid var(--color-border);
+    padding: 0.7rem 0.85rem;
+    background: transparent;
+  }
+
+  dt {
+    margin: 0;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+  }
+
+  dd {
+    margin: 0.3rem 0 0;
+    color: #fff;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+  }
+
+  .team-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    border: 1px solid transparent;
+    padding: 0.08rem 0.35rem;
+    margin: 0 -0.15rem;
+    transition: all 0.2s ease;
+  }
+
+  .team-link:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: #000;
+  }
+
+  @media (max-width: 900px) {
+    .member-profile {
+      grid-template-columns: 1fr;
+    }
+
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
