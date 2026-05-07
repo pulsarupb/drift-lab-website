@@ -1,73 +1,74 @@
 ---
-import membersData from '../data/members.json';
+import members, { mockMemberPhotoUrl } from "../data/members/index"
+import type { Member } from "../data/members/index"
 
-interface Member {
-  name: string;
-  shortDesc: string;
-  team: string;
-  role: string;
-  photoLink: string;
-  isSupervisor: boolean;
+function getImagePath(member: Member): string {
+  return member.photoUrl ?? mockMemberPhotoUrl
 }
 
-const members: Member[] = membersData;
-const MOCK_MEMBER_IMAGE = '/images/members/roi.png';
-
-const fallbackMemberPhotos: Record<string, string> = {
-  'nisipeanu-ionut': 'nisipeanu-ionut.jpg',
-  'iatagan-andrei': 'andrei-iatagan.jpeg'
-};
-
-function toSlug(value: string): string {
-  return value.toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
+function formatMemberTeams(member: Member): string {
+  return member.team.join(", ")
 }
 
-// Helper function to get image path
-function getImagePath(photoLink: string, name: string): string {
-  if (!photoLink) {
-    const fallbackPhoto = fallbackMemberPhotos[toSlug(name)];
-    if (fallbackPhoto) {
-      return `/images/members/${fallbackPhoto}`;
-    }
-    return MOCK_MEMBER_IMAGE;
-  }
-  
-  // If it's already a filename (not a URL), use it directly
-  if (!photoLink.startsWith('http')) {
-    return `/images/members/${photoLink}`;
-  }
-  
-  // For URLs (imgur albums), create a filename from the member name
-  // Images should be downloaded and saved with this filename
-  const filename = `${toSlug(name)}.jpg`;
-  return `/images/members/${filename}`;
+function formatMemberRoles(member: Member): string {
+  return member.role.join(", ")
 }
 
 function hasRealPhoto(member: Member): boolean {
-  return getImagePath(member.photoLink, member.name) !== MOCK_MEMBER_IMAGE;
+  return member.photoUrl !== null
+}
+
+function shuffleMembers(list: Member[]): Member[] {
+  const shuffled = [...list]
+
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const temp = shuffled[i]
+    shuffled[i] = shuffled[j]
+    shuffled[j] = temp
+  }
+
+  return shuffled
+}
+
+function isPreferredMember(member: Member): boolean {
+  const normalizedName = member.name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+
+  // yes, I can be biased, so please don't move me down the list
+  return normalizedName.includes("lazar dragos george")
 }
 
 function sortMembersByPhotoThenName(a: Member, b: Member): number {
-  const aHasPhoto = hasRealPhoto(a);
-  const bHasPhoto = hasRealPhoto(b);
-
-  if (aHasPhoto !== bHasPhoto) {
-    return aHasPhoto ? -1 : 1;
-  }
-
-  return a.name.localeCompare(b.name);
+  return a.name.localeCompare(b.name)
 }
 
 const supervisors = members
-  .filter(m => m.isSupervisor)
-  .sort(sortMembersByPhotoThenName);
-const regularMembers = members
-  .filter(m => !m.isSupervisor)
-  .sort(sortMembersByPhotoThenName);
+  .filter((member) => member.isSupervisor)
+  .sort(sortMembersByPhotoThenName)
 
-const allMembers = [...supervisors, ...regularMembers];
+const preferredMembers = members
+  .filter((member) => !member.isSupervisor && isPreferredMember(member))
+  .sort(sortMembersByPhotoThenName)
+
+const remainingMembers = members.filter(
+  (member) => !member.isSupervisor && !isPreferredMember(member),
+)
+
+const membersWithPhotos = shuffleMembers(remainingMembers.filter(hasRealPhoto))
+
+const membersWithoutPhotos = remainingMembers
+  .filter((member) => !hasRealPhoto(member))
+  .sort(sortMembersByPhotoThenName)
+
+const allMembers = [
+  ...supervisors,
+  ...preferredMembers,
+  ...membersWithPhotos,
+  ...membersWithoutPhotos,
+]
 ---
 
 <section id="members" class="members-section">
@@ -80,40 +81,62 @@ const allMembers = [...supervisors, ...regularMembers];
     </div>
 
     <div class="members-grid">
-      {allMembers.map((member) => (
-        <div class="member-card">
-          <div class="member-image-wrapper">
-            <img
-              src={getImagePath(member.photoLink, member.name)}
-              alt={`${member.name} - ${member.role} at ${member.team}`}
-              class="member-image"
-              loading="lazy"
-              width="300"
-              height="300"
-            />
+      {
+        allMembers.map((member) => (
+          <div class="member-card">
+            <div class="member-image-wrapper">
+              <img
+                src={getImagePath(member)}
+                alt={`${member.name} - ${formatMemberRoles(member)} at ${formatMemberTeams(member)}`}
+                class="member-image"
+                loading="lazy"
+                width="300"
+                height="300"
+              />
+            </div>
+            <div class="member-content">
+              <h4 class="member-name">{member.name}</h4>
+              <span class="member-role">{formatMemberRoles(member)}</span>
+              <span class="member-team">{formatMemberTeams(member)}</span>
+              <p class="member-desc">{member.shortDesc}</p>
+            </div>
           </div>
-          <div class="member-content">
-            <h4 class="member-name">{member.name}</h4>
-            <span class="member-role">{member.role}</span>
-            <span class="member-team">{member.team}</span>
-            <p class="member-desc">{member.shortDesc}</p>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 
   <!-- Modal for full description -->
-  <div id="member-modal" class="member-modal" role="dialog" aria-labelledby="modal-member-name" aria-hidden="true">
+  <div
+    id="member-modal"
+    class="member-modal"
+    role="dialog"
+    aria-labelledby="modal-member-name"
+    aria-hidden="true"
+  >
     <div class="modal-backdrop"></div>
     <div class="modal-content">
       <button class="modal-close" aria-label="Close modal">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path
+            d="M18 6L6 18M6 6L18 18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+          </path>
         </svg>
       </button>
       <div class="modal-image-wrapper">
-        <img id="modal-member-image" src="" alt="" class="modal-member-image" width="250" height="250" />
+        <img
+          id="modal-member-image"
+          src=""
+          alt=""
+          class="modal-member-image"
+          width="250"
+          height="250"
+        />
       </div>
       <div class="modal-body">
         <h3 id="modal-member-name" class="modal-member-name"></h3>
@@ -126,61 +149,71 @@ const allMembers = [...supervisors, ...regularMembers];
 </section>
 
 <script>
-  const modal = document.getElementById('member-modal');
-  const modalBackdrop = modal?.querySelector('.modal-backdrop');
-  const modalClose = modal?.querySelector('.modal-close');
-  const modalImage = document.getElementById('modal-member-image');
-  const modalName = document.getElementById('modal-member-name');
-  const modalRole = document.getElementById('modal-member-role');
-  const modalTeam = document.getElementById('modal-member-team');
-  const modalDesc = document.getElementById('modal-member-desc');
+  import { Member } from "../data/members"
 
-  function openModal(member) {
-    if (!modal || !modalImage || !modalName || !modalRole || !modalTeam || !modalDesc) return;
-    
-    modalImage.src = member.image;
-    modalImage.alt = member.name;
-    modalName.textContent = member.name;
-    modalRole.textContent = member.role;
-    modalTeam.textContent = member.team;
-    modalDesc.textContent = member.desc;
-    
-    modal.setAttribute('aria-hidden', 'false');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+  const modal = document.getElementById("member-modal")
+  const modalBackdrop = modal?.querySelector(".modal-backdrop")
+  const modalClose = modal?.querySelector(".modal-close")
+  const modalImage = document.getElementById("modal-member-image")
+  const modalName = document.getElementById("modal-member-name")
+  const modalRole = document.getElementById("modal-member-role")
+  const modalTeam = document.getElementById("modal-member-team")
+  const modalDesc = document.getElementById("modal-member-desc")
+
+  function openModal(member: Member) {
+    if (
+      !modal ||
+      !modalImage ||
+      !modalName ||
+      !modalRole ||
+      !modalTeam ||
+      !modalDesc
+    )
+      return
+
+    modalImage.src = member.image
+    modalImage.alt = member.name
+    modalName.textContent = member.name
+    modalRole.textContent = member.role
+    modalTeam.textContent = member.team
+    modalDesc.textContent = member.desc
+
+    modal.setAttribute("aria-hidden", "false")
+    modal.classList.add("active")
+    document.body.style.overflow = "hidden"
   }
 
   function closeModal() {
-    if (!modal) return;
-    modal.setAttribute('aria-hidden', 'true');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    if (!modal) return
+    modal.setAttribute("aria-hidden", "true")
+    modal.classList.remove("active")
+    document.body.style.overflow = ""
   }
 
   // Add click handlers to all member cards
-  document.querySelectorAll('.member-card').forEach((card) => {
-    card.addEventListener('click', () => {
+  document.querySelectorAll(".member-card").forEach((card) => {
+    card.addEventListener("click", () => {
       const member = {
-        name: card.querySelector('.member-name')?.textContent || '',
-        role: card.querySelector('.member-role')?.textContent || '',
-        team: card.querySelector('.member-team')?.textContent || '',
-        desc: card.querySelector('.member-desc')?.textContent || '',
-        image: card.querySelector('.member-image')?.getAttribute('src') || ''
-      };
-      openModal(member);
-    });
-  });
+        name: card.querySelector(".member-name")?.textContent || "",
+        role: card.querySelector(".member-role")?.textContent || "",
+        team: card.querySelector(".member-team")?.textContent || "",
+        desc: card.querySelector(".member-desc")?.textContent || "",
+        image: card.querySelector(".member-image")?.getAttribute("src") || "",
+      }
+      openModal(member)
+    })
+  })
 
   // Close modal handlers
-  modalBackdrop?.addEventListener('click', closeModal);
-  modalClose?.addEventListener('click', closeModal);
+  modalBackdrop?.addEventListener("click", closeModal)
+  modalClose?.addEventListener("click", closeModal)
 
   // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('active')) {
-      closeModal();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal?.classList.contains("active")) {
+      closeModal()
     }
-  });
+  })
 </script>
 
 <style>
@@ -217,8 +250,6 @@ const allMembers = [...supervisors, ...regularMembers];
     line-height: 1.6;
     padding: 0 1rem;
   }
-
-
 
   .members-grid {
     display: grid;
@@ -330,7 +361,9 @@ const allMembers = [...supervisors, ...regularMembers];
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+    transition:
+      opacity 0.3s,
+      visibility 0.3s;
     pointer-events: none;
   }
 
@@ -363,7 +396,7 @@ const allMembers = [...supervisors, ...regularMembers];
     transform: scale(0.9);
     transition: transform 0.2s ease;
     z-index: 1001;
-    box-shadow: 8px 8px 0px rgba(0,0,0,1);
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 1);
   }
 
   /* Custom Scrollbar */

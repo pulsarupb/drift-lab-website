@@ -5,7 +5,7 @@ import Hero from '../components/Hero.astro';
 import TeamsSection from '../components/TeamsSection.astro';
 import MembersSection from '../components/MembersSection.astro';
 import Footer from '../components/Footer.astro';
-import membersData from '../data/members.json';
+import membersData from '../data/members/index';
 
 const siteUrl = "https://driftlab.ro";
 
@@ -23,10 +23,10 @@ const researchProjectSchema = {
 	"member": membersData.map((member) => ({
 		"@type": "Person",
 		"name": member.name,
-		"jobTitle": member.role,
+		"jobTitle": member.role.join(', '),
 		"memberOf": {
 			"@type": "Organization",
-			"name": member.team
+			"name": member.team.join(', ')
 		}
 	}))
 };
