@@ -355,7 +355,7 @@ export const members = [
     isSupervisor: false,
   },
   {
-    name: "Ungureanu Paul - Andrei",
+    name: "Ungureanu Paul-Andrei",
     shortDesc:
       "Applied sciences second year with interest in using physics, mathematics and computational tools to understand and build models for the nature that surrounds us",
     team: [TeamId.PULSAR],

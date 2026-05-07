@@ -1,50 +1,8 @@
 ---
-import members, { memberSlug, mockMemberPhotoUrl } from "../data/members/index"
+import members from "../data/members/index"
 import type { Member } from "../data/members/index"
-import { SocialPlatform } from "../data/members/index"
-import { teamDisplayName } from "../data/teams/index"
+import MemberCard from "./MemberCard.astro"
 import "@phosphor-icons/web/regular"
-
-function getImagePath(member: Member): string {
-  return member.photoUrl ?? mockMemberPhotoUrl
-}
-
-function formatMemberTeams(member: Member): string {
-  return member.team.map(teamDisplayName).join(", ")
-}
-
-function formatMemberRoles(member: Member): string {
-  return member.role.join(", ")
-}
-
-function splitMemberNameForCard(name: string): string[] {
-  const parts = name.trim().split(/\s+/)
-  if (parts.length === 2) {
-    return parts
-  }
-
-  return [name]
-}
-
-
-
-function socialIconClass(platform: SocialPlatform): string {
-  if (platform === SocialPlatform.GITHUB) return "ph ph-github-logo"
-  if (platform === SocialPlatform.LINKEDIN) return "ph ph-linkedin-logo"
-  return "ph ph-globe"
-}
-
-function sortedSocialLinks(member: Member) {
-  const order: Record<SocialPlatform, number> = {
-    [SocialPlatform.PORTFOLIO_WEBSITE]: 0,
-    [SocialPlatform.LINKEDIN]: 1,
-    [SocialPlatform.GITHUB]: 2,
-  }
-
-  return [...(member.socialLinks ?? [])].sort(
-    (a, b) => order[a.platform] - order[b.platform],
-  )
-}
 
 function hasRealPhoto(member: Member): boolean {
   return member.photoUrl !== null
@@ -114,52 +72,12 @@ const allMembers = [
 
     <div class="members-grid">
       {
-        allMembers.map((member) => (
-          <article class="member-card">
-            <a
-              class="member-card-link"
-              href={`/members/${memberSlug(member)}`}
-              aria-label={`View profile for ${member.name}`}
-            ></a>
-            <div class="member-sidebar">
-              <div class="member-image-wrapper">
-                <img
-                  src={getImagePath(member)}
-                  alt={`${member.name} - ${formatMemberRoles(member)} at ${formatMemberTeams(member)}`}
-                  class="member-image"
-                  loading="lazy"
-                  width="300"
-                  height="300"
-                />
-              </div>
-              <div class="member-socials" aria-label={`${member.name} social links`}>
-                {sortedSocialLinks(member).map((link) => (
-                  <a
-                    class="member-social-icon"
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={link.platform}
-                    aria-label={`${member.name} ${link.platform}`}
-                  >
-                    <i class={socialIconClass(link.platform)} aria-hidden="true"></i>
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div class="member-content">
-              <h4 class="member-name">
-                {splitMemberNameForCard(member.name).map((part, index, parts) => (
-                  <>
-                    {part}
-                    {index < parts.length - 1 && <br />}
-                  </>
-                ))}
-              </h4>
-              <span class="member-role">{formatMemberRoles(member)} at {formatMemberTeams(member)}</span>
-              <p class="member-desc">{member.shortDesc}</p>
-            </div>
-          </article>
+        allMembers.map((member, index) => (
+          <MemberCard
+            member={member}
+            variant="big"
+            nearbyName={allMembers[index % 2 === 0 ? index + 1 : index - 1]?.name}
+          />
         ))
       }
     </div>
@@ -207,148 +125,9 @@ const allMembers = [
     gap: clamp(1.5rem, 3vw, 2rem);
   }
 
-  .member-card {
-    position: relative;
-    background: var(--color-surface);
-    border-radius: 0;
-    padding: clamp(1.5rem, 3vw, 2rem);
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    min-height: auto;
-  }
-
-  .member-card-link {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  .member-sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .member-card:hover {
-    background: var(--color-surface-hover);
-    border-color: var(--color-primary);
-  }
-
-  .member-image-wrapper {
-    position: relative;
-    width: 150px;
-    aspect-ratio: 1;
-    border-radius: 0;
-    overflow: hidden;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    pointer-events: none;
-  }
-
-  .member-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 0.4s ease;
-  }
-
-  .member-card:hover .member-image {
-    transform: scale(1.05);
-  }
-
-  .member-content {
-    position: relative;
-    z-index: 2;
-    flex: 1;
-    display: grid;
-    grid-template-rows: 3fr 1fr auto;
-    min-width: 0;
-    min-height: 0;
-    pointer-events: none;
-  }
-
-  .member-name {
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
-    margin: 0;
-    align-self: end;
-    font-weight: 700;
-    line-height: 1.2;
-    color: #fff;
-    transition: color 0.2s ease;
-  }
-
-  .member-role {
-    font-size: 0.875rem;
-    color: var(--color-accent-pulsar);
-    font-weight: 600;
-    margin: 0;
-    line-height: 1.4;
-  }
-
-  .member-socials {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 3;
-    pointer-events: auto;
-  }
-
-  .member-social-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-muted);
-    transition: color 0.2s ease;
-    position: relative;
-    z-index: 3;
-  }
-
-  .member-social-icon:hover {
-    color: var(--color-primary);
-  }
-
-  .member-social-icon i {
-    font-size: 1rem;
-  }
-
-  .member-desc {
-    color: var(--color-text-muted);
-    line-height: 1.7;
-    font-size: clamp(0.9rem, 1.8vw, 1rem);
-    margin: 0.35rem 0 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
   @media (max-width: 640px) {
     .members-grid {
       grid-template-columns: 1fr;
-    }
-
-    .member-card {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    
-    .member-sidebar {
-      margin-bottom: 1rem;
     }
   }
 </style>
