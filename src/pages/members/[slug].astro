@@ -67,10 +67,11 @@ function socialIconClass(platform: SocialPlatform): string {
         </div>
 
         <div class="content-column">
-          <p class="eyebrow">Member Profile</p>
           <h1>{member.name}</h1>
+          <h2 class="section-title">About</h2>
           <p class="bio">{member.shortDesc}</p>
 
+          <h2 class="section-title">Details</h2>
           <dl class="details-grid">
             {details.map((detail) => (
               <div class="detail-item">
@@ -82,7 +83,7 @@ function socialIconClass(platform: SocialPlatform): string {
 
           {member.socialLinks && member.socialLinks.length > 0 && (
             <section class="socials">
-              <h2>Social Links</h2>
+              <h2 class="section-title">Social Links</h2>
               <ul>
                 {member.socialLinks.map((link) => (
                   <li>
@@ -105,11 +106,13 @@ function socialIconClass(platform: SocialPlatform): string {
 <style>
   .member-page {
     min-height: 100vh;
-    padding: clamp(2rem, 4vw, 4rem) 0 clamp(3rem, 6vw, 6rem);
-    background:
-      radial-gradient(circle at 85% 15%, rgba(255, 100, 80, 0.16), transparent 40%),
-      radial-gradient(circle at 15% 85%, rgba(100, 160, 255, 0.14), transparent 38%),
-      var(--color-bg);
+    padding: calc(clamp(2rem, 4vw, 4rem) + 80px) 0 clamp(3rem, 6vw, 6rem);
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 50%
+    );
+    background-color: var(--color-bg);
   }
 
   .back-link {
@@ -122,50 +125,55 @@ function socialIconClass(platform: SocialPlatform): string {
     letter-spacing: 0.04em;
     margin-bottom: 1.5rem;
     transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
   }
 
   .back-link:hover {
-    color: var(--color-text-main);
+    color: #000;
     border-color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--color-primary);
   }
 
   .member-profile {
     display: grid;
     gap: clamp(1.5rem, 3vw, 3rem);
     grid-template-columns: minmax(260px, 420px) 1fr;
-    background: rgba(10, 10, 14, 0.85);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
     padding: clamp(1.2rem, 2.5vw, 2.2rem);
   }
 
   .photo-column {
     border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-bg);
+    overflow: hidden;
   }
 
   .profile-photo {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     aspect-ratio: 1;
     object-fit: cover;
   }
 
-  .eyebrow {
-    margin: 0;
+  .section-title {
+    margin: 1.5rem 0 0.8rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
+    color: var(--color-primary);
+    font-family: var(--font-heading);
   }
 
   h1 {
     margin: 0.65rem 0 1rem;
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-family: var(--font-heading);
-    color: var(--color-text-main);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .bio {
@@ -173,11 +181,12 @@ function socialIconClass(platform: SocialPlatform): string {
     color: var(--color-text-muted);
     line-height: 1.75;
     white-space: pre-line;
-    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    font-size: 0.85rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
   }
 
   .details-grid {
-    margin: 1.5rem 0 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 0.75rem;
@@ -185,15 +194,6 @@ function socialIconClass(platform: SocialPlatform): string {
 
   .socials {
     margin-top: 1.5rem;
-  }
-
-  .socials h2 {
-    margin: 0 0 0.8rem;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    font-family: var(--font-heading);
   }
 
   .socials ul {
@@ -211,15 +211,19 @@ function socialIconClass(platform: SocialPlatform): string {
     gap: 0.45rem;
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--color-border);
-    color: var(--color-text-main);
+    color: var(--color-text-muted);
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.01);
+    background: transparent;
     transition: all 0.2s ease;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 0.85rem;
   }
 
   .social-link:hover {
     border-color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-primary);
+    color: #000;
   }
 
   .social-link i {
@@ -230,7 +234,7 @@ function socialIconClass(platform: SocialPlatform): string {
     margin: 0;
     border: 1px solid var(--color-border);
     padding: 0.7rem 0.85rem;
-    background: rgba(255, 255, 255, 0.01);
+    background: transparent;
   }
 
   dt {
@@ -244,9 +248,11 @@ function socialIconClass(platform: SocialPlatform): string {
 
   dd {
     margin: 0.3rem 0 0;
-    color: var(--color-text-main);
-    font-size: 0.95rem;
+    color: #fff;
+    font-size: 0.85rem;
     line-height: 1.45;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
   }
 
   @media (max-width: 900px) {
