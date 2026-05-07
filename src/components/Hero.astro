@@ -1,9 +1,12 @@
 ---
-
+import Rectorat from "./Rectorat.astro"
 ---
 
 <section class="hero">
   <div class="background-grid"></div>
+  <div class="rectorat-mark" aria-hidden="true">
+    <Rectorat />
+  </div>
 
   <div class="container hover-container">
     <div class="hero-layout">
@@ -84,6 +87,25 @@
       linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 60px 60px;
     z-index: 0;
+  }
+
+  .rectorat-mark {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.25;
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .rectorat-mark :global(svg) {
+    width: min(80vw, 400px);
+    height: auto;
+    display: block;
   }
 
   .hero-layout {
@@ -217,8 +239,8 @@
   }
 
   .partner-logos img {
-    filter: grayscale(1) opacity(0.7);
-    transition: all 0.3s ease;
+    filter: grayscale(1) contrast(250%);
+    transition: filter 0.3s ease;
   }
 
   .partner-logos > img {
@@ -227,8 +249,7 @@
   }
 
   .partner-logos > img:hover {
-    filter: grayscale(0) opacity(1);
-    transform: scale(1.05);
+    filter: grayscale(0) contrast(100%);
   }
 
   .poli-wrapper {
@@ -241,7 +262,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: filter 0.3s;
   }
 
   .poli-wrapper:hover {
@@ -249,8 +270,7 @@
   }
 
   .poli-wrapper:hover img {
-    filter: grayscale(0) opacity(1);
-    transform: scale(1.05);
+    filter: grayscale(0) contrast(100%);
   }
 
   .poli-wrapper img {
