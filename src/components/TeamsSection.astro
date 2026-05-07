@@ -96,8 +96,8 @@ function memberCount(teamId: TeamId): number {
   }
 
   .teams-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: clamp(1.5rem, 4vw, 2.5rem);
     perspective: 1000px;
   }
@@ -114,6 +114,7 @@ function memberCount(teamId: TeamId): number {
     flex-direction: column;
     justify-content: space-between;
     min-height: clamp(280px, 40vh, 320px);
+    flex: 1 1 280px;
   }
 
   .team-card-link {
@@ -171,7 +172,10 @@ function memberCount(teamId: TeamId): number {
     background: transparent;
     border-radius: 0;
     border: 1px solid;
-    white-space: nowrap;
+    white-space: normal;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    line-height: 1.35;
   }
 
   .team-desc {
@@ -209,13 +213,11 @@ function memberCount(teamId: TeamId): number {
     transform: rotate(-45deg);
   }
 
-  @media (max-width: 640px) {
-    .teams-grid {
-      grid-template-columns: 1fr;
-    }
-
+  @media (max-width: 768px) {
     .team-card {
       min-height: auto;
+      flex-basis: 100%;
     }
+
   }
 </style>
