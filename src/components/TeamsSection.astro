@@ -11,7 +11,7 @@ function memberCount(teamId: TeamId): number {
 <section id="teams" class="teams-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Our Teams</h2>
+      <h2 class="section-title">Teams</h2>
       <p class="section-desc">
         Three specialized teams pushing the boundaries of autonomous vehicle
         technology.
@@ -26,7 +26,7 @@ function memberCount(teamId: TeamId): number {
               class="team-card-link"
               href={`/teams/${teamSlug(team)}`}
               aria-label={`View ${team.name} team page`}
-            ></a>
+            />
             <div class="card-content">
               <h3 class="team-name">{team.name}</h3>
               <span
@@ -126,8 +126,6 @@ function memberCount(teamId: TeamId): number {
     background: var(--color-surface-hover);
     border-color: var(--accent);
   }
-
-
 
   .card-content {
     position: relative;
