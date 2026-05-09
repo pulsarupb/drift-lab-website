@@ -7,6 +7,7 @@ import mihaiZamfirescuPhoto from "./photos/mihai-zamfirescu.jpeg?url"
 import moscaliucTeodorPhoto from "./photos/moscaliuc-teodor.jpg?url"
 import nisipeanuIonutPhoto from "./photos/nisipeanu-ionut.jpg?url"
 import petreaCostelValentinPhoto from "./photos/petrea-costel-valentin.jpeg?url"
+import raceanuRaduPhoto from "./photos/raceanu-radu.jpeg?url"
 import roiPhoto from "./photos/roi.png?url"
 import rusuCosminConstantinPhoto from "./photos/rusu-cosmin-constantin.jpeg?url"
 import ungureanuPaulPhoto from "./photos/ungureanu-paul.jpeg?url"
@@ -608,6 +609,28 @@ export const members = [
       },
     ],
     photoUrl: mihaiZamfirescuPhoto,
+    isSupervisor: false,
+  },
+  {
+    name: "Raceanu Radu",
+    shortDesc:
+      "4th year student specialised in computer systems and architecture, servers and media formats.",
+    team: [TeamId.PULSAR],
+    role: [Role.SOFTWARE],
+    studyCycle: StudyCycle.BACHELORS,
+    studyYear: 4,
+    country: Country.ROMANIA,
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/radu-raceanu-a021b0284/",
+      },
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/raduraceanu",
+      },
+    ],
+    photoUrl: raceanuRaduPhoto,
     isSupervisor: false,
   },
   {
