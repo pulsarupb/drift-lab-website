@@ -189,7 +189,7 @@ export const members = [
   {
     name: "Rentea Robert",
     shortDesc:
-      "I am Robert Rentea, 21 years old, and a student at the University Politehnica of Bucharest, Faculty of Mechanical Engineering and Mechatronics, specializing in Mechatronics and Robotics. I am passionate about volleyball and sports in general, and I consider physical activity an important part of my life. I am part of the PULSAR team, in the Software Team, where I develop my technical skills and teamwork abilities. I am curious, motivated, and I enjoy constantly learning new things and improving myself.",
+      "3rd-year Mechatronics student passionate about software development and intelligent technologies.",
     team: [TeamId.PULSAR],
     role: [Role.SOFTWARE],
     university: University.NUST_POLITEHNICA_BUCHAREST,
