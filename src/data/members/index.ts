@@ -1,4 +1,5 @@
 import andreiIataganPhoto from "./photos/andrei-iatagan.jpeg?url"
+import artemPhoto from "./photos/artem.jpeg?url"
 import bylazarPhoto from "./photos/bylazar.png?url"
 import constantinescuGabrielAlexandruPhoto from "./photos/constantinescu-gabriel-alexandru.jpg?url"
 import danilovCristianPhoto from "./photos/danilov-cristian.jpeg?url"
@@ -325,7 +326,7 @@ export const members = [
     studyYear: 3,
     country: Country.UKRAINE,
     birthdate: "2005-07-08",
-    photoUrl: null,
+    photoUrl: artemPhoto,
     isSupervisor: false,
   },
   {
