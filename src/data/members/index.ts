@@ -1,3 +1,4 @@
+import aliAlexandruAyPhoto from "./photos/ali-alexandru-ay.jpeg?url"
 import andreiIataganPhoto from "./photos/andrei-iatagan.jpeg?url"
 import artemPhoto from "./photos/artem.jpeg?url"
 import bylazarPhoto from "./photos/bylazar.png?url"
@@ -161,6 +162,27 @@ export const members = [
     ],
     photoUrl: andreiIataganPhoto,
     isSupervisor: true,
+  },
+  {
+    name: "Ali-Alexandru Ay",
+    shortDesc:
+      "Ambitious and driven mechatronics engineering student with a passion for both automotive innovation and cutting-edge technology.",
+    team: [TeamId.PULSAR],
+    role: [Role.MECHANICAL],
+    university: University.NUST_POLITEHNICA_BUCHAREST,
+    faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
+    studyCycle: StudyCycle.BACHELORS,
+    studyYear: 4,
+    country: Country.ROMANIA,
+    birthdate: "2003-06-10",
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/ali-alexandru-ay-93a408284",
+      },
+    ],
+    photoUrl: aliAlexandruAyPhoto,
+    isSupervisor: false,
   },
   {
     name: "Constantinescu Gabriel-Alexandru",
