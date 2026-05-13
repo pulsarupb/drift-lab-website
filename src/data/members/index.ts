@@ -7,6 +7,7 @@ import danilovCristianPhoto from "./photos/danilov-cristian.jpeg?url"
 import georgescuAndreiPhoto from "./photos/georgescu-andrei.jpeg?url"
 import mihaiZamfirescuPhoto from "./photos/mihai-zamfirescu.jpeg?url"
 import moscaliucTeodorPhoto from "./photos/moscaliuc-teodor.jpg?url"
+import nicolaAndreiPhoto from "./photos/nicola-andrei.jpeg?url"
 import nisipeanuIonutPhoto from "./photos/nisipeanu-ionut.jpg?url"
 import petreaCostelValentinPhoto from "./photos/petrea-costel-valentin.jpeg?url"
 import raceanuRaduPhoto from "./photos/raceanu-radu.jpeg?url"
@@ -668,7 +669,17 @@ export const members = [
     studyYear: 3,
     country: Country.ROMANIA,
     birthdate: "2004-05-07",
-    photoUrl: null,
+    socialLinks: [
+      {
+        platform: SocialPlatform.LINKEDIN,
+        url: "https://www.linkedin.com/in/andrei-nicola-6a71801a3/",
+      },
+      {
+        platform: SocialPlatform.GITHUB,
+        url: "https://github.com/Nico7777777",
+      },
+    ],
+    photoUrl: nicolaAndreiPhoto,
     isSupervisor: false,
   },
 ] satisfies Member[]
