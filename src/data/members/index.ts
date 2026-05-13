@@ -220,7 +220,7 @@ export const members = [
     studyCycle: StudyCycle.BACHELORS,
     studyYear: 3,
     country: Country.ROMANIA,
-    birthdate: "2004-05-02",
+    birthdate: "2004-02-05",
     socialLinks: [
       {
         platform: SocialPlatform.LINKEDIN,
