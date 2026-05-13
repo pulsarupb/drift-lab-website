@@ -5,6 +5,7 @@ import bylazarPhoto from "./photos/bylazar.png?url"
 import constantinescuGabrielAlexandruPhoto from "./photos/constantinescu-gabriel-alexandru.jpg?url"
 import danilovCristianPhoto from "./photos/danilov-cristian.jpeg?url"
 import georgescuAndreiPhoto from "./photos/georgescu-andrei.jpeg?url"
+import gavrilaTeodorAndreiPhoto from "./photos/gavrila-teodor-andrei.png?url"
 import mihaiZamfirescuPhoto from "./photos/mihai-zamfirescu.jpeg?url"
 import moscaliucTeodorPhoto from "./photos/moscaliuc-teodor.jpg?url"
 import nicolaAndreiPhoto from "./photos/nicola-andrei.jpeg?url"
@@ -13,6 +14,7 @@ import petreaCostelValentinPhoto from "./photos/petrea-costel-valentin.jpeg?url"
 import raceanuRaduPhoto from "./photos/raceanu-radu.jpeg?url"
 import roiPhoto from "./photos/roi.png?url"
 import rusuCosminConstantinPhoto from "./photos/rusu-cosmin-constantin.jpeg?url"
+import tutanescuAndreiIoanPhoto from "./photos/tutanescu-andrei-ioan.jpeg?url"
 import ungureanuPaulPhoto from "./photos/ungureanu-paul.jpeg?url"
 import renteaRobertPhoto from "./photos/rentea-robert.jpeg?url"
 import gealaStefanOctavianPhoto from "./photos/geala-stefan-octavian.jpeg?url"
@@ -38,6 +40,7 @@ export enum SocialPlatform {
   PORTFOLIO_WEBSITE = "Portfolio Website",
   LINKEDIN = "LinkedIn",
   GITHUB = "GitHub",
+  CODEBERG = "Codeberg",
 }
 
 export interface SocialLink {
@@ -105,6 +108,7 @@ export enum Role {
   MECHANICAL = "Mechanical",
   SCIENCE = "Science",
   COMMUNICATION_GRAPHIC_DESIGN = "Communication & Graphic Design",
+  HEAD_OF_MEDIA = "Head of Media",
 }
 
 export const ROLE_OPTIONS: Role[] = [
@@ -116,6 +120,7 @@ export const ROLE_OPTIONS: Role[] = [
   Role.MECHANICAL,
   Role.SCIENCE,
   Role.COMMUNICATION_GRAPHIC_DESIGN,
+  Role.HEAD_OF_MEDIA,
 ]
 
 export const mockMemberPhotoUrl = roiPhoto
@@ -529,16 +534,37 @@ export const members = [
   {
     name: "Tutănescu Andrei-Ioan",
     shortDesc:
-      "Mechatronics student active in communication and graphic design work.",
+      "Ambitious and driven mechatronics engineering student with a passion for both automotive innovation and cutting-edge technology.",
     team: [TeamId.PULSAR],
-    role: [Role.COMMUNICATION_GRAPHIC_DESIGN],
+    role: [Role.MECHANICAL],
     university: University.NUST_POLITEHNICA_BUCHAREST,
     faculty: Faculty.MECHANICAL_AND_MECHATRONICS,
     studyCycle: StudyCycle.BACHELORS,
     studyYear: 2,
     country: Country.ROMANIA,
     birthdate: "2005-01-07",
-    photoUrl: null,
+    photoUrl: tutanescuAndreiIoanPhoto,
+    isSupervisor: false,
+  },
+  {
+    name: "Gavrila Teodor-Andrei",
+    shortDesc:
+      "Automation and Computer Science student passionate about low-level development (C, Assembly) and practical 3D design. I combine code with thoughtful, hands-on design.",
+    team: [TeamId.PULSAR],
+    role: [Role.MECHANICAL, Role.HEAD_OF_MEDIA],
+    university: University.NUST_POLITEHNICA_BUCHAREST,
+    faculty: Faculty.AUTOMATIC_CONTROL_AND_COMPUTERS,
+    studyCycle: StudyCycle.BACHELORS,
+    studyYear: 1,
+    country: Country.ROMANIA,
+    birthdate: "2007-01-11",
+    socialLinks: [
+      {
+        platform: SocialPlatform.CODEBERG,
+        url: "https://codeberg.org/Teroro",
+      },
+    ],
+    photoUrl: gavrilaTeodorAndreiPhoto,
     isSupervisor: false,
   },
   {

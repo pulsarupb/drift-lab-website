@@ -53,6 +53,7 @@ function splitMemberNameForCard(name: string, adjacentName?: string): string[] {
 }
 
 function socialIconClass(platform: SocialPlatform): string {
+  if (platform === SocialPlatform.CODEBERG) return "ph ph-git-branch"
   if (platform === SocialPlatform.GITHUB) return "ph ph-github-logo"
   if (platform === SocialPlatform.LINKEDIN) return "ph ph-linkedin-logo"
   return "ph ph-globe"
@@ -63,6 +64,7 @@ function sortedSocialLinks(targetMember: Member) {
     [SocialPlatform.PORTFOLIO_WEBSITE]: 0,
     [SocialPlatform.LINKEDIN]: 1,
     [SocialPlatform.GITHUB]: 2,
+    [SocialPlatform.CODEBERG]: 3,
   }
 
   return [...(targetMember.socialLinks ?? [])].sort(
