@@ -31,6 +31,7 @@ const sponsors: Sponsor[] = [
     name: "NXP",
     category: "Products",
     websiteUrl: "https://www.nxp.com/",
+    logoUrl: "/nxp-logo.svg",
   },
   {
     id: "kiwisolar",

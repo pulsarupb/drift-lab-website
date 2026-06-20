@@ -25,7 +25,16 @@ const {
       {
         sponsors.map((sponsor) => (
           <li class="sponsor-card">
-            <h3 class="sponsor-name">{sponsor.name}</h3>
+            {sponsor.logoUrl ? (
+              <img
+                class="sponsor-logo"
+                src={sponsor.logoUrl}
+                alt={`${sponsor.name} logo`}
+                loading="lazy"
+              />
+            ) : (
+              <h3 class="sponsor-name">{sponsor.name}</h3>
+            )}
           </li>
         ))
       }
@@ -86,6 +95,16 @@ const {
     width: fit-content;
     max-width: 100%;
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sponsor-logo {
+    display: block;
+    width: auto;
+    height: 2rem;
+    max-width: min(10rem, 70vw);
   }
 
   .sponsor-name {
