@@ -35,9 +35,10 @@ const sponsors: Sponsor[] = [
   },
   {
     id: "kiwisolar",
-    name: "kiwisolar",
+    name: "Kiwi Solar",
     category: "Products",
     websiteUrl: "https://kiwisolar.ro/",
+    logoUrl: "/kiwi-solar.jpg",
   },
   {
     id: "mouser",
