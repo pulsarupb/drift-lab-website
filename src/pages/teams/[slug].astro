@@ -41,7 +41,10 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   type="website"
 >
   <Header />
-  <main class="team-page" style={`--team-accent: ${team.color}`}>
+  <main
+    class="team-page"
+    style={`--team-accent: ${team.color}; --team-secondary: ${team.secondaryColor}`}
+  >
     <div class="container">
       <a href="/#teams" class="back-link">← Back to teams</a>
 
@@ -213,12 +216,13 @@ function socialIconClass(platform: TeamSocialPlatform): string {
 
 <style>
   .team-page {
+    --color-primary: var(--team-accent);
     min-height: 100vh;
     padding: calc(clamp(2rem, 4vw, 4rem) + 80px) 0 clamp(3rem, 6vw, 6rem);
     background:
       radial-gradient(
         circle at 80% 10%,
-        rgba(255, 255, 255, 0.03) 0%,
+        color-mix(in srgb, var(--team-secondary) 15%, transparent) 0%,
         transparent 45%
       ),
       var(--color-bg);
@@ -243,6 +247,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     overflow: hidden;
+    border-top: 3px solid var(--team-accent);
   }
 
   .hero-image {
@@ -259,8 +264,9 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   .badge {
     display: inline-block;
     padding: 0.35rem 0.65rem;
-    border: 1px solid color-mix(in srgb, var(--team-accent) 60%, transparent);
-    color: var(--team-accent);
+    border: 1px solid var(--team-accent);
+    background: color-mix(in srgb, var(--team-secondary) 25%, var(--color-surface));
+    color: var(--color-text-main);
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -289,7 +295,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
   }
 
   .stat-item {
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--team-secondary);
     padding: 0.7rem 0.8rem;
   }
 
@@ -332,7 +338,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
 
   .social-link:hover {
     border-color: var(--team-accent);
-    color: #000;
+    color: var(--color-bg);
     background: var(--team-accent);
   }
 
@@ -424,7 +430,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     position: fixed;
     inset: 0;
     z-index: 1200;
-    background: rgba(6, 6, 10, 0.9);
+    background: color-mix(in srgb, var(--color-bg) 90%, transparent);
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
@@ -448,7 +454,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     max-height: 86vh;
     object-fit: contain;
     border: 1px solid var(--color-border);
-    background: #09090d;
+    background: var(--color-bg);
   }
 
   .gallery-nav,
@@ -456,7 +462,7 @@ function socialIconClass(platform: TeamSocialPlatform): string {
     width: 48px;
     height: 48px;
     border: 1px solid var(--color-border);
-    background: rgba(12, 12, 18, 0.92);
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
     color: #fff;
     display: inline-flex;
     align-items: center;

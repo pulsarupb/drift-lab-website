@@ -18,7 +18,7 @@ import MemberCard from "./MemberCard.astro"
           <MemberCard
             member={member}
             variant="big"
-            roleColor="#ff5500"
+            roleColor="var(--color-primary)"
             nearbyName={
               sortedMembers[index % 2 === 0 ? index + 1 : index - 1]?.name
             }

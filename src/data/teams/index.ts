@@ -13,6 +13,7 @@ export interface Team {
   focus: TeamFocus
   description: string
   color: TeamColor
+  secondaryColor: TeamSecondaryColor
   socialLinks: TeamSocialLink[]
   heroImageUrl?: string
   galleryImages?: string[]
@@ -32,8 +33,14 @@ export enum TeamFocus {
 
 export enum TeamColor {
   PULSAR = "var(--color-accent-pulsar)",
-  TECHTRAX = "var(--color-accent-bosch)",
-  DRIFT_LAB = "var(--color-accent-nxp)",
+  TECHTRAX = "var(--color-accent-techtrax)",
+  NOXP = "var(--color-accent-noxp)",
+}
+
+export enum TeamSecondaryColor {
+  PULSAR = "var(--color-secondary-pulsar)",
+  TECHTRAX = "var(--color-secondary-techtrax)",
+  NOXP = "var(--color-secondary-noxp)",
 }
 
 export enum TeamSocialPlatform {
@@ -54,6 +61,7 @@ export const teams = [
     description:
       "Student team designing and building autonomous planetary rovers for the European Rover Challenge.",
     color: TeamColor.PULSAR,
+    secondaryColor: TeamSecondaryColor.PULSAR,
     socialLinks: [
       {
         platform: TeamSocialPlatform.INSTAGRAM,
@@ -83,6 +91,7 @@ export const teams = [
     description:
       "Competing in the Bosch Future Mobility Challenge with autonomous driving solutions.",
     color: TeamColor.TECHTRAX,
+    secondaryColor: TeamSecondaryColor.TECHTRAX,
     socialLinks: [],
   },
   {
@@ -91,7 +100,8 @@ export const teams = [
     focus: TeamFocus.NXP_CUP_COMPETITION,
     description:
       "Developing high-speed autonomous racing vehicles for the NXP Cup competition.",
-    color: TeamColor.DRIFT_LAB,
+    color: TeamColor.NOXP,
+    secondaryColor: TeamSecondaryColor.NOXP,
     socialLinks: [],
   },
 ] satisfies Team[]

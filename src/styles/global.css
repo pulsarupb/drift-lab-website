@@ -67,28 +67,39 @@
 }
 
 :root {
-  --color-bg: #0a0a0c;
-  --color-surface: #121215;
-  --color-surface-hover: #1a1a1f;
-  --color-surface-glass: rgba(18, 18, 21, 0.85);
-  --color-border: #333333;
+  --color-black: #0A0A0C;
+  --color-white: #FFFFFF;
+  --color-accent-drift: #CCFF00;
+  --color-secondary-drift: #474749;
+  --color-accent-pulsar: #8B5CF6;
+  --color-secondary-pulsar: #3A2C50;
+  --color-accent-techtrax: #EA1D25;
+  --color-secondary-techtrax: #52606C;
+  --color-accent-noxp: #FFB501;
+  --color-secondary-noxp: #5AB1DC;
 
-  --color-text-main: #f3f4f6;
-  --color-text-muted: #8b8b99;
-  --color-text-dim: #555566;
+  --color-bg: var(--color-black);
+  --color-surface: color-mix(in srgb, var(--color-secondary-drift) 15%, var(--color-bg));
+  --color-surface-hover: color-mix(in srgb, var(--color-secondary-drift) 30%, var(--color-bg));
+  --color-surface-glass: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  --color-border: var(--color-secondary-drift);
 
-  --color-primary: #CCFF00;
-  --gradient-primary: linear-gradient(135deg, #CCFF00 0%, #99cc00 100%);
+  --color-text-main: var(--color-white);
+  --color-text-muted: color-mix(in srgb, var(--color-white) 60%, var(--color-secondary-drift));
+  --color-text-dim: color-mix(in srgb, var(--color-white) 40%, var(--color-secondary-drift));
+
+  --color-primary: var(--color-accent-drift);
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    color-mix(in srgb, var(--color-primary) 85%, var(--color-white)) 100%
+  );
   --gradient-glow: conic-gradient(
     from 180deg at 50% 50%,
-    #CCFF00 0deg,
-    #ff5500 180deg,
-    #CCFF00 360deg
+    var(--color-primary) 0deg,
+    var(--color-secondary-drift) 180deg,
+    var(--color-primary) 360deg
   );
-
-  --color-accent-pulsar: #8b5cf6;
-  --color-accent-bosch: #00ffcc;
-  --color-accent-nxp: #ff0055;
 
   --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   --font-heading: "Science Gothic", system-ui, -apple-system, sans-serif;
@@ -98,9 +109,9 @@
   --radius-lg: 0px;
   --radius-full: 0px;
 
-  --shadow-sm: 4px 4px 0px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 8px 8px 0px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 15px rgba(204, 255, 0, 0.2);
+  --shadow-sm: 4px 4px 0px color-mix(in srgb, var(--color-black) 50%, transparent);
+  --shadow-lg: 8px 8px 0px color-mix(in srgb, var(--color-black) 50%, transparent);
+  --shadow-glow: 0 0 15px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 *,

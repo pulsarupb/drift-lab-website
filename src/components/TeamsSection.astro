@@ -21,7 +21,10 @@ function memberCount(teamId: TeamId): number {
     <div class="teams-grid">
       {
         teams.map((team) => (
-          <article class="team-card" style={`--accent: ${team.color}`}>
+          <article
+            class="team-card"
+            style={`--accent: ${team.color}; --secondary: ${team.secondaryColor}`}
+          >
             <a
               class="team-card-link"
               href={`/teams/${teamSlug(team)}`}
@@ -29,10 +32,7 @@ function memberCount(teamId: TeamId): number {
             />
             <div class="card-content">
               <h3 class="team-name">{team.name}</h3>
-              <span
-                class="team-focus"
-                style={`color: ${team.color}; border-color: ${team.color}40; background: ${team.color}10`}
-              >
+              <span class="team-focus">
                 {team.focus}
               </span>
               <p class="team-meta">{memberCount(team.id)} members</p>
@@ -109,7 +109,7 @@ function memberCount(teamId: TeamId): number {
     padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
     overflow: hidden;
     border: 1px solid var(--color-border);
-    transition: all 0.2s ease;
+    border-top: 3px solid var(--accent);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -124,7 +124,7 @@ function memberCount(teamId: TeamId): number {
   }
 
   .team-card:hover {
-    background: var(--color-surface-hover);
+    background: color-mix(in srgb, var(--secondary) 20%, var(--color-surface));
     border-color: var(--accent);
   }
 
@@ -169,9 +169,10 @@ function memberCount(teamId: TeamId): number {
     margin-bottom: 2rem;
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: transparent;
+    background: color-mix(in srgb, var(--secondary) 25%, var(--color-surface));
     border-radius: 0;
-    border: 1px solid;
+    border: 1px solid var(--accent);
+    color: var(--color-text-main);
     white-space: normal;
     max-width: 100%;
     overflow-wrap: anywhere;
@@ -190,12 +191,12 @@ function memberCount(teamId: TeamId): number {
     width: 40px;
     height: 40px;
     border-radius: 0;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--secondary);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text-muted);
-    transition: all 0.2s;
+    transition: transform 0.2s ease;
     background: transparent;
   }
 
@@ -209,7 +210,7 @@ function memberCount(teamId: TeamId): number {
   .team-card:hover .card-arrow {
     background: var(--accent);
     border-color: var(--accent);
-    color: #000;
+    color: var(--color-bg);
     transform: rotate(-45deg);
   }
 
