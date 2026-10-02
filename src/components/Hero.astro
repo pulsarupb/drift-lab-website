@@ -1,5 +1,6 @@
 ---
 import Rectorat from "./Rectorat.astro"
+import { applicationUrl } from '../data/recruitment';
 ---
 
 <section class="hero">
@@ -22,8 +23,8 @@ import Rectorat from "./Rectorat.astro"
         </p>
 
         <div class="cta-group">
-          <a href="#teams" class="btn btn-primary">
-            Teams
+          <a href={applicationUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            Apply now
             <svg viewBox="0 0 24 24" fill="none" class="icon">
               <path
                 d="M5 12H19M19 12L12 5M19 12L12 19"
